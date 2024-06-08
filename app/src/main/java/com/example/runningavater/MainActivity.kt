@@ -41,6 +41,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview() {
     RunningAvaterTheme {
-        Greeting("Team F")
+        Greeting("今日は暑っかった初クーラつけました")
     }
 }
