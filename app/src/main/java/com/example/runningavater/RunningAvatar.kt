@@ -1,6 +1,5 @@
 package com.example.runningavater
 
-
 import android.Manifest
 import android.hardware.Sensor
 import android.hardware.SensorEvent
@@ -31,7 +30,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 
 @OptIn(ExperimentalPermissionsApi::class)
-class MainActivity : ComponentActivity(), SensorEventListener {
+class RunningAvatar : ComponentActivity(), SensorEventListener {
     lateinit var sensorManager: SensorManager
     var targetSensor: Sensor? = null
     val stepCountFlow = MutableStateFlow(0)
