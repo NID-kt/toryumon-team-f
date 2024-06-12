@@ -216,18 +216,3 @@ class RunningAvatar : ComponentActivity(), SensorEventListener {
 //    }
 //}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "ポリゴン $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    RunningAvaterTheme {
-        Greeting("Team F")
-    }
-}

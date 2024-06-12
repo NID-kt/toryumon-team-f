@@ -13,40 +13,40 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.runningavater.ui.theme.RunningAvaterTheme
 
-//class MainActivity : ComponentActivity() {
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setContent {
-//            RunningAvaterTheme {
-//                // A surface container using the 'background' color from the theme
-//                Surface(
-//                    modifier = Modifier.fillMaxSize(),
-//                    color = MaterialTheme.colorScheme.background
-//                ) {
-//                    Greeting("みんなで頑張りましょう")
-//                }
-//            }
-//        }
-//    }
-//}
-//
-//@Composable
-//fun Greeting(name: String, modifier: Modifier = Modifier) {
-//    Text(
-//        text = "ポリゴン $name!",
-//        modifier = modifier
-//    )
-//}
-//
-//@Preview(showBackground = true)
-//@Composable
-//fun GreetingPreview() {
-//    RunningAvaterTheme {
-//        Greeting("今日は暑っかった初クーラつけました")
-//    }
-//}
-//
-//@Composable
-//fun Greetingview(name: String,modifier: Modifier=Modifier){
-//    Text(text = "初心者すぎるけど頑張ります")
-//}
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            RunningAvaterTheme {
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    Greeting("みんなで頑張りましょう")
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun Greeting(name: String, modifier: Modifier = Modifier) {
+    Text(
+        text = "ポリゴン $name!",
+        modifier = modifier
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun GreetingPreview() {
+    RunningAvaterTheme {
+        Greeting("今日は暑っかった初クーラつけました")
+    }
+}
+
+@Composable
+fun Greetingview(name: String,modifier: Modifier=Modifier){
+    Text(text = "初心者すぎるけど頑張ります")
+}
