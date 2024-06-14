@@ -119,7 +119,7 @@ class RunningAvatar : ComponentActivity(), SensorEventListener {
     }
 
     override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
-        TODO("Not yet implemented")
+//        TODO("Not yet implemented")
     }
 }
 
