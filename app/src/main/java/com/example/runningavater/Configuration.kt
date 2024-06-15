@@ -38,25 +38,82 @@ fun ProfileScreen(){
 
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SpanSettingsScreen(){
+fun SpanSettingsScreen() {
+    var expanded by remember { mutableStateOf(false) }
+    var selectedOption by remember { mutableStateOf("1日") }
+    val options = listOf("1日", "3日", "7日")
+
     Column(
         modifier = Modifier.padding(16.dp)
     ) {
         Text(text = "期間設定", fontSize = 24.sp)
-        // 目標設定画面の他のUI要素をここに追加できます
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        ExposedDropdownMenuBox(
+            expanded = expanded,
+            onExpandedChange = {
+                expanded = !expanded
+            }
+        ) {
+            TextField(
+                value = selectedOption,
+                onValueChange = {},
+                readOnly = true,
+                label = { Text("期間設定") },
+                trailingIcon = {
+                    ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .menuAnchor() // メニューのアンカーを設定
+                    .clickable { expanded = !expanded } // フィールドをクリックしてメニューを展開
+            )
+            ExposedDropdownMenu(
+                expanded = expanded,
+                onDismissRequest = {
+                    expanded = false
+                }
+            ) {
+                options.forEach { option ->
+                    DropdownMenuItem(
+                        text = { Text(text = option) },
+                        onClick = {
+                            selectedOption = option
+                            expanded = false
+                        }
+                    )
+                }
+            }
+        }
     }
 }
+
+
+
+
+/*@Composable
+fun GoalSettingsScreen(){
+    Column(
+        modifier = Modifier.padding(16.dp)
+    ) {
+        Text(text = "歩数設定", fontSize = 24.sp)//歩数設定テンキー
+        // 目標設定画面の他のUI要素をここに追加できます
+    }
+}*/
 
 @Composable
 fun GoalSettingsScreen(){
     Column(
         modifier = Modifier.padding(16.dp)
     ) {
-        Text(text = "歩数設定", fontSize = 24.sp)
+        Text(text = "歩数設定", fontSize = 24.sp)//歩数設定テンキー
         // 目標設定画面の他のUI要素をここに追加できます
     }
 }
+
 @Composable
 fun SettingsScreen(navController: NavHostController) {
     Column(
