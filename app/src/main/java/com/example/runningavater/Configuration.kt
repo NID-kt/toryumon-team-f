@@ -1,13 +1,18 @@
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -16,27 +21,74 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
 import com.example.runningavater.R
 
 @Composable
 fun SettingPage() {
     val navController = rememberNavController()
+    var profileImageUri by remember { mutableStateOf<Uri?>(null) }
+
     NavHost(navController = navController, startDestination = "settings") {
-        composable("settings") { SettingsScreen(navController) }
-        composable("profile") { ProfileScreen() }
+        composable("settings") { SettingsScreen(navController, profileImageUri) }
+        composable("profile") { ProfileScreen(navController, profileImageUri) { profileImageUri = it } }
         composable("goal_settings") { GoalSettingsScreen() }
-        composable("span_settings"){SpanSettingsScreen()}
+        composable("span_settings") { SpanSettingsScreen() }
     }
 }
+
 @Composable
-fun ProfileScreen(){
-    Column(
-        modifier = Modifier.padding(16.dp)
-    ) {
-        Text(text = "プロフィール設定", fontSize = 24.sp)
-        // プロフィール画面の他のUI要素をここに追加できます
+fun ProfileScreen(navController: NavHostController, profileImageUri: Uri?, onImageSelected: (Uri) -> Unit) {
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        if (uri != null) {
+            onImageSelected(uri)
+        }
     }
 
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Box(
+            modifier = Modifier
+                .size(100.dp)
+                .padding(8.dp)
+                .clickable {
+                    launcher.launch("image/*")
+                }
+                .background(Color.Gray, shape = CircleShape),
+            contentAlignment = Alignment.Center
+        ) {
+            if (profileImageUri != null) {
+                Image(
+                    painter = rememberAsyncImagePainter(
+                        model = ImageRequest.Builder(LocalContext.current)
+                            .data(profileImageUri)
+                            .build()
+                    ),
+                    contentDescription = "Profile Image",
+                    modifier = Modifier.size(100.dp)
+                )
+            } else {
+                Image(
+                    painter = painterResource(id = R.drawable.test),
+                    contentDescription = "Profile Image",
+                    modifier = Modifier.size(100.dp)
+                )
+            }
+        }
+        Text(
+            text = "プロフィール",
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(top = 16.dp)
+        )
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -92,31 +144,18 @@ fun SpanSettingsScreen() {
     }
 }
 
-
-
-
-/*@Composable
-fun GoalSettingsScreen(){
-    Column(
-        modifier = Modifier.padding(16.dp)
-    ) {
-        Text(text = "歩数設定", fontSize = 24.sp)//歩数設定テンキー
-        // 目標設定画面の他のUI要素をここに追加できます
-    }
-}*/
-
 @Composable
-fun GoalSettingsScreen(){
+fun GoalSettingsScreen() {
     Column(
         modifier = Modifier.padding(16.dp)
     ) {
-        Text(text = "歩数設定", fontSize = 24.sp)//歩数設定テンキー
+        Text(text = "歩数設定", fontSize = 24.sp)
         // 目標設定画面の他のUI要素をここに追加できます
     }
 }
 
 @Composable
-fun SettingsScreen(navController: NavHostController) {
+fun SettingsScreen(navController: NavHostController, profileImageUri: Uri?) {
     Column(
         modifier = Modifier
             .padding(16.dp)
@@ -131,7 +170,7 @@ fun SettingsScreen(navController: NavHostController) {
                 .fillMaxWidth(),
             textAlign = androidx.compose.ui.text.style.TextAlign.Center
         )
-        ProfileSection(navController)
+        ProfileSection(navController, profileImageUri)
         GoalSettingsSection(navController)
         SpanSettingsSection(navController)
         NotificationSettingsSection()
@@ -139,11 +178,11 @@ fun SettingsScreen(navController: NavHostController) {
 }
 
 @Composable
-fun GoalSettingsSection(navController: NavHostController){
+fun GoalSettingsSection(navController: NavHostController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(onClick = { navController.navigate("goal_settings")  })
+            .clickable(onClick = { navController.navigate("goal_settings") })
             .padding(vertical = 8.dp)
             .background(Color.White, shape = RoundedCornerShape(8.dp)),
         verticalAlignment = Alignment.CenterVertically
@@ -156,15 +195,14 @@ fun GoalSettingsSection(navController: NavHostController){
                 .weight(1f)
         )
     }
-
 }
 
 @Composable
-fun SpanSettingsSection(navController: NavHostController){
+fun SpanSettingsSection(navController: NavHostController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(onClick = { navController.navigate("span_settings")  })
+            .clickable(onClick = { navController.navigate("span_settings") })
             .padding(vertical = 8.dp)
             .background(Color.White, shape = RoundedCornerShape(8.dp)),
         verticalAlignment = Alignment.CenterVertically
@@ -177,11 +215,10 @@ fun SpanSettingsSection(navController: NavHostController){
                 .weight(1f)
         )
     }
-
 }
 
 @Composable
-fun NotificationSettingsSection(){
+fun NotificationSettingsSection() {
     var checked by remember { mutableStateOf(false) }
 
     Row(
@@ -203,11 +240,10 @@ fun NotificationSettingsSection(){
             modifier = Modifier.padding(end = 16.dp)
         )
     }
-
 }
 
 @Composable
-fun ProfileSection(navController: NavHostController) {
+fun ProfileSection(navController: NavHostController, profileImageUri: Uri?) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -216,13 +252,30 @@ fun ProfileSection(navController: NavHostController) {
             .background(Color.White, shape = RoundedCornerShape(8.dp)),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.test),
-            contentDescription = "Profile Image",
+        Box(
             modifier = Modifier
                 .size(48.dp)
                 .padding(8.dp)
-        )
+                .background(Color.Gray, shape = CircleShape)
+        ) {
+            if (profileImageUri != null) {
+                Image(
+                    painter = rememberAsyncImagePainter(
+                        model = ImageRequest.Builder(LocalContext.current)
+                            .data(profileImageUri)
+                            .build()
+                    ),
+                    contentDescription = "Profile Image",
+                    modifier = Modifier.size(48.dp)
+                )
+            } else {
+                Image(
+                    painter = painterResource(id = R.drawable.test),
+                    contentDescription = "Profile Image",
+                    modifier = Modifier.size(48.dp)
+                )
+            }
+        }
         Text(
             text = "プロフィール",
             fontSize = 20.sp,
@@ -230,6 +283,5 @@ fun ProfileSection(navController: NavHostController) {
                 .padding(start = 20.dp)
                 .weight(1f)
         )
-
     }
 }
