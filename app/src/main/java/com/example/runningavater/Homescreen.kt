@@ -2,6 +2,7 @@ package com.example.runningavater
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.KeyboardArrowUp
@@ -18,7 +19,15 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
+import com.github.mikephil.charting.components.Description
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
 
 //この画面はテストなので、表示する画面に今後すり替えてください
 @Composable
@@ -83,6 +92,35 @@ fun MainScreen() { // メイン画面にナビゲーションバーを表示
     }
 }
 
+@Composable
+fun PieChart(modifier: Modifier = Modifier) {
+    val pieEntryList = listOf(
+        PieEntry(80f,""),
+        PieEntry (20f,"")
+    )
+
+    val pieDataSet = PieDataSet(pieEntryList, "").apply {
+        colors = listOf(Color.Green, Color.Red).map { it.toArgb() }
+    }
+    AndroidView(
+        factory = { context ->
+            com.github.mikephil.charting.charts.PieChart(context).apply {
+                description = Description().apply { text = "" }
+                centerText = "達成度"
+                setEntryLabelTextSize(11f)
+                data = PieData(pieDataSet).apply { setValueTextSize(20f) }
+                // アニメーションを指定
+                animateXY(1000, 1000)
+                //判例を非表示
+                legend.isEnabled = false
+                //説明ラベルの非表示
+                description.isEnabled = false
+                invalidate()
+            }
+        },
+        modifier = modifier.run { size(100.dp) }
+    )
+}
 
 
 
