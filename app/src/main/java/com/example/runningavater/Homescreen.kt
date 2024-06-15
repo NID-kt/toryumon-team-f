@@ -1,5 +1,6 @@
 package com.example.runningavater
 
+import SettingPage
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -84,7 +85,7 @@ fun MainScreen() { // メイン画面にナビゲーションバーを表示
             when (selectedItem) {
                 0 -> TestScreen1() //ここにホーム画面を表示
                 1 -> TestScreen2() //ここに成長画面を表示
-                2 -> TestScreen3() //ここに設定画面を表示
+                2 -> SettingPage() //ここに設定画面を表示
                 else -> { /* do nothing */
                 }
             }
