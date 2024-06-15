@@ -18,7 +18,8 @@ import androidx.navigation.compose.composable
 import com.example.runningavater.R
 
 @Composable
-fun MyApp(navController: NavHostController) {
+fun MyApp() {
+    val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "settings") {
         composable("settings") { SettingsScreen(navController) }
         composable("profile") { ProfileScreen() }
@@ -26,7 +27,6 @@ fun MyApp(navController: NavHostController) {
         composable("span_settings"){SpanSettingsScreen()}
     }
 }
-
 @Composable
 fun ProfileScreen(){
     Column(
