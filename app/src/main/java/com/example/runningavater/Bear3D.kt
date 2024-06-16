@@ -30,7 +30,7 @@ fun Bear3D(
         .addChildNode(cameraNode)
 
     Scene(
-        modifier = modifier.height(400.dp).heightIn(max=400.dp),
+        modifier = modifier,
         engine = engine,
         modelLoader = modelLoader,
         cameraNode = cameraNode,
