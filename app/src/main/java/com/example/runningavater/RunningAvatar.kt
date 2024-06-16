@@ -20,6 +20,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.NavHost
 import com.example.runningavater.ui.theme.RunningAvaterTheme
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
@@ -63,6 +65,7 @@ class RunningAvatar : ComponentActivity(), SensorEventListener {
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
                         ) {
+
                             Text(
                                 "${stepCount}歩きました。",
                                 style = TextStyle(fontSize = 28.sp)
@@ -72,6 +75,7 @@ class RunningAvatar : ComponentActivity(), SensorEventListener {
                                 startWalking()
                             }) {
                                 Text("Start Walking")
+
                             }
                             Button(onClick = {
                                 stopWalking()

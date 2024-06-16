@@ -1,5 +1,6 @@
 package com.example.runningavater
 
+import GrowthScreen
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -17,9 +18,9 @@ fun MyAppNavHost(
         composable("main") {
             MainScreen() // メイン画面を表示
         }
-//        composable(route = "growth") {
-//            GrowthScreen() // 成長画面を表示
-//        }
+       composable(route = "growth") {
+            GrowthScreen() // 成長画面を表示
+        }
     }
 }
 
