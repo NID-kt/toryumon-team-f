@@ -156,6 +156,8 @@ fun GoalSettingsScreen() {
     val month = calendar.get(Calendar.MONTH)
     val day = calendar.get(Calendar.DAY_OF_MONTH)
 
+    Column {
+
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(onClick = {
@@ -165,13 +167,10 @@ fun GoalSettingsScreen() {
         }) {
             Text(text = "歩数記録の開始日")
         }
-
         if (selectedDate.isNotEmpty()) {
             Spacer(modifier = Modifier.height(16.dp))
             Text(text = "選択された日付: $selectedDate", fontSize = 18.sp)
         }
-
-
     }
 }
 
