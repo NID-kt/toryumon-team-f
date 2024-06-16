@@ -1,5 +1,6 @@
 package com.example.runningavater
 
+import GrowthScreen
 import SettingPage
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
@@ -64,7 +65,6 @@ enum class MainScreenTab( // メイン画面のタブ
     ),
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen() { // メイン画面にナビゲーションバーを表示
     var selectedItem by remember { mutableIntStateOf(0) }
@@ -84,11 +84,9 @@ fun MainScreen() { // メイン画面にナビゲーションバーを表示
     ) { paddingValues ->
         Box(modifier = Modifier.padding(paddingValues)) {
             when (selectedItem) {
-                0 -> TestScreen1() //ここにホーム画面を表示
-                1 -> TestScreen2() //ここに成長画面を表示
-                2 -> SettingPage() //ここに設定画面を表示
-                else -> { /* do nothing */
-                }
+                0 -> TestScreen1()
+                1 -> GrowthScreen()
+                2 -> SettingPage()
             }
         }
     }
