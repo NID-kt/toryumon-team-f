@@ -33,12 +33,13 @@ import com.github.mikephil.charting.data.PieEntry
 //この画面はテストなので、表示する画面に今後すり替えてください
 @Composable
 fun TestScreen1() {
-    Text(text = "テスト画面１")
+    Bear3D(assetFileLocation = "fatBear.glb")
+
 }
 
 @Composable
 fun TestScreen2() {
-    Text(text = "テスト画面２")
+    Text(text = "テスト画面2")
 }
 
 @Composable
