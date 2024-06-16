@@ -1,6 +1,4 @@
 package com.example.runningavater
-
-
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -19,11 +17,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             RunningAvaterTheme {
                 // A surface container using the 'background' color from the theme
-                Surface(
+                Surface( //背景色をテーマから取得
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("みんなで頑張りましょう")
+                    MyAppNavHost()
                 }
             }
         }
