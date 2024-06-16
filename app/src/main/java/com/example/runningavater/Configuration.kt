@@ -1,3 +1,5 @@
+import android.app.DatePickerDialog
+import android.widget.DatePicker
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -8,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -17,6 +20,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.runningavater.R
+import java.util.Calendar
 
 @Composable
 fun SettingPage() {
@@ -92,25 +96,35 @@ fun SpanSettingsScreen() {
     }
 }
 
-
-
-
-/*@Composable
-fun GoalSettingsScreen(){
-    Column(
-        modifier = Modifier.padding(16.dp)
-    ) {
-        Text(text = "歩数設定", fontSize = 24.sp)//歩数設定テンキー
-        // 目標設定画面の他のUI要素をここに追加できます
-    }
-}*/
-
 @Composable
-fun GoalSettingsScreen(){
+fun GoalSettingsScreen() {
+    var selectedDate by remember { mutableStateOf("") }
+    val context = LocalContext.current
+    val calendar = Calendar.getInstance()
+    val year = calendar.get(Calendar.YEAR)
+    val month = calendar.get(Calendar.MONTH)
+    val day = calendar.get(Calendar.DAY_OF_MONTH)
+
     Column(
         modifier = Modifier.padding(16.dp)
     ) {
-        Text(text = "歩数設定", fontSize = 24.sp)//歩数設定テンキー
+        Text(text = "歩数設定", fontSize = 24.sp)
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Button(onClick = {
+            DatePickerDialog(context, { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDay: Int ->
+                selectedDate = "${selectedYear}年 ${selectedMonth + 1}月 ${selectedDay}日"
+            }, year, month, day).show()
+        }) {
+            Text(text = "歩数記録の開始日")
+        }
+
+        if (selectedDate.isNotEmpty()) {
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(text = "選択された日付: $selectedDate", fontSize = 18.sp)
+        }
+
         // 目標設定画面の他のUI要素をここに追加できます
     }
 }
@@ -158,6 +172,7 @@ fun GoalSettingsSection(navController: NavHostController){
     }
 
 }
+
 
 @Composable
 fun SpanSettingsSection(navController: NavHostController){
