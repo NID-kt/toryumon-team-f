@@ -27,6 +27,9 @@ import com.google.accompanist.permissions.rememberPermissionState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 
+
+
+
 @OptIn(ExperimentalPermissionsApi::class)
 class RunningAvatar : ComponentActivity(), SensorEventListener {
     lateinit var sensorManager: SensorManager
@@ -55,11 +58,13 @@ class RunningAvatar : ComponentActivity(), SensorEventListener {
             val activityRecoginitionPermission = rememberPermissionState(permission = Manifest.permission.ACTIVITY_RECOGNITION)
             RunningAvaterTheme {
                 // A surface container using the 'background' color from the theme
+
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
                     if(activityRecoginitionPermission.status.isGranted) {
+                        Bear3D(assetFileLocation ="fatBear.glb")
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
                         ) {
