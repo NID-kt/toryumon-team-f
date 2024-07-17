@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("org.jlleitschuh.gradle.ktlint") version "12.1.1"
 }
 
 android {
@@ -25,7 +26,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -47,13 +48,22 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
+    lint {
+        sarifOutput = File(project.buildDir, "reports/android-lint/lintResults.sarif")
+        textOutput = File(project.buildDir, "reports/android-lint/lintResults.txt")
+        htmlOutput = File(project.buildDir, "reports/android-lint/lintResults.html")
+        xmlReport = false
+    }
 }
 
 dependencies {
-implementation("com.android.volley:volley:1.2.1")
-    val nav_version = "2.7.7"
+    implementation("com.android.volley:volley:1.2.1")
+    lintChecks("com.slack.lint.compose:compose-lint-checks:1.3.1")
 
-    implementation("androidx.navigation:navigation-compose:$nav_version")
+    val navVersion = "2.7.7"
+
+    implementation("androidx.navigation:navigation-compose:$navVersion")
     implementation("io.github.sceneview:sceneview:2.2.1")
 
     implementation("androidx.core:core-ktx:1.9.0")
@@ -79,8 +89,6 @@ implementation("com.android.volley:volley:1.2.1")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
-    implementation ("com.github.PhilJay:MPAndroidChart:3.1.0")
+    implementation("com.github.PhilJay:MPAndroidChart:3.1.0")
     implementation("io.coil-kt:coil-compose:2.0.0")
-
-
 }
