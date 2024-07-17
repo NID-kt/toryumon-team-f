@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("org.jlleitschuh.gradle.ktlint") version "12.1.1"
 }
 
 android {
@@ -51,6 +52,8 @@ android {
 
 dependencies {
 implementation("com.android.volley:volley:1.2.1")
+    lintChecks("com.slack.lint.compose:compose-lint-checks:1.3.1")
+
     val nav_version = "2.7.7"
 
     implementation("androidx.navigation:navigation-compose:$nav_version")
