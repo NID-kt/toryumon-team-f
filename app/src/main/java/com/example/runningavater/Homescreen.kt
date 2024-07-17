@@ -9,7 +9,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -31,11 +30,10 @@ import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 
-//この画面はテストなので、表示する画面に今後すり替えてください
+// この画面はテストなので、表示する画面に今後すり替えてください
 @Composable
 fun TestScreen1() {
     Bear3D(assetFileLocation = "fatBear.glb")
-
 }
 
 @Composable
@@ -47,21 +45,23 @@ fun TestScreen2() {
 fun TestScreen3() {
     Text(text = "テスト画面３")
 }
-enum class MainScreenTab( // メイン画面のタブ
+
+// メイン画面のタブ
+enum class MainScreenTab(
     val icon: ImageVector, // 画像ベクトル
-    val label: String // ラベル
+    val label: String, // ラベル
 ) {
     Home(
         icon = Icons.Default.Home,
-        label = "ホーム"
+        label = "ホーム",
     ),
     List(
         icon = Icons.Default.KeyboardArrowUp,
-        label = "成長"
+        label = "成長",
     ),
     Settings(
         icon = Icons.Filled.Settings,
-        label = "設定"
+        label = "設定",
     ),
 }
 
@@ -76,11 +76,11 @@ fun MainScreen() { // メイン画面にナビゲーションバーを表示
                         icon = { Icon(item.icon, contentDescription = item.label) },
                         label = { Text(item.label) },
                         selected = selectedItem == index,
-                        onClick = { selectedItem = index }
+                        onClick = { selectedItem = index },
                     )
                 }
             }
-        }
+        },
     ) { paddingValues ->
         Box(modifier = Modifier.padding(paddingValues)) {
             when (selectedItem) {
@@ -94,14 +94,16 @@ fun MainScreen() { // メイン画面にナビゲーションバーを表示
 
 @Composable
 fun PieChart(modifier: Modifier = Modifier) {
-    val pieEntryList = listOf(
-        PieEntry(80f,""),
-        PieEntry (20f,"")
-    )
+    val pieEntryList =
+        listOf(
+            PieEntry(80f, ""),
+            PieEntry(20f, ""),
+        )
 
-    val pieDataSet = PieDataSet(pieEntryList, "").apply {
-        colors = listOf(Color.Green, Color.Red).map { it.toArgb() }
-    }
+    val pieDataSet =
+        PieDataSet(pieEntryList, "").apply {
+            colors = listOf(Color.Green, Color.Red).map { it.toArgb() }
+        }
     AndroidView(
         factory = { context ->
             com.github.mikephil.charting.charts.PieChart(context).apply {
@@ -111,16 +113,13 @@ fun PieChart(modifier: Modifier = Modifier) {
                 data = PieData(pieDataSet).apply { setValueTextSize(20f) }
                 // アニメーションを指定
                 animateXY(1000, 1000)
-                //判例を非表示
+                // 判例を非表示
                 legend.isEnabled = false
-                //説明ラベルの非表示
+                // 説明ラベルの非表示
                 description.isEnabled = false
                 invalidate()
             }
         },
-        modifier = modifier.run { size(100.dp) }
+        modifier = modifier.run { size(100.dp) },
     )
 }
-
-
-

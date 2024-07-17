@@ -20,17 +20,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.NavHost
 import com.example.runningavater.ui.theme.RunningAvaterTheme
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
-
-
-
 
 @OptIn(ExperimentalPermissionsApi::class)
 class RunningAvatar : ComponentActivity(), SensorEventListener {
@@ -47,7 +42,7 @@ class RunningAvatar : ComponentActivity(), SensorEventListener {
             println(it)
         }
         targetSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
-        if(targetSensor == null) {
+        if (targetSensor == null) {
             println("targetSensor is null")
         } else {
             println("targetSensor:")
@@ -63,24 +58,22 @@ class RunningAvatar : ComponentActivity(), SensorEventListener {
 
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    color = MaterialTheme.colorScheme.background,
                 ) {
-                    if(activityRecoginitionPermission.status.isGranted) {
-                        Bear3D(assetFileLocation ="fatBear.glb")
+                    if (activityRecoginitionPermission.status.isGranted) {
+                        Bear3D(assetFileLocation = "fatBear.glb")
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
                         ) {
-
                             Text(
                                 "${stepCount}歩きました。",
-                                style = TextStyle(fontSize = 28.sp)
+                                style = TextStyle(fontSize = 28.sp),
                             )
-                            Text(if(walkingFlg) "歩いています。" else "歩いていません。")
+                            Text(if (walkingFlg) "歩いています。" else "歩いていません。")
                             Button(onClick = {
                                 startWalking()
                             }) {
                                 Text("Start Walking")
-
                             }
                             Button(onClick = {
                                 stopWalking()
@@ -125,11 +118,10 @@ class RunningAvatar : ComponentActivity(), SensorEventListener {
         }
     }
 
-    override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
+    override fun onAccuracyChanged(
+        p0: Sensor?,
+        p1: Int,
+    ) {
 //        TODO("Not yet implemented")
     }
 }
-
-
-
-

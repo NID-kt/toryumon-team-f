@@ -1,4 +1,11 @@
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,39 +25,43 @@ import com.github.mikephil.charting.data.PieEntry
 @Composable
 fun GrowthScreen() {
     Column(
-        modifier = Modifier
-            .padding(16.dp)
-            .fillMaxSize()
+        modifier =
+            Modifier
+                .padding(16.dp)
+                .fillMaxSize(),
     ) {
         Text(
             text = "成長記録",
             fontSize = 20.sp,
-            modifier = Modifier
-                .padding(bottom = 16.dp)
-                .fillMaxWidth(),
-            textAlign = TextAlign.Center
+            modifier =
+                Modifier
+                    .padding(bottom = 16.dp)
+                    .fillMaxWidth(),
+            textAlign = TextAlign.Center,
         )
         Box(
-            modifier = Modifier
-                .weight(1f) // Use weight to allow the PieChart to take remaining space
-                .padding(bottom = 16.dp) // Add bottom padding to separate from buttons
-                .fillMaxWidth(),
+            modifier =
+                Modifier
+                    .weight(1f) // Use weight to allow the PieChart to take remaining space
+                    .padding(bottom = 16.dp) // Add bottom padding to separate from buttons
+                    .fillMaxWidth(),
             contentAlignment = Alignment.Center,
         ) {
             PieChart(
-                modifier = Modifier
-                    .size(300.dp)
+                modifier =
+                    Modifier
+                        .size(300.dp),
             )
         }
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
-            Button(onClick = {  }, modifier = Modifier.padding(8.dp)) {
+            Button(onClick = { }, modifier = Modifier.padding(8.dp)) {
                 Text("Start")
             }
-            Button(onClick = {  }, modifier = Modifier.padding(8.dp)) {
+            Button(onClick = { }, modifier = Modifier.padding(8.dp)) {
                 Text("Stop")
             }
         }
@@ -59,13 +70,15 @@ fun GrowthScreen() {
 
 @Composable
 fun PieChart(modifier: Modifier = Modifier) {
-    val pieEntryList = listOf(
-        PieEntry(80f, ""),
-        PieEntry(20f, "")
-    )
-    val pieDataSet = PieDataSet(pieEntryList, "").apply {
-        colors = listOf(Color.Green, Color.Red).map { it.toArgb() }
-    }
+    val pieEntryList =
+        listOf(
+            PieEntry(80f, ""),
+            PieEntry(20f, ""),
+        )
+    val pieDataSet =
+        PieDataSet(pieEntryList, "").apply {
+            colors = listOf(Color.Green, Color.Red).map { it.toArgb() }
+        }
     AndroidView(
         factory = { context ->
             com.github.mikephil.charting.charts.PieChart(context).apply {
@@ -79,13 +92,9 @@ fun PieChart(modifier: Modifier = Modifier) {
                 invalidate()
             }
         },
-        modifier = modifier
+        modifier = modifier,
     )
 }
-
-
-
-
 
 /*@Composable
 fun PieChart(modifier: Modifier = Modifier) {
@@ -117,6 +126,3 @@ fun PieChart(modifier: Modifier = Modifier) {
         modifier = modifier
     )
 }*/
-
-
-
