@@ -66,7 +66,7 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:$navVersion")
     implementation("io.github.sceneview:sceneview:2.2.1")
 
-    implementation("androidx.core:core-ktx:1.9.0")
+    implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
     implementation("androidx.activity:activity-compose:1.7.0")
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))
