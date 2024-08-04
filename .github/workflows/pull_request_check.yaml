@@ -52,3 +52,54 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-review
           fail_on_error: true
+
+  build_check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+      - run: ./gradlew assembleDebug
+        id: check_debug_build
+      - name: Comment report
+        if: failure() && steps.check_debug_build.outcome == 'failure'
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          message: |
+            > [!CAUTION]
+            > デバッグビルドに失敗しました
+          comment_tag: debug_build_comment
+      - name: Comment report
+        if: success() && steps.check_debug_build.outcome == 'success'
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          message: |
+            > [!TIP]
+            > デバッグビルドに成功しました
+          comment_tag: debug_build_comment
+
+
+      - run: ./gradlew assembleRelease
+        id: check_release_build
+      - name: Comment report
+        if: failure() && steps.check_release_build.outcome == 'failure'
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          message: |
+            > [!CAUTION]
+            > リリースビルドに失敗しました
+          comment_tag: release_build_comment
+      - name: Comment report
+        if: success() && steps.check_release_build.outcome == 'success'
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          message: |
+            > [!TIP]
+            > リリースビルドに成功しました
+          comment_tag: release_build_comment
