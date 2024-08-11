@@ -58,7 +58,6 @@ android {
 }
 
 dependencies {
-    implementation("com.android.volley:volley:1.2.1")
     lintChecks("com.slack.lint.compose:compose-lint-checks:1.3.1")
 
     implementation("io.github.sceneview:sceneview:2.2.1")
@@ -82,5 +81,5 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     implementation("com.github.PhilJay:MPAndroidChart:3.1.0")
-    implementation("io.coil-kt:coil-compose:2.0.0")
+    implementation("io.coil-kt:coil-compose:2.7.0")
 }
