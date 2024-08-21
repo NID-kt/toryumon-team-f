@@ -26,31 +26,31 @@ import com.github.mikephil.charting.data.PieEntry
 fun GrowthScreen() {
     Column(
         modifier =
-            Modifier
-                .padding(16.dp)
-                .fillMaxSize(),
+        Modifier
+            .padding(16.dp)
+            .fillMaxSize(),
     ) {
         Text(
             text = "成長記録",
             fontSize = 20.sp,
             modifier =
-                Modifier
-                    .padding(bottom = 16.dp)
-                    .fillMaxWidth(),
+            Modifier
+                .padding(bottom = 16.dp)
+                .fillMaxWidth(),
             textAlign = TextAlign.Center,
         )
         Box(
             modifier =
-                Modifier
-                    .weight(1f) // Use weight to allow the PieChart to take remaining space
-                    .padding(bottom = 16.dp) // Add bottom padding to separate from buttons
-                    .fillMaxWidth(),
+            Modifier
+                .weight(1f) // Use weight to allow the PieChart to take remaining space
+                .padding(bottom = 16.dp) // Add bottom padding to separate from buttons
+                .fillMaxWidth(),
             contentAlignment = Alignment.Center,
         ) {
             PieChart(
                 modifier =
-                    Modifier
-                        .size(300.dp),
+                Modifier
+                    .size(300.dp),
             )
         }
         Row(
@@ -68,6 +68,7 @@ fun GrowthScreen() {
     }
 }
 
+
 @Composable
 fun PieChart(modifier: Modifier = Modifier) {
     val pieEntryList =
@@ -75,6 +76,7 @@ fun PieChart(modifier: Modifier = Modifier) {
             PieEntry(80f, ""),
             PieEntry(20f, ""),
         )
+
     val pieDataSet =
         PieDataSet(pieEntryList, "").apply {
             colors = listOf(Color.Green, Color.Red).map { it.toArgb() }
@@ -86,43 +88,16 @@ fun PieChart(modifier: Modifier = Modifier) {
                 centerText = "達成度"
                 setEntryLabelTextSize(11f)
                 data = PieData(pieDataSet).apply { setValueTextSize(20f) }
+                // アニメーションを指定
                 animateXY(1000, 1000)
+                // 判例を非表示
                 legend.isEnabled = false
+                // 説明ラベルの非表示
                 description.isEnabled = false
                 invalidate()
             }
         },
-        modifier = modifier,
+        modifier = modifier.run { size(100.dp) },
     )
 }
 
-/*@Composable
-fun PieChart(modifier: Modifier = Modifier) {
-    //円グラフの値を入力
-    val pieEntryList = listOf(
-        PieEntry(80f, ""),
-        PieEntry(20f, "")
-    )
-    //PieEntryに入力した値をDateSetに入力
-    val pieDataSet = PieDataSet(pieEntryList, "").apply {
-        colors = listOf(Color.Green, Color.Red).map { it.toArgb() }
-    }
-    AndroidView(
-        factory = { context ->
-            com.github.mikephil.charting.charts.PieChart(context).apply {
-                description = Description().apply { text = "" }
-                centerText = "達成度"
-                setEntryLabelTextSize(11f)
-                data = PieData(pieDataSet).apply { setValueTextSize(20f) }
-                // アニメーションを指定
-                animateXY(1000, 1000)
-                //判例を非表示
-                legend.isEnabled = false
-                //説明ラベルの非表示
-                description.isEnabled = false
-                invalidate()
-            }
-        },
-        modifier = modifier
-    )
-}*/

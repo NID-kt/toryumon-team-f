@@ -30,29 +30,3 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun Greeting(
-    name: String,
-    modifier: Modifier = Modifier,
-) {
-    Text(
-        text = "ポリゴン $name!",
-        modifier = modifier,
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun GreetingPreview() {
-    RunningAvaterTheme {
-        Greeting("今日は暑っかった初クーラつけました")
-    }
-}
-
-@Composable
-fun Greetingview(
-    name: String,
-    modifier: Modifier = Modifier,
-) {
-    Text(text = "初心者すぎるけど頑張ります")
-}
