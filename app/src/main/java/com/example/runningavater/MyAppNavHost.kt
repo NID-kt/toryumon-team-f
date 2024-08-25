@@ -51,7 +51,6 @@ fun MyAppNavHost(
                 GrowthScreen() // 成長画面を表示
             }
             composable(route = "settings") {
-                // TODO profileImageUriを選んだ画像を渡せるようにする
                 SettingsScreen(navController, profileImageUri = null) // 設定画面を表示
             }
             composable(route = "settings/profile") {
