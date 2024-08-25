@@ -50,10 +50,10 @@ fun SpanSettingsScreen() {
                     ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
                 },
                 modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .menuAnchor() // メニューのアンカーを設定
-                    .clickable { expanded = !expanded }, // フィールドをクリックしてメニューを展開
+                    Modifier
+                        .fillMaxWidth()
+                        .menuAnchor() // メニューのアンカーを設定
+                        .clickable { expanded = !expanded }, // フィールドをクリックしてメニューを展開
             )
             ExposedDropdownMenu(
                 expanded = expanded,

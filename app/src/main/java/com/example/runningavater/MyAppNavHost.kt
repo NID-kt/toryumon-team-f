@@ -1,6 +1,5 @@
 package com.example.runningavater
 
-
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -64,13 +63,12 @@ fun MyAppNavHost(
             }
         }
     }
-
 }
 
 @Composable
 private fun MainBottomBar(
     currentDestination: NavDestination?,
-    navController: NavHostController
+    navController: NavHostController,
 ) {
     NavigationBar {
         MainScreenTab.entries.forEachIndexed { _, item ->

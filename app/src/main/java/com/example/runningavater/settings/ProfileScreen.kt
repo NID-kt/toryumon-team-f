@@ -56,32 +56,31 @@ fun ProfileScreen(
 
     Column(
         modifier =
-        Modifier
-            .fillMaxSize()
-            .padding(16.dp),
+            Modifier
+                .fillMaxSize()
+                .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Box(
             modifier =
-            Modifier
-                .size(100.dp)
-                .padding(8.dp)
-                .clickable {
-                    launcher.launch("image/*")
-                }
-                .background(Color.Gray, shape = CircleShape),
+                Modifier
+                    .size(100.dp)
+                    .padding(8.dp)
+                    .clickable {
+                        launcher.launch("image/*")
+                    }.background(Color.Gray, shape = CircleShape),
             contentAlignment = Alignment.Center,
         ) {
             if (profileImageUri != null) {
                 Image(
                     painter =
-                    rememberAsyncImagePainter(
-                        model =
-                        ImageRequest
-                            .Builder(LocalContext.current)
-                            .data(profileImageUri)
-                            .build(),
-                    ),
+                        rememberAsyncImagePainter(
+                            model =
+                                ImageRequest
+                                    .Builder(LocalContext.current)
+                                    .data(profileImageUri)
+                                    .build(),
+                        ),
                     contentDescription = "Profile Image",
                     modifier = Modifier.size(100.dp),
                 )
