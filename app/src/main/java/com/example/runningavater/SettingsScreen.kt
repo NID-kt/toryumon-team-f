@@ -44,10 +44,6 @@ import coil.request.ImageRequest
 import com.example.runningavater.R
 import java.util.Calendar
 
-@Composable
-fun SettingsScreen() {
-
-}
 
 @Composable
 fun ProfileScreen(navController: NavHostController) {
