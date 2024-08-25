@@ -1,4 +1,4 @@
-package com.example.runningavater
+package com.example.runningavater.settings
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column

@@ -1,4 +1,4 @@
-package com.example.runningavater
+package com.example.runningavater.settings
 
 import android.app.DatePickerDialog
 import android.widget.DatePicker

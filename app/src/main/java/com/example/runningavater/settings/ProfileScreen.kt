@@ -1,4 +1,4 @@
-package com.example.runningavater
+package com.example.runningavater.settings
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
+import com.example.runningavater.R
 
 @Composable
 fun ProfileScreen(navController: NavHostController) {

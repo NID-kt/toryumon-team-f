@@ -1,9 +1,7 @@
 package com.example.runningavater
 
-import GoalSettingsScreen
 import GrowthScreen
 import SettingsScreen
-import SpanSettingsScreen
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -27,6 +25,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.runningavater.home.HomeScreen
+import com.example.runningavater.settings.GoalSettingsScreen
+import com.example.runningavater.settings.ProfileScreen
+import com.example.runningavater.settings.SpanSettingsScreen
 
 @Composable
 fun MyAppNavHost(
