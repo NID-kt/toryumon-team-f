@@ -1,4 +1,4 @@
-package com.example.runningavater
+package com.example.runningavater.home
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -33,30 +33,30 @@ fun Bear3D(
         modelLoader = modelLoader,
         cameraNode = cameraNode,
         childNodes =
-            listOf(
-                centerNode,
+        listOf(
+            centerNode,
             /*
             Cannot inline bytecode built with JVM target 17 into bytecode that is being built with JVM target 1.8. Please specify proper '-jvm-target' option
             というエラーが表示されるかもしれないが、IDEのバグ？っぽく ビルドは通るので無視して良さそう。
              */
-                rememberNode {
-                    ModelNode(
-                        modelInstance =
-                            modelLoader.createModelInstance(
-                                assetFileLocation = assetFileLocation,
-                            ),
-                        scaleToUnits = 1.0f,
-                    )
-                },
-            ),
+            rememberNode {
+                ModelNode(
+                    modelInstance =
+                    modelLoader.createModelInstance(
+                        assetFileLocation = assetFileLocation,
+                    ),
+                    scaleToUnits = 1.0f,
+                )
+            },
+        ),
         isOpaque = true,
         // viewNodeWindowManager = ViewNode2.WindowManager(),
         onFrame = {
             cameraNode.lookAt(centerNode)
         },
         environment =
-            environmentLoader.createHDREnvironment(
-                assetFileLocation = "snowy_forest_4k.hdr",
-            )!!,
+        environmentLoader.createHDREnvironment(
+            assetFileLocation = "snowy_forest_4k.hdr",
+        )!!,
     )
 }
