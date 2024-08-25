@@ -1,3 +1,5 @@
+package com.example.runningavater.settings
+
 import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
