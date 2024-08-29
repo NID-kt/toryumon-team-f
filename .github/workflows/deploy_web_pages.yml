@@ -9,7 +9,7 @@ permissions:
 
 jobs:
     deploy_web_pages:
-        runs-on: unbuntu-latest
+        runs-on: ubuntu-latest
         steps:
 
             - name: Checkout sources
