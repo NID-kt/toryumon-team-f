@@ -1,0 +1,18 @@
+on:
+    push:
+      branches:
+        - main
+
+jobs:
+    deploy_web_pages:
+        runs-on: unbuntu-latest
+        steps:
+
+            - name: Checkout sources
+              uses: actions/checkout@v4
+
+            - name: Deploy
+              uses: peaceiris/actions-gh-pages@v3
+              with:
+                github_token: ${{ secrets.GITHUB_TOKEN }}
+                publish_dir: ./web-pages
