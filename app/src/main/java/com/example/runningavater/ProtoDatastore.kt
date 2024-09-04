@@ -13,7 +13,7 @@ import java.io.OutputStream
 
 // ProtoDatastoreクラスがプロトコルバッファから生成されたクラスであると仮定します。
 class ProtoDatastore private constructor(
-    val exampleCounter: Int // プロトコルバッファからのプロパティをここに追加
+    val exampleCounter: Int, // プロトコルバッファからのプロパティをここに追加
 ) {
     companion object {
         fun getDefaultInstance(): ProtoDatastore {
@@ -54,7 +54,7 @@ object ProtoSettingsSerializer : Serializer<ProtoDatastore> {
 
     override suspend fun writeTo(
         t: ProtoDatastore,
-        output: OutputStream
+        output: OutputStream,
     ) {
         // ここでプロトコルバッファのシリアライザを使う必要があります。
     }
@@ -62,14 +62,15 @@ object ProtoSettingsSerializer : Serializer<ProtoDatastore> {
 
 val Context.settingsDataStore: DataStore<ProtoDatastore> by dataStore(
     fileName = "ProtoSettings.pb",
-    serializer = ProtoSettingsSerializer
+    serializer = ProtoSettingsSerializer,
 )
 
 // Read
-fun getExampleCounterFlow(context: Context): Flow<Int> = context.settingsDataStore.data
-    .map { settings ->
-        settings.exampleCounter
-    }
+fun getExampleCounterFlow(context: Context): Flow<Int> =
+    context.settingsDataStore.data
+        .map { settings ->
+            settings.exampleCounter
+        }
 
 // Create
 suspend fun incrementCounter(context: Context) {
