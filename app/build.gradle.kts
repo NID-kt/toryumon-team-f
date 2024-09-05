@@ -58,6 +58,7 @@ android {
 }
 
 dependencies {
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
     lintChecks("com.slack.lint.compose:compose-lint-checks:1.3.1")
 
     implementation("io.github.sceneview:sceneview:2.2.1")
