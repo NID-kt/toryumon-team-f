@@ -74,9 +74,11 @@ fun getExampleCounterFlow(context: Context): Flow<Int> =
 
 // Create
 suspend fun incrementCounter(context: Context) {
-    context.settingsDataStore.updateData { currentSettings ->
-        currentSettings.toBuilder()
-            .setExampleCounter(currentSettings.exampleCounter + 1)
-            .build()
+    context.settingsDataStore
+        .updateData { currentSettings ->
+            currentSettings
+                .toBuilder()
+                .setExampleCounter(currentSettings.exampleCounter + 1)
+                .build()
     }
 }
