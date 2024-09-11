@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "com.example.runningavater"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.runningavater"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -58,6 +58,7 @@ android {
 }
 
 dependencies {
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
     lintChecks("com.slack.lint.compose:compose-lint-checks:1.3.1")
 
     implementation("io.github.sceneview:sceneview:2.2.1")
