@@ -1,3 +1,5 @@
+package com.example.runningavater.growth
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -75,6 +77,7 @@ fun PieChart(modifier: Modifier = Modifier) {
             PieEntry(80f, ""),
             PieEntry(20f, ""),
         )
+
     val pieDataSet =
         PieDataSet(pieEntryList, "").apply {
             colors = listOf(Color.Green, Color.Red).map { it.toArgb() }
@@ -86,43 +89,15 @@ fun PieChart(modifier: Modifier = Modifier) {
                 centerText = "達成度"
                 setEntryLabelTextSize(11f)
                 data = PieData(pieDataSet).apply { setValueTextSize(20f) }
-                animateXY(1000, 1000)
-                legend.isEnabled = false
-                description.isEnabled = false
-                invalidate()
-            }
-        },
-        modifier = modifier,
-    )
-}
-
-/*@Composable
-fun PieChart(modifier: Modifier = Modifier) {
-    //円グラフの値を入力
-    val pieEntryList = listOf(
-        PieEntry(80f, ""),
-        PieEntry(20f, "")
-    )
-    //PieEntryに入力した値をDateSetに入力
-    val pieDataSet = PieDataSet(pieEntryList, "").apply {
-        colors = listOf(Color.Green, Color.Red).map { it.toArgb() }
-    }
-    AndroidView(
-        factory = { context ->
-            com.github.mikephil.charting.charts.PieChart(context).apply {
-                description = Description().apply { text = "" }
-                centerText = "達成度"
-                setEntryLabelTextSize(11f)
-                data = PieData(pieDataSet).apply { setValueTextSize(20f) }
                 // アニメーションを指定
                 animateXY(1000, 1000)
-                //判例を非表示
+                // 判例を非表示
                 legend.isEnabled = false
-                //説明ラベルの非表示
+                // 説明ラベルの非表示
                 description.isEnabled = false
                 invalidate()
             }
         },
-        modifier = modifier
+        modifier = modifier.run { size(100.dp) },
     )
-}*/
+}

@@ -1,4 +1,4 @@
-package com.example.runningavater
+package com.example.runningavater.home
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
