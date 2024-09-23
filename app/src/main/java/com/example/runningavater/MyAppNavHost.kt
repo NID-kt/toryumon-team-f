@@ -8,6 +8,16 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 
 @Composable
+fun MyApp() {
+    val navController = rememberNavController()
+
+    NavHost(navController = navController, startDestination = "Initial2") {
+        composable("Initial2") { InitialFlow2(navController) }
+        composable("Initial5") { InitialFlow5(navController) }
+    }
+}
+
+@Composable
 fun MyAppNavHost(
     navController: NavHostController = rememberNavController(),
     startDestination: String = "main", // メイン画面をスタート画面に設定
@@ -22,3 +32,4 @@ fun MyAppNavHost(
         }
     }
 }
+
