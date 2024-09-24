@@ -24,9 +24,14 @@ private val DarkColorScheme =
 
 private val LightColorScheme =
     lightColorScheme(
-        primary = Purple40,
-        secondary = PurpleGrey40,
-        tertiary = Pink40,
+//        primary = Purple40,
+//        secondary = PurpleGrey40,
+//        tertiary = Pink40,
+
+        primary = Nuclear_Mango,
+        secondary = Sung_Yellow,
+        tertiary = Granulated_Sugar,
+
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
     surface = Color(0xFFFFFBFE),

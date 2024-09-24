@@ -15,6 +15,7 @@ fun MyAppNavHost(
     // ナビゲーションホストを作成
     NavHost(navController = navController, startDestination = startDestination) {
         composable("main") {
+            //TopAppBar()
             MainScreen() // メイン画面を表示
         }
         composable(route = "growth") {

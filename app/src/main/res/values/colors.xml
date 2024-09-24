@@ -7,4 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    //デザインガイドのカラー
+    <color name="Nuclear_Mango">#EDA02C</color>
+    <color name="Sung_Yellow">#FEDB81</color>
+    <color name="Granulated_Sugar">#FFFCF3</color>
+
 </resources>
