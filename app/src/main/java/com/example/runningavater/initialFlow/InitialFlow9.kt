@@ -6,6 +6,5 @@ import com.example.runningavater.initialFlow.components.InitialFlowBackground
 @Composable
 fun InitialFlow9Screen() {
     InitialFlowBackground {
-
     }
 }

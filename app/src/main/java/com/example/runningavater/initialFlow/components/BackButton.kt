@@ -15,20 +15,25 @@ import com.example.runningavater.ui.theme.NuclearMango
 import com.example.runningavater.ui.theme.RunningAvaterTheme
 
 @Composable
-fun BackButton(navController: NavHostController, backDestination: String) {
+fun BackButton(
+    navController: NavHostController,
+    backDestination: String,
+) {
     Button(
         onClick = { navController.navigate(backDestination) },
-        modifier = Modifier
-            .fillMaxWidth(),
-        colors = ButtonDefaults.buttonColors(
-            containerColor = GranulatedSugar,
-            contentColor = NuclearMango
-        )
+        modifier =
+            Modifier
+                .fillMaxWidth(),
+        colors =
+            ButtonDefaults.buttonColors(
+                containerColor = GranulatedSugar,
+                contentColor = NuclearMango,
+            ),
     ) {
         Text(
             text = "戻る",
-            fontSize = 24.sp
-            )
+            fontSize = 24.sp,
+        )
     }
 }
 

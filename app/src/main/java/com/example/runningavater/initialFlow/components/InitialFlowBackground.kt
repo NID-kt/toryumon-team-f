@@ -15,11 +15,14 @@ import com.example.runningavater.ui.theme.SungYellow
 @Composable
 fun InitialFlowBackground(
     modifier: Modifier = Modifier,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
-    Column(modifier = modifier
-        .background(color = SungYellow)
-        .fillMaxSize()) {
+    Column(
+        modifier =
+            modifier
+                .background(color = SungYellow)
+                .fillMaxSize(),
+    ) {
         content()
     }
 }
@@ -29,7 +32,7 @@ fun InitialFlowBackground(
 private fun InitialFlowBackgroundPreview() {
     RunningAvaterTheme {
         InitialFlowBackground {
-            NextButton(navController = rememberNavController(), nextDestination ="")
+            NextButton(navController = rememberNavController(), nextDestination = "")
         }
     }
 }

@@ -35,4 +35,3 @@ fun NavGraphBuilder.initialFlow() {
         InitialFlow10Screen()
     }
 }
-
