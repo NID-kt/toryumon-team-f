@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import com.example.runningavater.initialFlow.components.InitialFlowBackground
 
 @Composable
-fun InitialFlow1Screen()  {
+fun InitialFlow1Screen() {
     InitialFlowBackground {
     }
 }
