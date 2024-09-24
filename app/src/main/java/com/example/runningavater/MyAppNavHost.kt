@@ -24,6 +24,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.runningavater.growth.GrowthScreen
 import com.example.runningavater.home.HomeScreen
+import com.example.runningavater.initialFlow.initialFlow
 import com.example.runningavater.settings.GoalSettingsScreen
 import com.example.runningavater.settings.ProfileScreen
 import com.example.runningavater.settings.SettingsScreen
@@ -61,6 +62,7 @@ fun MyAppNavHost(
             composable(route = "settings/goalsettings") {
                 GoalSettingsScreen() // 歩数画面を表示
             }
+            initialFlow()
         }
     }
 }
