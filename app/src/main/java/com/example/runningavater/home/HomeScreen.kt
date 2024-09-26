@@ -1,7 +1,11 @@
 package com.example.runningavater.home
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -12,7 +16,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.runningavater.ui.theme.NuclearMango
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -49,6 +56,21 @@ fun HomeScreen() {
     ) {
         Box(Modifier.padding(it)) {
             Bear3D(assetFileLocation = "fatBear.glb")
+            Row(
+                modifier = Modifier
+                    .align(Alignment.TopCenter)
+                    .offset(y = 15.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    text = "35", fontSize = 96.sp, color = NuclearMango,
+                )
+                Spacer(Modifier.width(11.dp))
+                Text(
+                    text = "歩", fontSize = 32.sp, color = NuclearMango,
+                )
+            }
+
         }
     }
 
