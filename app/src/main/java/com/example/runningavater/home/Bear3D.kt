@@ -1,7 +1,10 @@
 package com.example.runningavater.home
 
+import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import com.example.runningavater.ui.theme.SungYellow
 import io.github.sceneview.Scene
 import io.github.sceneview.math.Position
 import io.github.sceneview.node.ModelNode
@@ -15,10 +18,10 @@ import io.github.sceneview.rememberNode
 fun Bear3D(
     assetFileLocation: String,
     modifier: Modifier = Modifier,
+    backgroundColor: Color = SungYellow,
 ) {
     val engine = rememberEngine()
     val modelLoader = rememberModelLoader(engine)
-    val environmentLoader = rememberEnvironmentLoader(engine)
     val cameraNode =
         rememberCameraNode(engine).apply {
             position = Position(x = 0f, y = +1.5f, z = -3f)
@@ -28,7 +31,9 @@ fun Bear3D(
             .addChildNode(cameraNode)
 
     Scene(
-        modifier = modifier,
+        modifier = modifier.background(
+            color = backgroundColor
+        ),
         engine = engine,
         modelLoader = modelLoader,
         cameraNode = cameraNode,
@@ -49,14 +54,9 @@ fun Bear3D(
                     )
                 },
             ),
-        isOpaque = true,
-        // viewNodeWindowManager = ViewNode2.WindowManager(),
+        isOpaque = false,
         onFrame = {
             cameraNode.lookAt(centerNode)
         },
-        environment =
-            environmentLoader.createHDREnvironment(
-                assetFileLocation = "snowy_forest_4k.hdr",
-            )!!,
     )
 }
