@@ -39,13 +39,14 @@ fun HomeScreen() {
         }
     }
     Scaffold(
-        topBar = { // ヘッダーの表示
+        topBar = {
+            // ヘッダーの表示
             TopAppBar(
                 colors =
-                    TopAppBarDefaults.topAppBarColors(
-                        containerColor = NuclearMango,
-                        titleContentColor = MaterialTheme.colorScheme.background,
-                    ),
+                TopAppBarDefaults.topAppBarColors(
+                    containerColor = NuclearMango,
+                    titleContentColor = MaterialTheme.colorScheme.background,
+                ),
                 title = {
                     // 日付と曜日を表示
                     Text(text = currentDate.value)
@@ -57,9 +58,9 @@ fun HomeScreen() {
             Bear3D(assetFileLocation = "fatBear.glb")
             Row(
                 modifier =
-                    Modifier
-                        .align(Alignment.TopCenter)
-                        .offset(y = 15.dp),
+                Modifier
+                    .align(Alignment.TopCenter)
+                    .offset(y = 15.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
