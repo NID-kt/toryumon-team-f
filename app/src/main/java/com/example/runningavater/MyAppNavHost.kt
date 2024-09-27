@@ -76,7 +76,7 @@ private fun MainBottomBar(
     navController: NavHostController,
 ) {
     NavigationBar(
-        containerColor = NuclearMango
+        containerColor = NuclearMango,
     ) {
         MainScreenTab.entries.forEachIndexed { _, item ->
             NavigationBarItem(
@@ -98,13 +98,14 @@ private fun MainBottomBar(
                         restoreState = true
                     }
                 },
-                colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = Color.White,
-                    selectedTextColor = Color.White,
-                    unselectedIconColor = Color.White.copy(alpha = 0.5f),
-                    unselectedTextColor = Color.White.copy(alpha = 0.5f),
-                    indicatorColor = Color.White.copy(alpha = 0.3f),
-                )
+                colors =
+                    NavigationBarItemDefaults.colors(
+                        selectedIconColor = Color.White,
+                        selectedTextColor = Color.White,
+                        unselectedIconColor = Color.White.copy(alpha = 0.5f),
+                        unselectedTextColor = Color.White.copy(alpha = 0.5f),
+                        indicatorColor = Color.White.copy(alpha = 0.3f),
+                    ),
             )
         }
     }

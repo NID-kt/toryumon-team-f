@@ -10,7 +10,6 @@ import io.github.sceneview.math.Position
 import io.github.sceneview.node.ModelNode
 import io.github.sceneview.rememberCameraNode
 import io.github.sceneview.rememberEngine
-import io.github.sceneview.rememberEnvironmentLoader
 import io.github.sceneview.rememberModelLoader
 import io.github.sceneview.rememberNode
 
@@ -31,9 +30,10 @@ fun Bear3D(
             .addChildNode(cameraNode)
 
     Scene(
-        modifier = modifier.background(
-            color = backgroundColor
-        ),
+        modifier =
+            modifier.background(
+                color = backgroundColor,
+            ),
         engine = engine,
         modelLoader = modelLoader,
         cameraNode = cameraNode,

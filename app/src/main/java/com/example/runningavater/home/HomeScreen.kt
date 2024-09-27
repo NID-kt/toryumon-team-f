@@ -28,7 +28,6 @@ import java.util.Locale
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen() {
-
     // 現在の日付と曜日を保持するState
     val currentDate = remember { mutableStateOf(getCurrentDate()) }
 
@@ -40,44 +39,47 @@ fun HomeScreen() {
         }
     }
     Scaffold(
-        topBar = {//ヘッダーの表示
+        topBar = { // ヘッダーの表示
             TopAppBar(
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = NuclearMango,
-                    titleContentColor = MaterialTheme.colorScheme.background,
-                ),
+                colors =
+                    TopAppBarDefaults.topAppBarColors(
+                        containerColor = NuclearMango,
+                        titleContentColor = MaterialTheme.colorScheme.background,
+                    ),
                 title = {
                     // 日付と曜日を表示
                     Text(text = currentDate.value)
-                }
+                },
             )
-
         },
     ) {
         Box(Modifier.padding(it)) {
             Bear3D(assetFileLocation = "fatBear.glb")
             Row(
-                modifier = Modifier
-                    .align(Alignment.TopCenter)
-                    .offset(y = 15.dp),
+                modifier =
+                    Modifier
+                        .align(Alignment.TopCenter)
+                        .offset(y = 15.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
-                    text = "35", fontSize = 96.sp, color = NuclearMango,
+                    text = "35",
+                    fontSize = 96.sp,
+                    color = NuclearMango,
                 )
                 Spacer(Modifier.width(11.dp))
                 Text(
-                    text = "歩", fontSize = 32.sp, color = NuclearMango,
+                    text = "歩",
+                    fontSize = 32.sp,
+                    color = NuclearMango,
                 )
             }
-
         }
     }
-
 }
 
 // 現在の日付と曜日を取得する関数
-//トップバーで使ってます
+// トップバーで使ってます
 fun getCurrentDate(): String {
     // 日付と曜日をフォーマットする（例：09/11 (Wed)）
     val dateFormat = SimpleDateFormat("MM/dd (E)", Locale.getDefault())
