@@ -15,15 +15,18 @@ import com.example.runningavater.ui.theme.RunningAvaterTheme
 fun NextButton(
     navController: NavHostController,
     nextDestination: String,
+    modifier: Modifier = Modifier,
+    text: String = "次へ",
+    onClick: (() -> Unit)? = null
 ) {
     Button(
         onClick = { navController.navigate(nextDestination) },
         modifier =
-            Modifier
+            modifier
                 .fillMaxWidth(),
     ) {
         Text(
-            text = "次へ",
+            text = text,
             fontSize = 24.sp,
         )
     }
