@@ -6,9 +6,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 
-fun NavGraphBuilder.initialFlow(
-    navController:NavHostController
-) {
+fun NavGraphBuilder.initialFlow(navController: NavHostController) {
     composable(route = "initialFlow/1") {
         InitialFlow1Screen()
     }
@@ -23,26 +21,30 @@ fun NavGraphBuilder.initialFlow(
     }
     composable(route = "initialFlow/5") {
         InitialFlow5Screen(
-            navController = navController)
+            navController = navController,
+        )
     }
-    composable(route = "initialFlow/6/{bearName}", arguments = listOf(navArgument("bearName"){type = NavType.StringType})) {
-        val bearName = it.arguments?.getString("bearName")?: error("bearName is null")
+    composable(route = "initialFlow/6/{bearName}", arguments = listOf(navArgument("bearName") { type = NavType.StringType })) {
+        val bearName = it.arguments?.getString("bearName") ?: error("bearName is null")
         InitialFlow6Screen(
             bearName = bearName,
-            navController = navController)
+            navController = navController,
+        )
     }
     composable(route = "initialFlow/7") {
         InitialFlow7Screen()
     }
     composable(route = "initialFlow/8") {
         InitialFlow8Screen(
-            navController = navController)
+            navController = navController,
+        )
     }
     composable(route = "initialFlow/9") {
         InitialFlow9Screen()
     }
     composable(route = "initialFlow/10") {
         InitialFlow10Screen(
-            navController = navController)
+            navController = navController,
+        )
     }
 }

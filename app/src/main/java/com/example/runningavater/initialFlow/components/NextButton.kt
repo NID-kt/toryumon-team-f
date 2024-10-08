@@ -17,7 +17,7 @@ fun NextButton(
     nextDestination: String,
     modifier: Modifier = Modifier,
     text: String = "次へ",
-    onClick: (() -> Unit)? = null
+    onClick: (() -> Unit)? = null,
 ) {
     Button(
         onClick = { navController.navigate(nextDestination) },
