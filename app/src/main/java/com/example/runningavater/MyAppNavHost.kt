@@ -36,13 +36,15 @@ import com.example.runningavater.settings.SpanSettingsScreen
 @Composable
 fun MyAppNavHost(
     navController: NavHostController = rememberNavController(),
-    startDestination: String = "initialFlow/2", // メイン画面をスタート画面に設定
+    startDestination: String = "home", // メイン画面をスタート画面に設定
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
     Scaffold(
         bottomBar = {
-            MainBottomBar(currentDestination, navController)
+            if (currentDestination?.route?.startsWith("initialFlow") != true) {
+                MainBottomBar(currentDestination, navController)
+            }
         },
     ) { paddingValues ->
         // ナビゲーションホストを作成
