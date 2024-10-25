@@ -5,13 +5,11 @@ package com.example.runningavater.initialFlow
 import android.annotation.SuppressLint
 import android.content.Context
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -23,12 +21,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.lifecycle.ViewModel
@@ -41,6 +39,7 @@ import com.example.runningavater.initialFlow.components.BackButton
 import com.example.runningavater.initialFlow.components.InitialFlowBackground
 import com.example.runningavater.initialFlow.components.NextButton
 import com.example.runningavater.settingsDataStore
+import com.example.runningavater.ui.theme.GranulatedSugar
 import com.example.runningavater.ui.theme.RunningAvaterTheme
 import kotlinx.coroutines.launch
 
@@ -58,62 +57,45 @@ fun InitialFlow5Screen(navController: NavHostController) {
                     Modifier
                         .fillMaxWidth()
                         .align(Alignment.TopCenter)
-                        .padding(0.dp, 50.dp, 0.dp, 0.dp),
+                        .padding(top = 48.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
-                    text = "くまに名前を",
+                    text = "くまに名前を\nつけてあげましょう",
                     color = Color.Black,
                     fontSize = 32.sp,
+                    lineHeight = 48.sp,
                     textAlign = TextAlign.Center,
                 )
-                Text(
-                    text = "つけてあげましょう",
-                    color = Color.Black,
-                    fontSize = 32.sp,
-                    textAlign = TextAlign.Center,
-                )
-            }
-            Column(
-                modifier =
-                    Modifier
-                        .fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
                 Image(
                     painter = painterResource(id = R.drawable.initial5img),
-                    contentDescription = "initial5img",
+                    contentDescription = "くまちゃん",
                     modifier =
-                        Modifier.padding(0.dp, 0.dp, 0.dp, 150.dp),
+                        Modifier
+                            .padding(
+                                top = 20.dp,
+                                bottom = 20.dp)
+                            .zIndex(-1f),
                 )
-            }
-
-            Column(
-                modifier =
-                    Modifier
-                        .fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
                 TextField(
                     value = text.value,
                     onValueChange = { newValue -> text.value = newValue },
                     placeholder = { Text(text = "名前をここに入力してね") },
                     colors =
                         TextFieldDefaults.textFieldColors(
-                            containerColor = colorResource(id = R.color.Granulated_Sugar),
+                            containerColor = GranulatedSugar,
                         ),
                     modifier =
                         Modifier
-                            .padding(0.dp, 215.dp, 0.dp, 0.dp)
-                            .size(350.dp, 60.dp),
+                            .fillMaxWidth()
+                            .padding(horizontal = 10.dp),
                 )
                 Text(
                     text = "※名前は後から変更できるよ",
                     modifier =
                         Modifier
-                            .padding(140.dp, 15.dp, 0.dp, 0.dp),
+                            .align(Alignment.End)
+                            .padding(end = 20.dp),
                 )
             }
             Column(
@@ -127,9 +109,7 @@ fun InitialFlow5Screen(navController: NavHostController) {
                     nextDestination = "initialFlow/6/${text.value}",
                     modifier = Modifier.padding(20.dp, 0.dp, 20.dp, 10.dp),
                     onClick = {
-                        viewModel.viewModelScope.launch {
-                            viewModel.saveNameToDataStore(context, text.value)
-                        }
+                        viewModel.saveNameToDataStore(context, text.value)
                     },
                 )
             }

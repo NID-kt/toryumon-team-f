@@ -3,12 +3,10 @@ package com.example.runningavater.initialFlow
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -29,7 +27,6 @@ import com.example.runningavater.ui.theme.RunningAvaterTheme
 
 @Composable
 fun InitialFlow2Screen(navController: NavHostController) {
-//    val navController = rememberNavController()
     InitialFlowBackground {
         Box(
             modifier = Modifier.fillMaxSize(),
@@ -43,54 +40,23 @@ fun InitialFlow2Screen(navController: NavHostController) {
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
-                    text = "可愛いアバターと一緒に",
+                    text = "可愛いアバターと一緒に\n楽しくダイエット",
                     color = Color.Black,
                     fontSize = 32.sp,
-                    textAlign = TextAlign.Center,
-                )
-                Text(
-                    text = "楽しくダイエット",
-                    color = Color.Black,
-                    fontSize = 32.sp,
+                    lineHeight = 46.3.sp,
                     textAlign = TextAlign.Center,
                 )
             }
-            Column(
+            val image = painterResource(R.drawable.initial2img)
+            Image(
+                painter = image,
+                contentDescription = null,
                 modifier =
                     Modifier
                         .fillMaxWidth()
-                        .verticalScroll(rememberScrollState())
+                        .aspectRatio(image.intrinsicSize.width / image.intrinsicSize.height)
                         .align(Alignment.Center),
-            ) {
-                Box(
-                    modifier =
-                        Modifier
-                            .size(980.dp),
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.initial2img2),
-                        contentDescription = "initial2img2",
-                        modifier =
-                            Modifier
-                                .fillMaxSize(),
-                    )
-                }
-            }
-            Column(
-                modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .align(Alignment.Center),
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.initial2img1),
-                    contentDescription = "initial2img1",
-                    modifier =
-                        Modifier
-                            .size(400.dp)
-                            .padding(0.dp, 0.dp, 150.dp, 0.dp),
-                )
-            }
+            )
 
             Column(
                 modifier =
@@ -100,7 +66,7 @@ fun InitialFlow2Screen(navController: NavHostController) {
             ) {
                 NextButton(
                     navController = navController,
-                    nextDestination = "initialFlow/3",
+                    nextDestination = "initialFlow/5",
                     modifier = Modifier.padding(20.dp, 0.dp, 20.dp, 10.dp),
                 )
             }

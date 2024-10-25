@@ -4,8 +4,8 @@ package com.example.runningavater.initialFlow
 
 import android.annotation.SuppressLint
 import android.content.Context
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,6 +18,7 @@ import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -43,6 +44,7 @@ import com.example.runningavater.initialFlow.components.BackButton
 import com.example.runningavater.initialFlow.components.InitialFlowBackground
 import com.example.runningavater.initialFlow.components.NextButton
 import com.example.runningavater.settingsDataStore
+import com.example.runningavater.ui.theme.GranulatedSugar
 import com.example.runningavater.ui.theme.RunningAvaterTheme
 import kotlinx.coroutines.launch
 
@@ -62,36 +64,38 @@ fun InitialFlow8Screen(navController: NavHostController) {
             Column(
                 modifier =
                     Modifier
-                        .fillMaxWidth()
-                        .align(Alignment.TopCenter)
-                        .padding(0.dp, 50.dp, 0.dp, 0.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
+                        .fillMaxSize(),
             ) {
                 Text(
-                    text = "あなたの目標歩数と",
+                    text = "あなたの目標歩数と\n期間を設定しよう！",
                     color = Color.Black,
                     fontSize = 32.sp,
                     textAlign = TextAlign.Center,
+                    lineHeight = 46.3.sp,
+                    modifier =
+                        Modifier
+                            .align(Alignment.CenterHorizontally)
+                            .padding(
+                                top = 48.dp,
+                                bottom = 50.dp,
+                            ),
                 )
-                Text(
-                    text = "期間を設定しよう！",
-                    color = Color.Black,
-                    fontSize = 32.sp,
-                    textAlign = TextAlign.Center,
-                )
-            }
-
-            Column {
                 Text(
                     text = "目標歩数",
-                    modifier = Modifier.padding(20.dp, 250.dp, 0.dp, 0.dp),
                     fontSize = 18.sp,
+                    modifier =
+                        Modifier
+                            .padding(start = 20.dp),
                 )
                 TextField(
+                    colors =
+                    TextFieldDefaults.textFieldColors(
+                        containerColor = GranulatedSugar
+                    ),
                     modifier =
                         Modifier
                             .fillMaxWidth()
-                            .padding(10.dp, 0.dp, 10.dp, 0.dp),
+                            .padding(10.dp, 0.dp, 10.dp, 30.dp),
                     value = text.value,
                     onValueChange = { newValue -> text.value = newValue },
                     placeholder = { Text(text = "5000") },
@@ -100,68 +104,62 @@ fun InitialFlow8Screen(navController: NavHostController) {
                             keyboardType = KeyboardType.Number,
                         ),
                 )
-            }
-            Column {
                 Text(
                     text = "目標期間",
-                    modifier = Modifier.padding(20.dp, 350.dp, 0.dp, 0.dp),
+                    modifier = Modifier.padding(20.dp, 0.dp, 0.dp, 0.dp),
                     fontSize = 18.sp,
                 )
-            }
-            ExposedDropdownMenuBox(
-                modifier = Modifier.padding(10.dp, 380.dp, 10.dp, 0.dp),
-                expanded = expanded,
-                onExpandedChange = {
-                    expanded = !expanded
-                },
-            ) {
-                TextField(
-                    value = selectedOption,
-                    onValueChange = { newValue -> selectedOption = newValue },
-                    readOnly = true,
-                    label = { Text("期間設定") },
-                    trailingIcon = {
-                        ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
-                    },
+                ExposedDropdownMenuBox(
                     modifier =
                         Modifier
-                            .fillMaxWidth()
-                            .menuAnchor() // メニューのアンカーを設定
-                            .clickable { expanded = !expanded }, // フィールドをクリックしてメニューを展開
-                )
-                ExposedDropdownMenu(
+                            .padding(10.dp, 0.dp, 10.dp, 0.dp),
                     expanded = expanded,
-                    onDismissRequest = {
-                        expanded = false
+                    onExpandedChange = {
+                        expanded = !expanded
                     },
                 ) {
-                    options.forEach { option ->
-                        DropdownMenuItem(
-                            text = { Text(text = option) },
-                            onClick = {
-                                selectedOption = option
-                                expanded = false
-                            },
-                        )
+                    TextField(
+                        colors =
+                        TextFieldDefaults.textFieldColors(
+                            containerColor = GranulatedSugar
+                        ),
+                        value = selectedOption,
+                        onValueChange = { newValue -> selectedOption = newValue },
+                        readOnly = true,
+                        label = { Text("期間設定") },
+                        trailingIcon = {
+                            ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
+                        },
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .menuAnchor() // メニューのアンカーを設定
+                                .clickable { expanded = !expanded }, // フィールドをクリックしてメニューを展開
+                    )
+                    ExposedDropdownMenu(
+                        expanded = expanded,
+                        onDismissRequest = {
+                            expanded = false
+                        },
+                    ) {
+                        options.forEach { option ->
+                            DropdownMenuItem(
+                                text = { Text(text = option) },
+                                onClick = {
+                                    selectedOption = option
+                                    expanded = false
+                                },
+                            )
+                        }
                     }
                 }
-            }
-            Column(
-                modifier =
-                    Modifier
-                        .fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
                 Text(
-                    text = "※目標歩数と目標期限は",
+                    text = "※目標歩数と目標期限は\n後からでも変更できるよ",
                     fontSize = 18.sp,
-                    modifier = Modifier.padding(100.dp, 100.dp, 10.dp, 0.dp),
-                )
-                Text(
-                    text = "あとからでも変更できるよ",
-                    fontSize = 18.sp,
-                    modifier = Modifier.padding(150.dp, 0.dp, 10.dp, 20.dp),
+                    modifier =
+                        Modifier
+                            .align(Alignment.End)
+                            .padding(0.dp, 10.dp, 10.dp, 0.dp),
                 )
             }
 
@@ -173,7 +171,7 @@ fun InitialFlow8Screen(navController: NavHostController) {
             ) {
                 NextButton(
                     navController = navController,
-                    nextDestination = "initialFlow/9",
+                    nextDestination = "initialFlow/10",
                     modifier = Modifier.padding(20.dp, 0.dp, 20.dp, 10.dp),
                     onClick = {
                         viewModel.viewModelScope.launch {

@@ -38,7 +38,7 @@ fun InitialFlow6Screen(
                     Modifier
                         .fillMaxWidth()
                         .align(Alignment.TopCenter)
-                        .padding(0.dp, 50.dp, 0.dp, 0.dp),
+                        .padding(top = 48.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
@@ -79,7 +79,7 @@ fun InitialFlow6Screen(
                 )
                 NextButton(
                     navController = navController,
-                    nextDestination = "initialFlow/7",
+                    nextDestination = "initialFlow/8",
                     modifier = Modifier.padding(20.dp, 0.dp, 20.dp, 10.dp),
                 )
                 BackButton(

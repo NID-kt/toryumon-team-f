@@ -18,6 +18,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.runningavater.R
@@ -34,20 +35,15 @@ fun InitialFlow10Screen(navController: NavHostController) {
                     Modifier
                         .fillMaxWidth()
                         .align(Alignment.TopCenter)
-                        .padding(0.dp, 50.dp, 0.dp, 0.dp),
+                        .padding(top = 48.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
-                    text = "さっそくダイエットを",
+                    text = "さっそくダイエットを\n始めよう！",
                     color = Color.Black,
                     fontSize = 32.sp,
                     textAlign = TextAlign.Center,
-                )
-                Text(
-                    text = "始めよう！",
-                    color = Color.Black,
-                    fontSize = 32.sp,
-                    textAlign = TextAlign.Center,
+                    lineHeight = 46.3.sp,
                 )
             }
             Column(
@@ -62,7 +58,8 @@ fun InitialFlow10Screen(navController: NavHostController) {
                     modifier =
                         Modifier
                             .fillMaxWidth()
-                            .aspectRatio(0.78f),
+                            .aspectRatio(0.78f)
+                            .zIndex(-1f),
                     contentScale = ContentScale.Crop,
                 )
 //

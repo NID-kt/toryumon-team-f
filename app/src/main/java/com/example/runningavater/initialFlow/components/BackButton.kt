@@ -17,7 +17,6 @@ import com.example.runningavater.ui.theme.RunningAvaterTheme
 @Composable
 fun BackButton(
     navController: NavHostController,
-//    backDestination: String,
     modifier: Modifier = Modifier,
 ) {
     Button(
