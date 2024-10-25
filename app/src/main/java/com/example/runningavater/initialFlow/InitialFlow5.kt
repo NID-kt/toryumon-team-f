@@ -74,8 +74,8 @@ fun InitialFlow5Screen(navController: NavHostController) {
                         Modifier
                             .padding(
                                 top = 20.dp,
-                                bottom = 20.dp)
-                            .zIndex(-1f),
+                                bottom = 20.dp,
+                            ).zIndex(-1f),
                 )
                 TextField(
                     value = text.value,

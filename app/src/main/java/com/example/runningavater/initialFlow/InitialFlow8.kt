@@ -4,7 +4,6 @@ package com.example.runningavater.initialFlow
 
 import android.annotation.SuppressLint
 import android.content.Context
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -89,9 +88,9 @@ fun InitialFlow8Screen(navController: NavHostController) {
                 )
                 TextField(
                     colors =
-                    TextFieldDefaults.textFieldColors(
-                        containerColor = GranulatedSugar
-                    ),
+                        TextFieldDefaults.textFieldColors(
+                            containerColor = GranulatedSugar,
+                        ),
                     modifier =
                         Modifier
                             .fillMaxWidth()
@@ -120,9 +119,9 @@ fun InitialFlow8Screen(navController: NavHostController) {
                 ) {
                     TextField(
                         colors =
-                        TextFieldDefaults.textFieldColors(
-                            containerColor = GranulatedSugar
-                        ),
+                            TextFieldDefaults.textFieldColors(
+                                containerColor = GranulatedSugar,
+                            ),
                         value = selectedOption,
                         onValueChange = { newValue -> selectedOption = newValue },
                         readOnly = true,
