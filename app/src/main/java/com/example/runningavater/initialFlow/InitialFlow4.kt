@@ -69,7 +69,7 @@ fun InitialFlow4Screen(navController: NavController) {
                     contentDescription = "InitialFlow4img",
                     modifier = Modifier
                         .offset((0.dp), (50.dp))
-                        .size(420.dp),
+                        .size(375.dp),
                 )
             }
             Column(
