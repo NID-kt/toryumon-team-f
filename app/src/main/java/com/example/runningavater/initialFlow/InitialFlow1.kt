@@ -62,8 +62,8 @@ fun InitialFlow1Screen(navController: NavHostController) {
                     .padding(20.dp, 0.dp, 20.dp, 20.dp)
             ) {
                 NextButton(
-                    navController = rememberNavController(),
-                    nextDestination = "InitialFlow/2",
+                    navController = navController,
+                    nextDestination = "initialFlow/2",
                 )
             }
         }

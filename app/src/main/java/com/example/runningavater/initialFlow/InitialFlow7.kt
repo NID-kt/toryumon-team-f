@@ -132,7 +132,7 @@ fun InitialFlow7Screen(
                 ) {
                     NextButton(
                         navController = navController,
-                        nextDestination = "InitialFlow/8/${text.value}",
+                        nextDestination = "initialFlow/8/${text.value}",
                         onClick = {
                             viewModel.viewModelScope.launch {
                                 viewModel.saveNameToDateStore(context, text.value)

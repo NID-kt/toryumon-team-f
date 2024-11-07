@@ -79,7 +79,7 @@ fun InitialFlow4Screen(navController: NavController) {
             ) {
                 NextButton(
                     navController = navController,
-                    nextDestination = "InitialFlow/4",
+                    nextDestination = "initialFlow/5",
                 )
             }
             Column(

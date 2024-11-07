@@ -36,7 +36,7 @@ import com.example.runningavater.settings.SpanSettingsScreen
 @Composable
 fun MyAppNavHost(
     navController: NavHostController = rememberNavController(),
-    startDestination: String = "initialFlow1", // メイン画面をスタート画面に設定
+    startDestination: String = "initialFlow/1", // メイン画面をスタート画面に設定
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination

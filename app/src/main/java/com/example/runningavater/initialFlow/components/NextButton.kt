@@ -36,6 +36,7 @@ fun NextButton(
 @Composable
 private fun NextbuttonPreview() {
     RunningAvaterTheme {
-        NextButton(navController = rememberNavController(), nextDestination = "")
+        NextButton(navController = rememberNavController(),
+            nextDestination = "")
     }
 }

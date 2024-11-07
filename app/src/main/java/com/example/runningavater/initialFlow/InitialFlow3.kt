@@ -53,7 +53,6 @@ fun InitialFlow3Screen(navController: NavController) {
                 modifier =
                 Modifier
                     .fillMaxWidth()
-                    .verticalScroll(rememberScrollState())
                     .align(Alignment.Center),
             ) {
                 Box(
@@ -63,7 +62,7 @@ fun InitialFlow3Screen(navController: NavController) {
                     Image(
                         painter = painterResource
                             (id = R.drawable.initialflow3imghuman),
-                        contentDescription = "InitialFlow3Human",
+                        contentDescription = "initialFlow3Human",
                         modifier = Modifier
                             .offset((0.dp), (100.dp))
                             .size(400.dp),
