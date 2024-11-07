@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
+import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.runningavater.ui.theme.GranulatedSugar
 import com.example.runningavater.ui.theme.NuclearMango
@@ -16,13 +16,14 @@ import com.example.runningavater.ui.theme.RunningAvaterTheme
 
 @Composable
 fun BackButton(
-    navController: NavHostController,
-    backDestination: String,
+    navController: NavController,
+//    backDestination: String,
+    modifier: Modifier = Modifier,
 ) {
     Button(
-        onClick = { navController.navigate(backDestination) },
+        onClick = { navController.popBackStack() },
         modifier =
-            Modifier
+            modifier
                 .fillMaxWidth(),
         colors =
             ButtonDefaults.buttonColors(
@@ -41,6 +42,6 @@ fun BackButton(
 @Composable
 private fun BackbuttonPreview() {
     RunningAvaterTheme {
-        BackButton(navController = rememberNavController(), backDestination = "")
+        BackButton(navController = rememberNavController())
     }
 }

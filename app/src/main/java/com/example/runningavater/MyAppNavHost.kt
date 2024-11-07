@@ -1,5 +1,7 @@
 package com.example.runningavater
 
+import android.app.Application
+import android.content.Context
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -14,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -33,7 +36,7 @@ import com.example.runningavater.settings.SpanSettingsScreen
 @Composable
 fun MyAppNavHost(
     navController: NavHostController = rememberNavController(),
-    startDestination: String = "home", // メイン画面をスタート画面に設定
+    startDestination: String = "initialFlow1", // メイン画面をスタート画面に設定
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
@@ -62,7 +65,7 @@ fun MyAppNavHost(
             composable(route = "settings/goalsettings") {
                 GoalSettingsScreen() // 歩数画面を表示
             }
-            initialFlow()
+            initialFlow(navController)
         }
     }
 }
@@ -118,4 +121,13 @@ enum class MainScreenTab(
         label = "設定",
         route = "settings",
     ),
+}
+
+val Context.settingsDataStore by preferencesDataStore(name = "settings")
+
+class MyApplication : Application(){
+    override fun onCreate() {
+        super.onCreate()
+        //アプリケーションの初期化構造
+    }
 }
