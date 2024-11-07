@@ -156,9 +156,6 @@ fun InitialFlow7Screen(
     }
 }
 
-private fun Nothing?.launch(context: String) {
-
-}
 
 class UserProfileViewModel : ViewModel(){
     val userName = stringPreferencesKey("UserName")

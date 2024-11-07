@@ -1,13 +1,9 @@
 package com.example.runningavater.initialFlow
 
-import androidx.datastore.preferences.core.stringPreferencesKey
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
+
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
 
 fun NavGraphBuilder.initialFlow(navController: NavHostController) {
     composable(route = "initialFlow/1") {
