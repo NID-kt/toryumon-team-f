@@ -81,7 +81,7 @@ fun showAuthenticationDialog(
                 override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                     super.onAuthenticationSucceeded(result)
                     navController.navigate("home") {
-                        // Optional: これにより、「ホーム」に戻るときにバックスタックがクリアされる
+                        // これにより、「ホーム」に戻るときにバックスタックがクリアされる
                         popUpTo(navController.graph.startDestinationId) {
                             saveState = true
                         }
