@@ -38,7 +38,7 @@ import com.example.runningavater.settings.SpanSettingsScreen
 fun MyAppNavHost(navController: NavHostController = rememberNavController()) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
-    val startDestination = if (true) "InitialFlow/2" else "authentication"
+    val startDestination = if (true) "initialFlow/2" else "authentication"
     Scaffold(
         bottomBar = {
             if (currentDestination?.route?.startsWith("initialFlow") != true) {
@@ -49,7 +49,7 @@ fun MyAppNavHost(navController: NavHostController = rememberNavController()) {
         // ナビゲーションホストを作成
         NavHost(navController = navController, startDestination = startDestination, modifier = Modifier.padding(paddingValues)) {
             composable("authentication") {
-                AuthenticationScreen() // 認証画面を表示
+                AuthenticationScreen(navController = navController) // 認証画面を表示
             }
             composable("home") {
                 HomeScreen() // メイン画面を表示

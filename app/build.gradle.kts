@@ -83,4 +83,5 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     implementation("com.github.PhilJay:MPAndroidChart:3.1.0")
     implementation("io.coil-kt:coil-compose:2.7.0")
+    implementation("androidx.biometric:biometric:1.4.0-alpha02")
 }

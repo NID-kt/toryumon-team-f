@@ -72,7 +72,7 @@ fun InitialFlow10Screen(navController: NavHostController) {
             ) {
                 NextButton(
                     navController = navController,
-                    nextDestination = "home",
+                    nextDestination = "authentication",
                     text = "始める",
                     modifier = Modifier.padding(20.dp, 0.dp, 20.dp, 10.dp),
                 )

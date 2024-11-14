@@ -68,7 +68,7 @@ fun InitialFlow5Screen(navController: NavHostController) {
                     textAlign = TextAlign.Center,
                 )
                 Image(
-                    painter = painterResource(id = R.drawable.initial5img),
+                    painter = painterResource(id = R.drawable.bear1),
                     contentDescription = "くまちゃん",
                     modifier =
                         Modifier
@@ -76,6 +76,7 @@ fun InitialFlow5Screen(navController: NavHostController) {
                                 top = 20.dp,
                                 bottom = 20.dp,
                             ).zIndex(-1f),
+
                 )
                 TextField(
                     value = text.value,
