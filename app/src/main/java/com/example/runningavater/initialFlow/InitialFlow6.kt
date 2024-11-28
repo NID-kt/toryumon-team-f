@@ -69,7 +69,7 @@ fun InitialFlow6Screen(
                     textAlign = TextAlign.Center,
                 )
                 Image(
-                    painter = painterResource(id = R.drawable.ninitialflow56),
+                    painter = painterResource(id = R.drawable.initialflow56),
                     contentDescription = "initial6img",
                     modifier =
                     Modifier

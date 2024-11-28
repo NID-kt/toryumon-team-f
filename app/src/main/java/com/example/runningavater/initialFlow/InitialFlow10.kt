@@ -21,7 +21,6 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import coil.compose.AsyncImage
 import com.example.runningavater.R
 import com.example.runningavater.initialFlow.components.InitialFlowBackground
 import com.example.runningavater.initialFlow.components.NextButton
@@ -55,7 +54,7 @@ fun InitialFlow10Screen(navController: NavHostController) {
                     .align(Alignment.BottomCenter),
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.ninitialflow10),
+                    painter = painterResource(id = R.drawable.initialflow10),
                     contentDescription = "big bear",
                     modifier =
                     Modifier
