@@ -176,7 +176,7 @@ class UserProfileViewModel : ViewModel() {
     fun saveNameToDateStore(
         context: Context,
         name: String,
-    )  {
+    ) {
         viewModelScope.launch {
             context.settingsDataStore.edit {
                     preferences ->
@@ -188,7 +188,7 @@ class UserProfileViewModel : ViewModel() {
     fun saveUserIconToDateStore(
         context: Context,
         usericon: String,
-    )  {
+    ) {
         viewModelScope.launch {
             context.settingsDataStore.edit {
                     preferences ->
@@ -200,7 +200,7 @@ class UserProfileViewModel : ViewModel() {
 
 @Preview
 @Composable
-private fun InitialFlow7Preview()  {
+private fun InitialFlow7Preview() {
     RunningAvaterTheme {
         InitialFlow7Screen(rememberNavController())
     }

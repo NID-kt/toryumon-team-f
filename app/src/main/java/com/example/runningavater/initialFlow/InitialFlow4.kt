@@ -106,7 +106,7 @@ fun InitialFlow4Screen(navController: NavController) {
 
 @Preview
 @Composable
-private fun InitialFlow4Preview()  {
+private fun InitialFlow4Preview() {
     RunningAvaterTheme {
         InitialFlow4Screen(rememberNavController())
     }

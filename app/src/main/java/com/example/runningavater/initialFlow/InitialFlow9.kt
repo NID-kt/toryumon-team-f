@@ -93,7 +93,7 @@ fun InitialFlow9Screen(navController: NavController) {
 
 @Preview
 @Composable
-private fun InitialFlow9Preview()  {
+private fun InitialFlow9Preview() {
     RunningAvaterTheme {
         InitialFlow9Screen(rememberNavController())
     }
