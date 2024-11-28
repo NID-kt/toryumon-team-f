@@ -59,7 +59,7 @@ fun InitialFlow9Screen(navController: NavController) {
 
                 Image(
                     painter = painterResource(id = R.drawable.initialflow9img),
-                    contentDescription = "",
+                    contentDescription = "くま見守ろう",
                     modifier =
                         Modifier
                             .offset((0.dp), (50.dp))

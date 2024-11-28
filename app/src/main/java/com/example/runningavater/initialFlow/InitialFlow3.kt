@@ -64,7 +64,7 @@ fun InitialFlow3Screen(navController: NavController) {
                         painter =
                             painterResource
                             (id = R.drawable.initialflow3imghuman),
-                        contentDescription = "initialFlow3Human",
+                        contentDescription = "くまちゃんと散歩している人",
                         modifier =
                             Modifier
                                 .offset((0.dp), (100.dp))
@@ -82,7 +82,7 @@ fun InitialFlow3Screen(navController: NavController) {
                     painter =
                         painterResource
                         (id = R.drawable.initialflow3imgbear),
-                    contentDescription = "InitialFlow3Bear",
+                    contentDescription = "人と歩いているくまちゃん",
                     modifier =
                         Modifier
                             .size(200.dp)
@@ -99,6 +99,7 @@ fun InitialFlow3Screen(navController: NavController) {
                     navController = navController,
                     nextDestination = "InitialFlow/4",
                 )
+
             }
             Column(
                 modifier =

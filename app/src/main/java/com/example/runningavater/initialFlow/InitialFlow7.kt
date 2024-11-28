@@ -100,7 +100,7 @@ fun InitialFlow7Screen(navController: NavHostController) {
                 } else {
                     Image(
                         painter = painterResource(id = R.drawable.initial_icon),
-                        contentDescription = "Initial_Icon",
+                        contentDescription = "初期アイコン",
                         modifier =
                             Modifier
                                 .offset((0.dp), (35.dp))
