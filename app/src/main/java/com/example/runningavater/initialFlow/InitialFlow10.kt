@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import coil.compose.AsyncImage
 import com.example.runningavater.R
 import com.example.runningavater.initialFlow.components.InitialFlowBackground
 import com.example.runningavater.initialFlow.components.NextButton
@@ -32,10 +33,11 @@ fun InitialFlow10Screen(navController: NavHostController) {
         Box(modifier = Modifier.fillMaxSize()) {
             Column(
                 modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .align(Alignment.TopCenter)
-                        .padding(top = 48.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.TopCenter)
+                    .padding(top = 48.dp)
+                    .zIndex(1f),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
@@ -48,27 +50,27 @@ fun InitialFlow10Screen(navController: NavHostController) {
             }
             Column(
                 modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .align(Alignment.BottomCenter),
+                Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.BottomCenter),
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.initial10img),
+                    painter = painterResource(id = R.drawable.ninitialflow10),
                     contentDescription = "big bear",
                     modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .aspectRatio(0.78f)
-                            .zIndex(-1f),
+                    Modifier
+                        .fillMaxWidth()
+                        .aspectRatio(0.55f)
+                        .zIndex(-1f),
                     contentScale = ContentScale.Crop,
                 )
 //
             }
             Column(
                 modifier =
-                    Modifier
-                        .align(Alignment.BottomEnd)
-                        .padding(0.dp, 0.dp, 0.dp, 20.dp),
+                Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(0.dp, 0.dp, 0.dp, 20.dp),
             ) {
                 NextButton(
                     navController = navController,

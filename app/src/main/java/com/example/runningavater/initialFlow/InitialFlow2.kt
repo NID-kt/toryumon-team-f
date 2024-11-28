@@ -47,7 +47,7 @@ fun InitialFlow2Screen(navController: NavHostController) {
                     textAlign = TextAlign.Center,
                 )
             }
-            val image = painterResource(R.drawable.initial2img)
+            val image = painterResource(R.drawable.ninitialflow2)
             Image(
                 painter = image,
                 contentDescription = null,
