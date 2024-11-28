@@ -55,8 +55,8 @@ fun InitialFlow9Screen(navController: NavController) {
                 )
 
                 Image(
-                    painter = painterResource(id = R.drawable.initialflow9sample),
-                    contentDescription = "InitialFlow9img",
+                    painter = painterResource(id = R.drawable.initialflow9img),
+                    contentDescription = "",
                     modifier = Modifier
                         .offset((0.dp), (50.dp))
                         .size(400.dp),

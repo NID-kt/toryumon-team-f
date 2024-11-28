@@ -74,7 +74,7 @@ fun InitialFlow3Screen(navController: NavController) {
             ){
               Image(
                   painter = painterResource
-                  (id = R.drawable.initialflow3imgbearsam),
+                  (id = R.drawable.initialflow3imgbear),
                   contentDescription ="InitialFlow3Bear",
                   modifier = Modifier
                       .size(200.dp)

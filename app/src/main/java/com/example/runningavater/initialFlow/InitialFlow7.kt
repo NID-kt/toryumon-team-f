@@ -109,8 +109,7 @@ fun InitialFlow7Screen(
                         placeholder = { Text(text = "名前をここに入力してね") },
                         colors =
                         TextFieldDefaults.textFieldColors(
-                            containerColor = colorResource(id =
-                            R.color.Granulated_Suger),
+                            containerColor = colorResource(id = MaterialTheme.colors.GranulatedSugar),
                         ),
                         modifier = Modifier
                             .padding(0.dp, 20.dp, 0.dp, 0.dp)

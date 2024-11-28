@@ -65,8 +65,8 @@ fun InitialFlow4Screen(navController: NavController) {
                         .offset((100.dp),(0.dp)),
                     )
                 Image(
-                    painter = painterResource(id = R.drawable.initialflow4sample),
-                    contentDescription = "InitialFlow4img",
+                    painter = painterResource(id = R.drawable.initialflow4img),
+                    contentDescription = "クマちゃんの変化説明",
                     modifier = Modifier
                         .offset((0.dp), (50.dp))
                         .size(375.dp),
