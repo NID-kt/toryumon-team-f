@@ -32,11 +32,11 @@ fun InitialFlow10Screen(navController: NavHostController) {
         Box(modifier = Modifier.fillMaxSize()) {
             Column(
                 modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.TopCenter)
-                    .padding(top = 48.dp)
-                    .zIndex(1f),
+                    Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.TopCenter)
+                        .padding(top = 48.dp)
+                        .zIndex(1f),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
@@ -49,27 +49,27 @@ fun InitialFlow10Screen(navController: NavHostController) {
             }
             Column(
                 modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.BottomCenter),
+                    Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.BottomCenter),
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.initialflow10),
                     contentDescription = "big bear",
                     modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .aspectRatio(0.55f)
-                        .zIndex(-1f),
+                        Modifier
+                            .fillMaxWidth()
+                            .aspectRatio(0.55f)
+                            .zIndex(-1f),
                     contentScale = ContentScale.Crop,
                 )
 //
             }
             Column(
                 modifier =
-                Modifier
-                    .align(Alignment.BottomEnd)
-                    .padding(0.dp, 0.dp, 0.dp, 20.dp),
+                    Modifier
+                        .align(Alignment.BottomEnd)
+                        .padding(0.dp, 0.dp, 0.dp, 20.dp),
             ) {
                 NextButton(
                     navController = navController,

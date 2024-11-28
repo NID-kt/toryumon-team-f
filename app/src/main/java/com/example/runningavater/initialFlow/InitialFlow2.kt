@@ -33,10 +33,10 @@ fun InitialFlow2Screen(navController: NavHostController) {
         ) {
             Column(
                 modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.TopCenter)
-                    .padding(0.dp, 50.dp, 0.dp, 0.dp),
+                    Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.TopCenter)
+                        .padding(0.dp, 50.dp, 0.dp, 0.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
@@ -52,17 +52,17 @@ fun InitialFlow2Screen(navController: NavHostController) {
                 painter = image,
                 contentDescription = null,
                 modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(image.intrinsicSize.width / image.intrinsicSize.height)
-                    .align(Alignment.Center),
+                    Modifier
+                        .fillMaxWidth()
+                        .aspectRatio(image.intrinsicSize.width / image.intrinsicSize.height)
+                        .align(Alignment.Center),
             )
 
             Column(
                 modifier =
-                Modifier
-                    .align(Alignment.BottomStart)
-                    .padding(0.dp, 0.dp, 0.dp, 80.dp),
+                    Modifier
+                        .align(Alignment.BottomStart)
+                        .padding(0.dp, 0.dp, 0.dp, 80.dp),
             ) {
                 NextButton(
                     navController = navController,
@@ -72,9 +72,9 @@ fun InitialFlow2Screen(navController: NavHostController) {
             }
             Column(
                 modifier =
-                Modifier
-                    .align(Alignment.BottomEnd)
-                    .padding(20.dp),
+                    Modifier
+                        .align(Alignment.BottomEnd)
+                        .padding(20.dp),
             ) {
                 BackButton(
                     navController = navController,

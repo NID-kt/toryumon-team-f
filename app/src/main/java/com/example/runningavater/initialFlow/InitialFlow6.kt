@@ -35,10 +35,10 @@ fun InitialFlow6Screen(
         Box(modifier = Modifier.fillMaxSize()) {
             Column(
                 modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.TopCenter)
-                    .padding(top = 48.dp),
+                    Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.TopCenter)
+                        .padding(top = 48.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
@@ -72,10 +72,10 @@ fun InitialFlow6Screen(
                     painter = painterResource(id = R.drawable.initialflow56),
                     contentDescription = "initial6img",
                     modifier =
-                    Modifier
-                        .weight(1f)
-                        .padding(0.dp, 24.dp, 0.dp, 24.dp)
-                        .size(300.dp),
+                        Modifier
+                            .weight(1f)
+                            .padding(0.dp, 24.dp, 0.dp, 24.dp)
+                            .size(300.dp),
                 )
                 NextButton(
                     navController = navController,
