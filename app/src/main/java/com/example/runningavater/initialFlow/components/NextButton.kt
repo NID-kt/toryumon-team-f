@@ -17,7 +17,7 @@ fun NextButton(
     nextDestination: String,
     modifier: Modifier = Modifier,
     text: String = "次へ",
-    onClick: (() -> Unit)? = null
+    onClick: (() -> Unit)? = null,
 ) {
     Button(
         onClick = { navController.navigate(nextDestination) },
@@ -36,7 +36,9 @@ fun NextButton(
 @Composable
 private fun NextbuttonPreview() {
     RunningAvaterTheme {
-        NextButton(navController = rememberNavController(),
-            nextDestination = "")
+        NextButton(
+            navController = rememberNavController(),
+            nextDestination = "",
+        )
     }
 }

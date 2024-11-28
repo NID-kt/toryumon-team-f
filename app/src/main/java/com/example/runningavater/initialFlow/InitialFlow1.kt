@@ -28,16 +28,18 @@ import com.example.runningavater.ui.theme.RunningAvaterTheme
 fun InitialFlow1Screen(navController: NavHostController) {
     InitialFlowBackground {
         Box(
-            modifier = Modifier
-                .fillMaxSize()
+            modifier =
+                Modifier
+                    .fillMaxSize(),
         ) {
             Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.TopCenter)
-                    .padding(0.dp, 50.dp, 0.dp, 0.dp),
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.TopCenter)
+                        .padding(0.dp, 50.dp, 0.dp, 0.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
-            )  {
+            ) {
                 Text(
                     text = "てくてくダイエットへ",
                     color = Color.Black,
@@ -51,15 +53,17 @@ fun InitialFlow1Screen(navController: NavHostController) {
                 Image(
                     painter = painterResource(id = R.drawable.app_icon),
                     contentDescription = "App_Icon",
-                    modifier = Modifier
-                        .offset((0.dp), (50.dp))
-                        .size(300.dp),
+                    modifier =
+                        Modifier
+                            .offset((0.dp), (50.dp))
+                            .size(300.dp),
                 )
             }
             Column(
-                modifier = Modifier
-                    .align(Alignment.BottomStart)
-                    .padding(20.dp, 0.dp, 20.dp, 20.dp)
+                modifier =
+                    Modifier
+                        .align(Alignment.BottomStart)
+                        .padding(20.dp, 0.dp, 20.dp, 20.dp),
             ) {
                 NextButton(
                     navController = navController,
@@ -69,9 +73,6 @@ fun InitialFlow1Screen(navController: NavHostController) {
         }
     }
 }
-
-
-
 
 @Preview
 @Composable

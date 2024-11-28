@@ -125,9 +125,9 @@ enum class MainScreenTab(
 
 val Context.settingsDataStore by preferencesDataStore(name = "settings")
 
-class MyApplication : Application(){
+class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-        //アプリケーションの初期化構造
+        // アプリケーションの初期化構造
     }
 }

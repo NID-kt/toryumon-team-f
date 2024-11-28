@@ -29,14 +29,16 @@ import com.example.runningavater.ui.theme.RunningAvaterTheme
 fun InitialFlow9Screen(navController: NavController) {
     InitialFlowBackground {
         Box(
-            modifier = Modifier
-                .fillMaxSize()
+            modifier =
+                Modifier
+                    .fillMaxSize(),
         ) {
             Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.TopCenter)
-                    .padding(0.dp, 50.dp, 0.dp, 0.dp),
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.TopCenter)
+                        .padding(0.dp, 50.dp, 0.dp, 0.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
@@ -49,7 +51,8 @@ fun InitialFlow9Screen(navController: NavController) {
                     color = Color.Black,
                     fontSize = 32.sp,
                 )
-                Text(text = "達成がすぐにわかるよ！",
+                Text(
+                    text = "達成がすぐにわかるよ！",
                     color = Color.Black,
                     fontSize = 32.sp,
                 )
@@ -57,15 +60,17 @@ fun InitialFlow9Screen(navController: NavController) {
                 Image(
                     painter = painterResource(id = R.drawable.initialflow9img),
                     contentDescription = "",
-                    modifier = Modifier
-                        .offset((0.dp), (50.dp))
-                        .size(400.dp),
+                    modifier =
+                        Modifier
+                            .offset((0.dp), (50.dp))
+                            .size(400.dp),
                 )
             }
             Column(
-                modifier = Modifier
-                    .align(Alignment.BottomStart)
-                    .padding(20.dp, 0.dp, 20.dp, 90.dp)
+                modifier =
+                    Modifier
+                        .align(Alignment.BottomStart)
+                        .padding(20.dp, 0.dp, 20.dp, 90.dp),
             ) {
                 NextButton(
                     navController = navController,
@@ -73,9 +78,10 @@ fun InitialFlow9Screen(navController: NavController) {
                 )
             }
             Column(
-                modifier = Modifier
-                    .align(Alignment.BottomEnd)
-                    .padding(20.dp)
+                modifier =
+                    Modifier
+                        .align(Alignment.BottomEnd)
+                        .padding(20.dp),
             ) {
                 BackButton(
                     navController = navController,
@@ -87,7 +93,7 @@ fun InitialFlow9Screen(navController: NavController) {
 
 @Preview
 @Composable
-private fun InitialFlow9Preview(){
+private fun InitialFlow9Preview()  {
     RunningAvaterTheme {
         InitialFlow9Screen(rememberNavController())
     }

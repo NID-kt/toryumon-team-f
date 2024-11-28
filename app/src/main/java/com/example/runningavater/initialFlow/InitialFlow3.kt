@@ -30,14 +30,16 @@ import com.example.runningavater.ui.theme.RunningAvaterTheme
 fun InitialFlow3Screen(navController: NavController) {
     InitialFlowBackground {
         Box(
-            modifier = Modifier
-                .fillMaxSize()
+            modifier =
+                Modifier
+                    .fillMaxSize(),
         ) {
             Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.TopCenter)
-                    .padding(0.dp, 50.dp, 0.dp, 0.dp),
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.TopCenter)
+                        .padding(0.dp, 50.dp, 0.dp, 0.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
@@ -49,52 +51,60 @@ fun InitialFlow3Screen(navController: NavController) {
             }
             Column(
                 modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.Center),
+                    Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.Center),
             ) {
                 Box(
-                    modifier = Modifier
-                        .size(980.dp),
-                    ) {
+                    modifier =
+                        Modifier
+                            .size(980.dp),
+                ) {
                     Image(
-                        painter = painterResource
+                        painter =
+                            painterResource
                             (id = R.drawable.initialflow3imghuman),
                         contentDescription = "initialFlow3Human",
-                        modifier = Modifier
-                            .offset((0.dp), (100.dp))
-                            .size(400.dp),
+                        modifier =
+                            Modifier
+                                .offset((0.dp), (100.dp))
+                                .size(400.dp),
                     )
                 }
             }
-            Column (
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.Center),
-            ){
-              Image(
-                  painter = painterResource
-                  (id = R.drawable.initialflow3imgbear),
-                  contentDescription ="InitialFlow3Bear",
-                  modifier = Modifier
-                      .size(200.dp)
-                      .padding(0.dp, 0.dp, 0.dp, 0.dp),
-                  )
+            Column(
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.Center),
+            ) {
+                Image(
+                    painter =
+                        painterResource
+                        (id = R.drawable.initialflow3imgbear),
+                    contentDescription = "InitialFlow3Bear",
+                    modifier =
+                        Modifier
+                            .size(200.dp)
+                            .padding(0.dp, 0.dp, 0.dp, 0.dp),
+                )
             }
             Column(
-                modifier = Modifier
-                    .align(Alignment.BottomStart)
-                    .padding(20.dp, 0.dp, 20.dp, 90.dp)
+                modifier =
+                    Modifier
+                        .align(Alignment.BottomStart)
+                        .padding(20.dp, 0.dp, 20.dp, 90.dp),
             ) {
                 NextButton(
-                navController = navController,
-                nextDestination = "InitialFlow/4",
-            )
+                    navController = navController,
+                    nextDestination = "InitialFlow/4",
+                )
             }
             Column(
-                modifier = Modifier
-                    .align(Alignment.BottomEnd)
-                    .padding(20.dp)
+                modifier =
+                    Modifier
+                        .align(Alignment.BottomEnd)
+                        .padding(20.dp),
             ) {
                 BackButton(
                     navController = navController,
@@ -103,13 +113,6 @@ fun InitialFlow3Screen(navController: NavController) {
         }
     }
 }
-
-
-
-
-
-
-
 
 @Preview
 @Composable

@@ -30,16 +30,18 @@ import com.example.runningavater.ui.theme.RunningAvaterTheme
 fun InitialFlow4Screen(navController: NavController) {
     InitialFlowBackground {
         Box(
-            modifier = Modifier
-                .fillMaxSize()
+            modifier =
+                Modifier
+                    .fillMaxSize(),
         ) {
             Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.TopCenter)
-                    .padding(0.dp, 50.dp, 0.dp, 0.dp),
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.TopCenter)
+                        .padding(0.dp, 50.dp, 0.dp, 0.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
-            ){
+            ) {
                 Text(
                     text = "一緒にアバターも",
                     color = Color.Black,
@@ -52,30 +54,36 @@ fun InitialFlow4Screen(navController: NavController) {
                     fontSize = 32.sp,
                     textAlign = TextAlign.Center,
                 )
-                Text(text = "（ただし歩かない期間が長いと",
+                Text(
+                    text = "（ただし歩かない期間が長いと",
                     color = Color.Black,
                     fontSize = 18.sp,
-                    modifier = Modifier
-                        .offset((40.dp),(0.dp)),
+                    modifier =
+                        Modifier
+                            .offset((40.dp), (0.dp)),
                 )
-                Text(text = "逆に太ってしまうことも...",
+                Text(
+                    text = "逆に太ってしまうことも...",
                     color = Color.Black,
                     fontSize = 18.sp,
-                    modifier = Modifier
-                        .offset((100.dp),(0.dp)),
-                    )
+                    modifier =
+                        Modifier
+                            .offset((100.dp), (0.dp)),
+                )
                 Image(
                     painter = painterResource(id = R.drawable.initialflow4img),
                     contentDescription = "クマちゃんの変化説明",
-                    modifier = Modifier
-                        .offset((0.dp), (50.dp))
-                        .size(375.dp),
+                    modifier =
+                        Modifier
+                            .offset((0.dp), (50.dp))
+                            .size(375.dp),
                 )
             }
             Column(
-                modifier = Modifier
-                    .align(Alignment.BottomStart)
-                    .padding(20.dp, 0.dp, 20.dp, 90.dp)
+                modifier =
+                    Modifier
+                        .align(Alignment.BottomStart)
+                        .padding(20.dp, 0.dp, 20.dp, 90.dp),
             ) {
                 NextButton(
                     navController = navController,
@@ -83,9 +91,10 @@ fun InitialFlow4Screen(navController: NavController) {
                 )
             }
             Column(
-                modifier = Modifier
-                    .align(Alignment.BottomEnd)
-                    .padding(20.dp)
+                modifier =
+                    Modifier
+                        .align(Alignment.BottomEnd)
+                        .padding(20.dp),
             ) {
                 BackButton(
                     navController = navController,
@@ -97,7 +106,7 @@ fun InitialFlow4Screen(navController: NavController) {
 
 @Preview
 @Composable
-private fun InitialFlow4Preview(){
+private fun InitialFlow4Preview()  {
     RunningAvaterTheme {
         InitialFlow4Screen(rememberNavController())
     }
