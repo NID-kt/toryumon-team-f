@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -47,6 +48,7 @@ import com.example.runningavater.settingsDataStore
 import com.example.runningavater.ui.theme.RunningAvaterTheme
 import kotlinx.coroutines.launch
 import coil.compose.AsyncImage
+import com.example.runningavater.ui.theme.GranulatedSugar
 
 
 @SuppressLint("ComposeViewModelInjection")
@@ -109,7 +111,7 @@ fun InitialFlow7Screen(
                         placeholder = { Text(text = "名前をここに入力してね") },
                         colors =
                         TextFieldDefaults.textFieldColors(
-                            containerColor = colorResource(id = MaterialTheme.colors.GranulatedSugar),
+                            containerColor = GranulatedSugar,
                         ),
                         modifier = Modifier
                             .padding(0.dp, 20.dp, 0.dp, 0.dp)
