@@ -55,10 +55,10 @@ fun InitialFlow5Screen(navController: NavHostController) {
         Box(modifier = Modifier.fillMaxSize()) {
             Column(
                 modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.TopCenter)
-                    .padding(top = 48.dp),
+                    Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.TopCenter)
+                        .padding(top = 48.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
@@ -72,40 +72,40 @@ fun InitialFlow5Screen(navController: NavHostController) {
                     painter = painterResource(id = R.drawable.initialflow56),
                     contentDescription = "くまちゃん",
                     modifier =
-                    Modifier
-                        .padding(
-                            top = 20.dp,
-                            bottom = 20.dp,
-                        )
-                        .size(200.dp)
-                        .zIndex(-1f),
+                        Modifier
+                            .padding(
+                                top = 20.dp,
+                                bottom = 20.dp,
+                            )
+                            .size(200.dp)
+                            .zIndex(-1f),
                 )
                 TextField(
                     value = text.value,
                     onValueChange = { newValue -> text.value = newValue },
                     placeholder = { Text(text = "名前をここに入力してね") },
                     colors =
-                    TextFieldDefaults.textFieldColors(
-                        containerColor = GranulatedSugar,
-                    ),
+                        TextFieldDefaults.textFieldColors(
+                            containerColor = GranulatedSugar,
+                        ),
                     modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 10.dp),
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 10.dp),
                 )
                 Text(
                     text = "※名前は後から変更できるよ",
                     modifier =
-                    Modifier
-                        .align(Alignment.End)
-                        .padding(end = 20.dp),
+                        Modifier
+                            .align(Alignment.End)
+                            .padding(end = 20.dp),
                 )
             }
             Column(
                 modifier =
-                Modifier
-                    .align(Alignment.BottomStart)
-                    .padding(0.dp, 0.dp, 0.dp, 80.dp),
+                    Modifier
+                        .align(Alignment.BottomStart)
+                        .padding(0.dp, 0.dp, 0.dp, 80.dp),
             ) {
                 NextButton(
                     navController = navController,
@@ -118,9 +118,9 @@ fun InitialFlow5Screen(navController: NavHostController) {
             }
             Column(
                 modifier =
-                Modifier
-                    .align(Alignment.BottomEnd)
-                    .padding(20.dp),
+                    Modifier
+                        .align(Alignment.BottomEnd)
+                        .padding(20.dp),
             ) {
                 BackButton(
                     navController = navController,
