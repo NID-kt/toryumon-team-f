@@ -26,7 +26,7 @@ fun NavGraphBuilder.initialFlow(navController: NavHostController) {
     composable(route = "initialFlow/7") {
         InitialFlow7Screen(navController = navController)
     }
-    composable(route = "initialFlow/8/{userName}") {
+    composable(route = "initialFlow/8") {
         InitialFlow8Screen()
     }
     composable(route = "initialFlow/9") {
