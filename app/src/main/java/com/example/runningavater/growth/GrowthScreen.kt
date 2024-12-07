@@ -1,5 +1,6 @@
 package com.example.runningavater.growth
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,26 +20,31 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
+import com.example.runningavater.ui.theme.GranulatedSugar
+import com.example.runningavater.ui.theme.NuclearMango
+import com.example.runningavater.ui.theme.SungYellow
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 
 @Composable
-fun GrowthScreen() {
+fun GrowthScreen(backgroundColor: Color = SungYellow) {
     Column(
         modifier =
             Modifier
-                .padding(16.dp)
+                // .padding(16.dp)
+                .background(backgroundColor)
                 .fillMaxSize(),
     ) {
         Text(
             text = "成長記録",
-            fontSize = 20.sp,
+            fontSize = 30.sp,
             modifier =
                 Modifier
-                    .padding(bottom = 16.dp)
+                    .padding(32.dp)
                     .fillMaxWidth(),
+            color = NuclearMango,
             textAlign = TextAlign.Center,
         )
         Box(
@@ -80,13 +86,15 @@ fun PieChart(modifier: Modifier = Modifier) {
 
     val pieDataSet =
         PieDataSet(pieEntryList, "").apply {
-            colors = listOf(Color.Green, Color.Red).map { it.toArgb() }
+            colors = listOf(NuclearMango, GranulatedSugar).map { it.toArgb() }
         }
     AndroidView(
         factory = { context ->
             com.github.mikephil.charting.charts.PieChart(context).apply {
                 description = Description().apply { text = "" }
                 centerText = "達成度"
+                setCenterTextSize(18f)
+                setCenterTextColor(NuclearMango.toArgb())
                 setEntryLabelTextSize(11f)
                 data = PieData(pieDataSet).apply { setValueTextSize(20f) }
                 // アニメーションを指定
