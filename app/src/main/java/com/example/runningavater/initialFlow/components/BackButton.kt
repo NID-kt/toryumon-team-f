@@ -17,12 +17,12 @@ import com.example.runningavater.ui.theme.RunningAvaterTheme
 @Composable
 fun BackButton(
     navController: NavHostController,
-    backDestination: String,
+    modifier: Modifier = Modifier,
 ) {
     Button(
-        onClick = { navController.navigate(backDestination) },
+        onClick = { navController.popBackStack() },
         modifier =
-            Modifier
+            modifier
                 .fillMaxWidth(),
         colors =
             ButtonDefaults.buttonColors(
@@ -41,6 +41,6 @@ fun BackButton(
 @Composable
 private fun BackbuttonPreview() {
     RunningAvaterTheme {
-        BackButton(navController = rememberNavController(), backDestination = "")
+        BackButton(navController = rememberNavController())
     }
 }
