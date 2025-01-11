@@ -10,11 +10,13 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.navigation.NavDestination
@@ -33,9 +35,13 @@ import com.example.runningavater.settings.GoalSettingsScreen
 import com.example.runningavater.settings.ProfileScreen
 import com.example.runningavater.settings.SettingsScreen
 import com.example.runningavater.settings.SpanSettingsScreen
+import com.example.runningavater.ui.theme.NuclearMango
 
 @Composable
-fun MyAppNavHost(navController: NavHostController = rememberNavController()) {
+fun MyAppNavHost(
+    navController: NavHostController = rememberNavController(),
+    startDestination: String = "initialFlow/1", // メイン画面をスタート画面に設定
+) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
     val startDestination = if (true) "initialFlow/2" else "authentication"
@@ -79,7 +85,9 @@ private fun MainBottomBar(
     currentDestination: NavDestination?,
     navController: NavHostController,
 ) {
-    NavigationBar {
+    NavigationBar(
+        containerColor = NuclearMango,
+    ) {
         MainScreenTab.entries.forEachIndexed { _, item ->
             NavigationBarItem(
                 icon = { Icon(item.icon, contentDescription = item.label) },
@@ -100,6 +108,14 @@ private fun MainBottomBar(
                         restoreState = true
                     }
                 },
+                colors =
+                    NavigationBarItemDefaults.colors(
+                        selectedIconColor = Color.White,
+                        selectedTextColor = Color.White,
+                        unselectedIconColor = Color.White.copy(alpha = 0.5f),
+                        unselectedTextColor = Color.White.copy(alpha = 0.5f),
+                        indicatorColor = Color.White.copy(alpha = 0.3f),
+                    ),
             )
         }
     }
@@ -132,6 +148,5 @@ val Context.settingsDataStore by preferencesDataStore(name = "settings")
 class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-        // アプリケーションの初期化処理
     }
 }
