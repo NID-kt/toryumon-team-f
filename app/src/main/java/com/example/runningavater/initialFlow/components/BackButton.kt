@@ -17,19 +17,18 @@ import com.example.runningavater.ui.theme.RunningAvaterTheme
 @Composable
 fun BackButton(
     navController: NavController,
-//    backDestination: String,
     modifier: Modifier = Modifier,
 ) {
     Button(
         onClick = { navController.popBackStack() },
         modifier =
-            modifier
-                .fillMaxWidth(),
+        modifier
+            .fillMaxWidth(),
         colors =
-            ButtonDefaults.buttonColors(
-                containerColor = GranulatedSugar,
-                contentColor = NuclearMango,
-            ),
+        ButtonDefaults.buttonColors(
+            containerColor = GranulatedSugar,
+            contentColor = NuclearMango,
+        ),
     ) {
         Text(
             text = "戻る",

@@ -27,6 +27,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.runningavater.authentication.AuthenticationScreen
 import com.example.runningavater.growth.GrowthScreen
 import com.example.runningavater.home.HomeScreen
 import com.example.runningavater.initialFlow.initialFlow
@@ -43,13 +44,19 @@ fun MyAppNavHost(
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
+    val startDestination = if (true) "initialFlow/2" else "authentication"
     Scaffold(
         bottomBar = {
-            MainBottomBar(currentDestination, navController)
+            if (currentDestination?.route?.startsWith("initialFlow") != true) {
+                MainBottomBar(currentDestination, navController)
+            }
         },
     ) { paddingValues ->
         // ナビゲーションホストを作成
         NavHost(navController = navController, startDestination = startDestination, modifier = Modifier.padding(paddingValues)) {
+            composable("authentication") {
+                AuthenticationScreen(navController = navController) // 認証画面を表示
+            }
             composable("home") {
                 HomeScreen() // メイン画面を表示
             }
@@ -141,6 +148,5 @@ val Context.settingsDataStore by preferencesDataStore(name = "settings")
 class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-        // アプリケーションの初期化構造
     }
 }
