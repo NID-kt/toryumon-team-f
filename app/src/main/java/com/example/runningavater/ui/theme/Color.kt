@@ -11,5 +11,5 @@ val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
 val NuclearMango = Color(0xFFEDA02C)
-val SungYellow = Color(0xFFFFE6B6)
+val SungYellow = Color(0xFFFEDB81)
 val GranulatedSugar = Color(0xFFFFFCF3)
