@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # チェックアウト
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       # JDKのセットアップ
       - name: set up JDK 17
@@ -51,7 +51,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # チェックアウト
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       # インストール
       - name: Install ktlint
