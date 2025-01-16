@@ -23,7 +23,7 @@ class StepCounterService : Service(), SensorEventListener {
     override fun onCreate() {
         super.onCreate()
 
-
+        // センサーマネージャの取得
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
 
@@ -32,8 +32,10 @@ class StepCounterService : Service(), SensorEventListener {
             stopSelf()
         }
 
+        // 通知チャンネルを作成
         createNotificationChannel()
 
+        // フォアグラウンドサービス用の通知
         val notification = NotificationCompat.Builder(this, "step_service_channel")
             .setContentTitle("Step Counter Service")
             .setContentText("Counting your steps...")
@@ -61,7 +63,7 @@ class StepCounterService : Service(), SensorEventListener {
         if (event?.sensor?.type == Sensor.TYPE_STEP_COUNTER) {
             val steps = event.values[0].toInt()
             Log.d("StepCounterService", "Steps: $steps")
-            totalSteps = steps
+            totalSteps = steps // 保存されたステップ数を更新
         }
     }
 
