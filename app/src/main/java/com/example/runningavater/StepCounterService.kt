@@ -5,6 +5,7 @@ import android.app.NotificationManager
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ServiceInfo
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -13,8 +14,9 @@ import android.os.Build
 import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import androidx.core.app.ServiceCompat
 
-class StepCounterService : Service(), SensorEventListener {
+class StepCounterService : Service() {
 
     private lateinit var sensorManager: SensorManager
     private var stepSensor: Sensor? = null
@@ -23,51 +25,67 @@ class StepCounterService : Service(), SensorEventListener {
     override fun onCreate() {
         super.onCreate()
 
-        // センサーマネージャの取得
-        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
 
-        if (stepSensor == null) {
-            Log.e("StepCounterService", "Step Counter sensor not available!")
-            stopSelf()
-        }
-
-        // 通知チャンネルを作成
-        createNotificationChannel()
-
-        // フォアグラウンドサービス用の通知
-        val notification = NotificationCompat.Builder(this, "step_service_channel")
-            .setContentTitle("Step Counter Service")
-            .setContentText("Counting your steps...")
-            .setSmallIcon(R.drawable.ic_steps)
-            .build()
-
-        startForeground(1, notification)
+//        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+//        stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
+//
+//        if (stepSensor == null) {
+//            Log.e("StepCounterService", "Step Counter sensor not available!")
+//            stopSelf()
+//        }
+//
+//
+//        createNotificationChannel()
+//
+//
+//        val notification = NotificationCompat.Builder(this, "step_service_channel")
+//            .setContentTitle("Step Counter Service")
+//            .setContentText("Counting your steps...")
+//            .setSmallIcon(R.drawable.ic_steps)
+//            .build()
+//
+//        startForeground(1, notification)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        stepSensor?.let {
-            sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_NORMAL)
-        }
+       createNotificationChannel()
+        val notification = NotificationCompat.Builder(this, "step_service_channel")
+            .setContentTitle("Step Counter Service")
+            .setContentText("Counting your steps...")
+            .setSmallIcon(R.drawable.app_icon_yellow)
+            .build()
+        ServiceCompat.startForeground(
+            this,
+            100,
+            notification,
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                ServiceInfo.FOREGROUND_SERVICE_TYPE_HEALTH
+            } else {
+                0
+            },
+        )
+//        stepSensor?.let {
+//            sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_NORMAL)
+//        }
         return START_STICKY
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        sensorManager.unregisterListener(this)
+        //sensorManager.unregisterListener(this)
     }
 
     override fun onBind(intent: Intent?): IBinder? = null
 
-    override fun onSensorChanged(event: SensorEvent?) {
-        if (event?.sensor?.type == Sensor.TYPE_STEP_COUNTER) {
-            val steps = event.values[0].toInt()
-            Log.d("StepCounterService", "Steps: $steps")
-            totalSteps = steps // 保存されたステップ数を更新
-        }
-    }
-
-    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
+//    override fun onSensorChanged(event: SensorEvent?) {
+//        if (event?.sensor?.type == Sensor.TYPE_STEP_COUNTER) {
+//            val steps = event.values[0].toInt()
+//            Log.d("StepCounterService", "Steps: $steps")
+//            totalSteps = steps
+//        }
+//    }
+//
+//    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
 
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

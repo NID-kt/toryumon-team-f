@@ -1,5 +1,6 @@
 package com.example.runningavater.home
 
+import android.content.Intent
 import android.graphics.BitmapFactory
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -25,6 +26,7 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.runningavater.StepCounterService
 import com.example.runningavater.ui.theme.NuclearMango
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -42,6 +44,11 @@ fun HomeScreen() {
             currentDate.value = getCurrentDate()
             kotlinx.coroutines.delay(60000L) // 1分ごとに更新
         }
+    }
+    val context= LocalContext.current
+    LaunchedEffect(key1 = Unit) {
+        val intent = Intent(context,StepCounterService::class.java)
+        context.startForegroundService(intent)
     }
     Scaffold(
         topBar = {
@@ -63,9 +70,9 @@ fun HomeScreen() {
             Bear3D(assetFileLocation = "fatBear.glb")
             Row(
                 modifier =
-                    Modifier
-                        .align(Alignment.TopCenter)
-                        .offset(y = 15.dp),
+                Modifier
+                    .align(Alignment.TopCenter)
+                    .offset(y = 15.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 SetImage(
