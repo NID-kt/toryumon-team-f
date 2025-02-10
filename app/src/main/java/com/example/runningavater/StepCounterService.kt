@@ -12,7 +12,6 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Build
 import android.os.IBinder
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.ServiceCompat
 
@@ -64,6 +63,7 @@ class StepCounterService : Service() {
                 0
             },
         )
+        startcount(this)
 //        stepSensor?.let {
 //            sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_NORMAL)
 //        }
@@ -72,6 +72,7 @@ class StepCounterService : Service() {
 
     override fun onDestroy() {
         super.onDestroy()
+        stopcount(this)
         //sensorManager.unregisterListener(this)
     }
 
@@ -98,4 +99,25 @@ class StepCounterService : Service() {
             manager?.createNotificationChannel(channel)
         }
     }
+}
+
+fun startcount (context: Context ){
+    val sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
+    val sensor: Sensor? = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR)
+    sensorManager.registerListener(Walkcount, sensor, SensorManager.SENSOR_DELAY_NORMAL)
+}
+
+object Walkcount:SensorEventListener{
+    override fun onSensorChanged(p0: SensorEvent?) {
+        println("アボカド")
+    }
+
+    override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
+
+    }
+
+}
+fun stopcount(context: Context){
+    val sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
+    sensorManager.unregisterListener(Walkcount)
 }
