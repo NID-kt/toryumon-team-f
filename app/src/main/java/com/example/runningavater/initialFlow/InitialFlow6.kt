@@ -79,7 +79,7 @@ fun InitialFlow6Screen(
                 )
                 NextButton(
                     navController = navController,
-                    nextDestination = "initialFlow/8",
+                    nextDestination = "initialFlow/7",
                     modifier = Modifier.padding(20.dp, 0.dp, 20.dp, 10.dp),
                 )
                 BackButton(

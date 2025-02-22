@@ -44,7 +44,7 @@ fun MyAppNavHost(
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
-    val startDestination = if (true) "initialFlow/2" else "authentication"
+    val startDestination = if (true) "initialFlow/1" else "authentication"
     Scaffold(
         bottomBar = {
             if (currentDestination?.route?.startsWith("initialFlow") != true) {
