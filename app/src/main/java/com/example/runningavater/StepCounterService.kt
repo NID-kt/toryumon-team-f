@@ -22,14 +22,12 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 class StepCounterService : Service() {
-
     private lateinit var sensorManager: SensorManager
     private var stepSensor: Sensor? = null
     private var totalSteps = 0
 
     override fun onCreate() {
         super.onCreate()
-
 
 //        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
 //        stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
@@ -51,16 +49,22 @@ class StepCounterService : Service() {
 //
 //        startForeground(1, notification)
     }
-    val coroutineScope=CoroutineScope(SupervisorJob())
-    val walkcount=Walkcount(this,coroutineScope)
 
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-       createNotificationChannel()
-        val notification = NotificationCompat.Builder(this, "step_service_channel")
-            .setContentTitle("Step Counter Service")
-            .setContentText("Counting your steps...")
-            .setSmallIcon(R.drawable.app_icon_yellow)
-            .build()
+    val coroutineScope = CoroutineScope(SupervisorJob())
+    val walkcount = Walkcount(this, coroutineScope)
+
+    override fun onStartCommand(
+        intent: Intent?,
+        flags: Int,
+        startId: Int,
+    ): Int {
+        createNotificationChannel()
+        val notification =
+            NotificationCompat.Builder(this, "step_service_channel")
+                .setContentTitle("Step Counter Service")
+                .setContentText("Counting your steps...")
+                .setSmallIcon(R.drawable.app_icon_yellow)
+                .build()
         ServiceCompat.startForeground(
             this,
             100,
@@ -71,7 +75,7 @@ class StepCounterService : Service() {
                 0
             },
         )
-        startcount(this,walkcount)
+        startcount(this, walkcount)
 //        stepSensor?.let {
 //            sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_NORMAL)
 //        }
@@ -80,8 +84,8 @@ class StepCounterService : Service() {
 
     override fun onDestroy() {
         super.onDestroy()
-        stopcount(this,walkcount)
-        //sensorManager.unregisterListener(this)
+        stopcount(this, walkcount)
+        // sensorManager.unregisterListener(this)
         coroutineScope.cancel()
     }
 
@@ -99,38 +103,46 @@ class StepCounterService : Service() {
 
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                "step_service_channel",
-                "Step Counter Service",
-                NotificationManager.IMPORTANCE_LOW
-            )
+            val channel =
+                NotificationChannel(
+                    "step_service_channel",
+                    "Step Counter Service",
+                    NotificationManager.IMPORTANCE_LOW,
+                )
             val manager = getSystemService(NotificationManager::class.java)
             manager?.createNotificationChannel(channel)
         }
     }
 }
 
-fun startcount (context: Context ,walkcount: Walkcount){
+fun startcount(
+    context: Context,
+    walkcount: Walkcount,
+)  {
     val sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
     val sensor: Sensor? = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR)
     sensorManager.registerListener(walkcount, sensor, SensorManager.SENSOR_DELAY_NORMAL)
 }
 
-class Walkcount(val context: Context,val coroutineScope: CoroutineScope):SensorEventListener{
+class Walkcount(val context: Context, val coroutineScope: CoroutineScope) : SensorEventListener {
     override fun onSensorChanged(p0: SensorEvent?) {
-        coroutineScope.launch (Dispatchers.IO){
-            val app= context.applicationContext as MainApplication
-            app.db.stepDateDao().insertAll(StepDate(id = 0,System.currentTimeMillis()))
+        coroutineScope.launch(Dispatchers.IO) {
+            val app = context.applicationContext as MainApplication
+            app.db.stepDateDao().insertAll(StepDate(id = 0, System.currentTimeMillis()))
         }
-        }
-
-
-    override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
-
     }
 
+    override fun onAccuracyChanged(
+        p0: Sensor?,
+        p1: Int,
+    ) {
+    }
 }
-fun stopcount(context: Context,walkcount: Walkcount){
+
+fun stopcount(
+    context: Context,
+    walkcount: Walkcount,
+)  {
     val sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
     sensorManager.unregisterListener(walkcount)
 }
