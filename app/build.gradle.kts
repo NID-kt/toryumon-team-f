@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jlleitschuh.gradle.ktlint")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -83,4 +84,10 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     implementation("com.github.PhilJay:MPAndroidChart:3.1.0")
     implementation("io.coil-kt:coil-compose:2.7.0")
+
+    val room_version = "2.6.1"
+
+    implementation("androidx.room:room-runtime:$room_version")
+    ksp("androidx.room:room-compiler:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
 }

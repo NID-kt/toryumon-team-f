@@ -14,6 +14,7 @@ import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import androidx.core.app.ServiceCompat
+import com.example.runningavater.db.StepDate
 
 class StepCounterService : Service() {
 
@@ -45,6 +46,7 @@ class StepCounterService : Service() {
 //
 //        startForeground(1, notification)
     }
+    val walkcount=Walkcount(this)
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
        createNotificationChannel()
@@ -63,7 +65,7 @@ class StepCounterService : Service() {
                 0
             },
         )
-        startcount(this)
+        startcount(this,walkcount)
 //        stepSensor?.let {
 //            sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_NORMAL)
 //        }
@@ -72,7 +74,7 @@ class StepCounterService : Service() {
 
     override fun onDestroy() {
         super.onDestroy()
-        stopcount(this)
+        stopcount(this,walkcount)
         //sensorManager.unregisterListener(this)
     }
 
@@ -101,15 +103,16 @@ class StepCounterService : Service() {
     }
 }
 
-fun startcount (context: Context ){
+fun startcount (context: Context ,walkcount: Walkcount){
     val sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
     val sensor: Sensor? = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR)
-    sensorManager.registerListener(Walkcount, sensor, SensorManager.SENSOR_DELAY_NORMAL)
+    sensorManager.registerListener(walkcount, sensor, SensorManager.SENSOR_DELAY_NORMAL)
 }
 
-object Walkcount:SensorEventListener{
+class Walkcount(val context: Context):SensorEventListener{
     override fun onSensorChanged(p0: SensorEvent?) {
-        println("アボカド")
+       val app= context.applicationContext as MainApplication
+        app.db.stepDateDao().insertAll(StepDate(id = 0,System.currentTimeMillis()))
     }
 
     override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
@@ -117,7 +120,7 @@ object Walkcount:SensorEventListener{
     }
 
 }
-fun stopcount(context: Context){
+fun stopcount(context: Context,walkcount: Walkcount){
     val sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
-    sensorManager.unregisterListener(Walkcount)
+    sensorManager.unregisterListener(walkcount)
 }
