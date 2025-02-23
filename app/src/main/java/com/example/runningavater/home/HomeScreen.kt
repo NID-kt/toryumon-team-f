@@ -1,5 +1,6 @@
 package com.example.runningavater.home
 
+import android.content.Intent
 import android.graphics.BitmapFactory
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -25,8 +26,14 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.runningavater.MainApplication
+import com.example.runningavater.StepCounterService
 import com.example.runningavater.ui.theme.NuclearMango
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.ZoneId
 import java.util.Date
 import java.util.Locale
 
@@ -41,6 +48,33 @@ fun HomeScreen() {
         while (true) {
             currentDate.value = getCurrentDate()
             kotlinx.coroutines.delay(60000L) // 1分ごとに更新
+        }
+    }
+    val context = LocalContext.current
+    LaunchedEffect(key1 = Unit) {
+        val intent = Intent(context, StepCounterService::class.java)
+        context.startForegroundService(intent)
+    }
+    val stepcount = remember { mutableStateOf<Int?>(null) }
+    LaunchedEffect(key1 = Unit) {
+        val now = LocalDateTime.now() // 2025/02/23 23:52:10.123
+
+        val todayStart =
+            now
+                .withHour(0) // 2025/02/23 00:52:10.123
+                .withMinute(0) // 2025/02/23 00:00:10.123
+                .withSecond(0) // 2025/02/23 00:00:00.123
+                .withNano(0) // 2025/02/23 00:00:00.000000
+
+        val todayEnd =
+            now
+                .withHour(23) // 2025/02/23 00:52:10.123
+                .withMinute(59) // 2025/02/23 00:00:10.123
+                .withSecond(59) // 2025/02/23 00:00:00.123
+                .withNano(999999999) // 2025/02/23 00:00:00.000000
+        launch(Dispatchers.IO) {
+            val app = context.applicationContext as MainApplication
+            stepcount.value = app.db.stepDateDao().getTotalWalk(todayStart.toEpochMillis(), todayEnd.toEpochMillis())
         }
     }
     Scaffold(
@@ -75,7 +109,7 @@ fun HomeScreen() {
 
                 // 歩数の数字の部分
                 Text(
-                    text = "35",
+                    stepcount.value.toString(),
                     fontSize = 96.sp,
                     color = NuclearMango,
                 )
@@ -120,4 +154,8 @@ fun SetImage(
         contentDescription = null,
         modifier = modifier,
     )
+}
+
+fun LocalDateTime.toEpochMillis(zoneId: ZoneId = ZoneId.systemDefault()): Long {
+    return this.atZone(zoneId).toInstant().toEpochMilli()
 }
