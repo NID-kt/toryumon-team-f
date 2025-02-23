@@ -15,6 +15,11 @@ import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import androidx.core.app.ServiceCompat
 import com.example.runningavater.db.StepDate
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 
 class StepCounterService : Service() {
 
@@ -46,7 +51,8 @@ class StepCounterService : Service() {
 //
 //        startForeground(1, notification)
     }
-    val walkcount=Walkcount(this)
+    val coroutineScope=CoroutineScope(SupervisorJob())
+    val walkcount=Walkcount(this,coroutineScope)
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
        createNotificationChannel()
@@ -76,6 +82,7 @@ class StepCounterService : Service() {
         super.onDestroy()
         stopcount(this,walkcount)
         //sensorManager.unregisterListener(this)
+        coroutineScope.cancel()
     }
 
     override fun onBind(intent: Intent?): IBinder? = null
@@ -109,11 +116,14 @@ fun startcount (context: Context ,walkcount: Walkcount){
     sensorManager.registerListener(walkcount, sensor, SensorManager.SENSOR_DELAY_NORMAL)
 }
 
-class Walkcount(val context: Context):SensorEventListener{
+class Walkcount(val context: Context,val coroutineScope: CoroutineScope):SensorEventListener{
     override fun onSensorChanged(p0: SensorEvent?) {
-       val app= context.applicationContext as MainApplication
-        app.db.stepDateDao().insertAll(StepDate(id = 0,System.currentTimeMillis()))
-    }
+        coroutineScope.launch (Dispatchers.IO){
+            val app= context.applicationContext as MainApplication
+            app.db.stepDateDao().insertAll(StepDate(id = 0,System.currentTimeMillis()))
+        }
+        }
+
 
     override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
 
