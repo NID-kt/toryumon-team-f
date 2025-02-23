@@ -1,5 +1,7 @@
 package com.example.runningavater
 
+import android.app.Application
+import android.content.Context
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -16,6 +18,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -24,6 +27,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.runningavater.authentication.AuthenticationScreen
 import com.example.runningavater.growth.GrowthScreen
 import com.example.runningavater.home.HomeScreen
 import com.example.runningavater.initialFlow.initialFlow
@@ -36,17 +40,23 @@ import com.example.runningavater.ui.theme.NuclearMango
 @Composable
 fun MyAppNavHost(
     navController: NavHostController = rememberNavController(),
-    startDestination: String = "home", // メイン画面をスタート画面に設定
+    startDestination: String = "initialFlow/1", // メイン画面をスタート画面に設定
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
+    val startDestination = if (true) "initialFlow/2" else "authentication"
     Scaffold(
         bottomBar = {
-            MainBottomBar(currentDestination, navController)
+            if (currentDestination?.route?.startsWith("initialFlow") != true) {
+                MainBottomBar(currentDestination, navController)
+            }
         },
     ) { paddingValues ->
         // ナビゲーションホストを作成
         NavHost(navController = navController, startDestination = startDestination, modifier = Modifier.padding(paddingValues)) {
+            composable("authentication") {
+                AuthenticationScreen(navController = navController) // 認証画面を表示
+            }
             composable("home") {
                 HomeScreen() // メイン画面を表示
             }
@@ -65,7 +75,7 @@ fun MyAppNavHost(
             composable(route = "settings/goalsettings") {
                 GoalSettingsScreen() // 歩数画面を表示
             }
-            initialFlow()
+            initialFlow(navController)
         }
     }
 }
@@ -131,4 +141,12 @@ enum class MainScreenTab(
         label = "設定",
         route = "settings",
     ),
+}
+
+val Context.settingsDataStore by preferencesDataStore(name = "settings")
+
+class MyApplication : Application() {
+    override fun onCreate() {
+        super.onCreate()
+    }
 }
