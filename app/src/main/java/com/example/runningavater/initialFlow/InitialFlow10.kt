@@ -1,5 +1,7 @@
 package com.example.runningavater.initialFlow
 
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -71,7 +74,12 @@ fun InitialFlow10Screen(navController: NavHostController) {
                         .align(Alignment.BottomEnd)
                         .padding(0.dp, 0.dp, 0.dp, 20.dp),
             ) {
+                val context = LocalContext.current // Context を取得
+                val prefs: SharedPreferences = context.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
                 NextButton(
+                    onClick = {
+                        prefs.edit().putBoolean("is_first_launch", false).apply()
+                    },
                     navController = navController,
                     nextDestination = "authentication",
                     text = "始める",

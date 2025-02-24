@@ -66,7 +66,7 @@ fun InitialFlow2Screen(navController: NavHostController) {
             ) {
                 NextButton(
                     navController = navController,
-                    nextDestination = "initialFlow/5",
+                    nextDestination = "initialFlow/3",
                     modifier = Modifier.padding(20.dp, 0.dp, 20.dp, 10.dp),
                 )
             }

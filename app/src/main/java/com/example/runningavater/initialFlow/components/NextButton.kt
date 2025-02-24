@@ -20,7 +20,10 @@ fun NextButton(
     onClick: (() -> Unit)? = null,
 ) {
     Button(
-        onClick = { navController.navigate(nextDestination) },
+        onClick = {
+            onClick?.invoke()
+            navController.navigate(nextDestination)
+        },
         modifier =
             modifier
                 .fillMaxWidth(),

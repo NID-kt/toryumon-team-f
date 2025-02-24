@@ -4,11 +4,11 @@
     <selectionStates>
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2024-11-07T14:05:31.826862900Z">
+        <DropdownSelection timestamp="2025-02-22T08:20:23.830159200Z">
           <Target type="DEFAULT_BOOT">
-            <handle>
-              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\takum\.android\avd\Pixel_8_API_34.avd" />
-            </handle>
+            <template>
+              <DeviceId pluginId="FirebaseDirectAccess" type="TEMPLATE" identifier="model_id=akita/34" />
+            </template>
           </Target>
         </DropdownSelection>
         <DialogSelection />
@@ -40,11 +40,14 @@
       </SelectionState>
       <SelectionState runConfigName="InitialFlow7Preview">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2024-12-05T13:16:35.395959900Z">
+        <DropdownSelection timestamp="2025-02-24T16:05:13.038225600Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\takum\.android\avd\Pixel_8_API_34.avd" />
+              <DeviceId pluginId="FirebaseDirectAccess" identifier="reservation=projects/tekuteku-diet/deviceSessions/session-2yfws1dozz1r8" />
             </handle>
+            <template>
+              <DeviceId pluginId="FirebaseDirectAccess" type="TEMPLATE" identifier="model_id=akita/34" />
+            </template>
           </Target>
         </DropdownSelection>
         <DialogSelection />

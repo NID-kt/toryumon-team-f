@@ -22,13 +22,13 @@ fun BackButton(
     Button(
         onClick = { navController.popBackStack() },
         modifier =
-        modifier
-            .fillMaxWidth(),
+            modifier
+                .fillMaxWidth(),
         colors =
-        ButtonDefaults.buttonColors(
-            containerColor = GranulatedSugar,
-            contentColor = NuclearMango,
-        ),
+            ButtonDefaults.buttonColors(
+                containerColor = GranulatedSugar,
+                contentColor = NuclearMango,
+            ),
     ) {
         Text(
             text = "戻る",

@@ -2,6 +2,7 @@ package com.example.runningavater
 
 import android.app.Application
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -18,6 +19,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -37,14 +39,26 @@ import com.example.runningavater.settings.SettingsScreen
 import com.example.runningavater.settings.SpanSettingsScreen
 import com.example.runningavater.ui.theme.NuclearMango
 
+fun getStartDestination(context: Context): String {
+    val prefs: SharedPreferences = context.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+    val isFirstLaunch = prefs.getBoolean("is_first_launch", true)
+
+    if (isFirstLaunch) {
+        return "initialFlow/1"
+    } else {
+        return "authentication"
+    }
+}
+
 @Composable
 fun MyAppNavHost(
     navController: NavHostController = rememberNavController(),
-    startDestination: String = "initialFlow/1", // メイン画面をスタート画面に設定
+    // startDestination: String = "initialFlow/1", // メイン画面をスタート画面に設定
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
-    val startDestination = if (true) "initialFlow/2" else "authentication"
+    val context = LocalContext.current
+    val startDestination = getStartDestination(context)
     Scaffold(
         bottomBar = {
             if (currentDestination?.route?.startsWith("initialFlow") != true) {
