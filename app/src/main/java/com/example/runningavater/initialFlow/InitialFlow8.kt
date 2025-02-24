@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -27,6 +28,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -57,6 +60,7 @@ fun InitialFlow8Screen(navController: NavHostController) {
     val viewModel: TargetSettings = viewModel()
     val context = LocalContext.current
     val text = remember { mutableStateOf("") }
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     InitialFlowBackground {
         Box(modifier = Modifier.fillMaxSize()) {
@@ -101,7 +105,15 @@ fun InitialFlow8Screen(navController: NavHostController) {
                     keyboardOptions =
                         KeyboardOptions(
                             keyboardType = KeyboardType.Number,
+                            imeAction = ImeAction.Done,
                         ),
+                    keyboardActions =
+                        KeyboardActions(
+                            onDone = {
+                                keyboardController?.hide()
+                            },
+                        ),
+                    singleLine = true,
                 )
                 Text(
                     text = "目標期間",
