@@ -93,8 +93,9 @@ fun InitialFlow5Screen(navController: NavHostController) {
                     onValueChange = { newValue -> text.value = newValue },
                     placeholder = { Text(text = "名前をここに入力してね") },
                     colors =
-                        TextFieldDefaults.textFieldColors(
-                            containerColor = GranulatedSugar,
+                        TextFieldDefaults.colors(
+                            focusedContainerColor = GranulatedSugar,
+                            unfocusedLabelColor = GranulatedSugar,
                         ),
                     modifier =
                         Modifier
