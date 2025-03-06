@@ -29,19 +29,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import bearName
 import com.example.runningavater.R
 import com.example.runningavater.initialFlow.components.BackButton
 import com.example.runningavater.initialFlow.components.InitialFlowBackground
 import com.example.runningavater.initialFlow.components.NextButton
-import com.example.runningavater.settingsDataStore
 import com.example.runningavater.ui.theme.GranulatedSugar
 import com.example.runningavater.ui.theme.RunningAvaterTheme
+import dataStore
 import kotlinx.coroutines.launch
 
 @SuppressLint("ComposeViewModelInjection")
@@ -55,10 +55,10 @@ fun InitialFlow5Screen(navController: NavHostController) {
         Box(modifier = Modifier.fillMaxSize()) {
             Column(
                 modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .align(Alignment.TopCenter)
-                        .padding(top = 48.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.TopCenter)
+                    .padding(top = 48.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
@@ -72,40 +72,40 @@ fun InitialFlow5Screen(navController: NavHostController) {
                     painter = painterResource(id = R.drawable.initialflow56),
                     contentDescription = "くまちゃん",
                     modifier =
-                        Modifier
-                            .padding(
-                                top = 20.dp,
-                                bottom = 20.dp,
-                            )
-                            .size(200.dp)
-                            .zIndex(-1f),
+                    Modifier
+                        .padding(
+                            top = 20.dp,
+                            bottom = 20.dp,
+                        )
+                        .size(200.dp)
+                        .zIndex(-1f),
                 )
                 TextField(
                     value = text.value,
                     onValueChange = { newValue -> text.value = newValue },
                     placeholder = { Text(text = "名前をここに入力してね") },
                     colors =
-                        TextFieldDefaults.textFieldColors(
-                            containerColor = GranulatedSugar,
-                        ),
+                    TextFieldDefaults.textFieldColors(
+                        containerColor = GranulatedSugar,
+                    ),
                     modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 10.dp),
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 10.dp),
                 )
                 Text(
                     text = "※名前は後から変更できるよ",
                     modifier =
-                        Modifier
-                            .align(Alignment.End)
-                            .padding(end = 20.dp),
+                    Modifier
+                        .align(Alignment.End)
+                        .padding(end = 20.dp),
                 )
             }
             Column(
                 modifier =
-                    Modifier
-                        .align(Alignment.BottomStart)
-                        .padding(0.dp, 0.dp, 0.dp, 80.dp),
+                Modifier
+                    .align(Alignment.BottomStart)
+                    .padding(0.dp, 0.dp, 0.dp, 80.dp),
             ) {
                 NextButton(
                     navController = navController,
@@ -118,9 +118,9 @@ fun InitialFlow5Screen(navController: NavHostController) {
             }
             Column(
                 modifier =
-                    Modifier
-                        .align(Alignment.BottomEnd)
-                        .padding(20.dp),
+                Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(20.dp),
             ) {
                 BackButton(
                     navController = navController,
@@ -132,14 +132,13 @@ fun InitialFlow5Screen(navController: NavHostController) {
 
 // ViewModel内にDataStore書き込みの処理を追加
 class YourViewModel : ViewModel() {
-    val bearName = stringPreferencesKey("bearName")
 
     fun saveNameToDataStore(
         context: Context,
         name: String,
     ) {
         viewModelScope.launch {
-            context.settingsDataStore.edit { preferences ->
+            context.dataStore.edit { preferences ->
                 preferences[bearName] = name // 入力した文字列(name)を保存
             }
         }
