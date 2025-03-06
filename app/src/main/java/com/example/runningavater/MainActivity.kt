@@ -1,9 +1,9 @@
 package com.example.runningavater
+import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,8 +16,6 @@ import androidx.core.content.ContextCompat.startForegroundService
 import androidx.fragment.app.FragmentActivity
 import com.example.runningavater.notification.createNotificationChannels
 import com.example.runningavater.ui.theme.RunningAvaterTheme
-import android.Manifest
-
 
 class MainActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +45,6 @@ class MainActivity : FragmentActivity() {
             }
         }
     }
-
 
     private fun startStepCounterService() {
         val intent = Intent(this, StepCounterService::class.java)
