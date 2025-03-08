@@ -171,7 +171,7 @@ fun InitialFlow8Screen(navController: NavHostController) {
             ) {
                 NextButton(
                     navController = navController,
-                    nextDestination = "initialFlow/10",
+                    nextDestination = "initialFlow/9",
                     modifier = Modifier.padding(20.dp, 0.dp, 20.dp, 10.dp),
                     onClick = {
                         viewModel.viewModelScope.launch {

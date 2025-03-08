@@ -10,4 +10,7 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "da
 val bearName = stringPreferencesKey("bearName")
 val targetPeriod = stringPreferencesKey("target_period")
 val targetSteps = stringPreferencesKey("target_steps")
+val userName = stringPreferencesKey("UserName")
+val userIcon = stringPreferencesKey("UserIcon")
+val enthusiaasm = stringPreferencesKey("Enthusiasm")
 

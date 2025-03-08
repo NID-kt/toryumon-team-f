@@ -44,7 +44,8 @@ import com.example.runningavater.ui.theme.NuclearMango
 @Composable
 fun MyAppNavHost(
     navController: NavHostController = rememberNavController(),
-    startDestination: String = "settings", // メイン画面をスタート画面に設定
+//    startDestination: String = "settings", // [デバッグ]メイン画面を設定画面に設定
+    startDestination: String = "initialFlow/1", // メイン画面を初期フロー1に設定
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination

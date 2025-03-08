@@ -34,7 +34,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -45,10 +44,12 @@ import com.example.runningavater.R
 import com.example.runningavater.initialFlow.components.BackButton
 import com.example.runningavater.initialFlow.components.InitialFlowBackground
 import com.example.runningavater.initialFlow.components.NextButton
-import com.example.runningavater.settingsDataStore
 import com.example.runningavater.ui.theme.GranulatedSugar
 import com.example.runningavater.ui.theme.RunningAvaterTheme
+import dataStore
 import kotlinx.coroutines.launch
+import userIcon
+import userName
 
 @SuppressLint("ComposeViewModelInjection")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -68,15 +69,15 @@ fun InitialFlow7Screen(navController: NavHostController) {
     InitialFlowBackground {
         Box(
             modifier =
-                Modifier
-                    .fillMaxSize(),
+            Modifier
+                .fillMaxSize(),
         ) {
             Column(
                 modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .align(Alignment.TopCenter)
-                        .padding(0.dp, 50.dp, 0.dp, 0.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.TopCenter)
+                    .padding(0.dp, 50.dp, 0.dp, 0.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
@@ -94,21 +95,21 @@ fun InitialFlow7Screen(navController: NavHostController) {
                         model = imageUri,
                         contentDescription = null,
                         modifier =
-                            Modifier
-                                .offset((0.dp), (35.dp))
-                                .size(220.dp)
-                                .clickable { launcher.launch("image/%") },
+                        Modifier
+                            .offset((0.dp), (35.dp))
+                            .size(220.dp)
+                            .clickable { launcher.launch("image/%") },
                     )
                 } else {
                     Image(
                         painter = painterResource(id = R.drawable.initial_icon),
                         contentDescription = "初期アイコン",
                         modifier =
-                            Modifier
-                                .offset((0.dp), (35.dp))
-                                .size(220.dp)
-                                .clip(CircleShape)
-                                .clickable { launcher.launch("image/%") },
+                        Modifier
+                            .offset((0.dp), (35.dp))
+                            .size(220.dp)
+                            .clip(CircleShape)
+                            .clickable { launcher.launch("image/%") },
                     )
                 }
                 TextField(
@@ -116,35 +117,35 @@ fun InitialFlow7Screen(navController: NavHostController) {
                     onValueChange = { newValue -> text.value = newValue },
                     placeholder = { Text(text = "名前をここに入力してね") },
                     colors =
-                        TextFieldDefaults.textFieldColors(
-                            containerColor = GranulatedSugar,
-                        ),
+                    TextFieldDefaults.textFieldColors(
+                        containerColor = GranulatedSugar,
+                    ),
                     modifier =
-                        Modifier
-                            .padding(0.dp, 40.dp, 0.dp, 0.dp)
-                            .clip(CircleShape)
-                            .size(350.dp, 55.dp),
+                    Modifier
+                        .padding(0.dp, 40.dp, 0.dp, 0.dp)
+                        .clip(CircleShape)
+                        .size(350.dp, 55.dp),
                 )
                 Text(
                     text = "※名前とアイコンは",
                     modifier =
-                        Modifier
-                            .align(Alignment.End)
-                            .padding(end = 100.dp),
+                    Modifier
+                        .align(Alignment.End)
+                        .padding(end = 100.dp),
                 )
                 Text(
                     text = "後から変更できるよ",
                     modifier =
-                        Modifier
-                            .align(Alignment.End)
-                            .padding(end = 20.dp),
+                    Modifier
+                        .align(Alignment.End)
+                        .padding(end = 20.dp),
                 )
             }
             Column(
                 modifier =
-                    Modifier
-                        .align(Alignment.BottomStart)
-                        .padding(20.dp, 0.dp, 20.dp, 90.dp),
+                Modifier
+                    .align(Alignment.BottomStart)
+                    .padding(20.dp, 0.dp, 20.dp, 90.dp),
             ) {
                 NextButton(
                     navController = navController,
@@ -161,9 +162,9 @@ fun InitialFlow7Screen(navController: NavHostController) {
             }
             Column(
                 modifier =
-                    Modifier
-                        .align(Alignment.BottomEnd)
-                        .padding(20.dp),
+                Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(20.dp),
             ) {
                 BackButton(
                     navController = navController,
@@ -174,16 +175,13 @@ fun InitialFlow7Screen(navController: NavHostController) {
 }
 
 class UserProfileViewModel : ViewModel() {
-    val userName = stringPreferencesKey("UserName")
-    val userIcon = stringPreferencesKey("UserIcon")
 
     fun saveNameToDateStore(
         context: Context,
         name: String,
     ) {
         viewModelScope.launch {
-            context.settingsDataStore.edit {
-                    preferences ->
+            context.dataStore.edit { preferences ->
                 preferences[userName] = name
             }
         }
@@ -194,8 +192,7 @@ class UserProfileViewModel : ViewModel() {
         usericon: String,
     ) {
         viewModelScope.launch {
-            context.settingsDataStore.edit {
-                    preferences ->
+            context.dataStore.edit { preferences ->
                 preferences[userIcon] = usericon
             }
         }
