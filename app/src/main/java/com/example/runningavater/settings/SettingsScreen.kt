@@ -13,6 +13,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,16 +25,23 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.example.runningavater.R
+import com.example.runningavater.ui.theme.GranulatedSugar
+import com.example.runningavater.ui.theme.NuclearMango
+import com.example.runningavater.ui.theme.RunningAvaterTheme
+import com.example.runningavater.ui.theme.SungYellow
 
 @Composable
 fun SettingsScreen(
@@ -40,19 +50,24 @@ fun SettingsScreen(
     modifier: Modifier = Modifier,
 ) {
     Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
         modifier =
-            modifier
-                .padding(16.dp)
-                .fillMaxSize(),
+        modifier
+            .fillMaxSize()
+            .background(SungYellow)
+            .padding(top = 46.dp)
     ) {
         Text(
-            text = "設定画面",
-            fontSize = 20.sp,
+            text = "設定",
+            fontSize = 32.sp,
             fontWeight = FontWeight.Bold,
+            color = NuclearMango,
             modifier =
-                Modifier
-                    .padding(bottom = 16.dp)
-                    .fillMaxWidth(),
+            Modifier
+                .padding(bottom = 40.dp)
+                .clip(RoundedCornerShape(4.dp))
+                .background(GranulatedSugar)
+                .padding(horizontal = 22.dp),
             textAlign = androidx.compose.ui.text.style.TextAlign.Center,
         )
         ProfileSection(navController, profileImageUri)
@@ -69,20 +84,28 @@ fun GoalSettingsSection(
 ) {
     Row(
         modifier =
-            Modifier
-                .fillMaxWidth()
-                .clickable(onClick = { navController.navigate("settings/goalsettings") })
-                .padding(vertical = 8.dp)
-                .background(Color.White, shape = RoundedCornerShape(8.dp)),
+        Modifier
+            .fillMaxWidth()
+//            .size(54.dp)
+            .clickable(onClick = { navController.navigate("settings/goalsettings") })
+            .padding(
+                vertical = 33.dp,
+                horizontal = 5.dp
+            )
+            .clip(RoundedCornerShape(16.dp))
+            .background(GranulatedSugar)
+            .padding(vertical = 16.dp),
+
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
-            text = "歩数設定",
-            fontSize = 20.sp,
+            text = "歩数の開始記録日",
+            fontSize = 18.sp,
+            color = NuclearMango,
             modifier =
-                Modifier
-                    .padding(start = 16.dp)
-                    .weight(1f),
+            Modifier
+                .padding(start = 16.dp)
+                .weight(1f),
         )
     }
 }
@@ -91,20 +114,24 @@ fun GoalSettingsSection(
 fun SpanSettingsSection(navController: NavHostController) {
     Row(
         modifier =
-            Modifier
-                .fillMaxWidth()
-                .clickable(onClick = { navController.navigate("settings/spansettings") })
-                .padding(vertical = 8.dp)
-                .background(Color.White, shape = RoundedCornerShape(8.dp)),
+        Modifier
+            .fillMaxWidth()
+            .clickable(onClick = { navController.navigate("settings/spansettings") })
+            .padding(bottom = 33.dp)
+            .padding(horizontal = 5.dp)
+            .clip(RoundedCornerShape(16.dp))
+            .background(GranulatedSugar, shape = RoundedCornerShape(8.dp))
+            .padding(vertical = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
             text = "期間設定",
             fontSize = 20.sp,
+            color = NuclearMango,
             modifier =
-                Modifier
-                    .padding(start = 16.dp)
-                    .weight(1f),
+            Modifier
+                .padding(start = 16.dp)
+                .weight(1f),
         )
     }
 }
@@ -115,18 +142,22 @@ fun NotificationSettingsSection() {
 
     Row(
         modifier =
-            Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp),
+        Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 5.dp)
+            .clip(RoundedCornerShape(16.dp))
+            .background(GranulatedSugar)
+            .padding(vertical = 10.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
             text = "通知設定",
             fontSize = 18.sp,
+            color = NuclearMango,
             modifier =
-                Modifier
-                    .padding(start = 16.dp)
-                    .weight(1f),
+            Modifier
+                .padding(start = 16.dp)
+                .weight(1f),
         )
         Switch(
             checked = checked,
@@ -143,30 +174,35 @@ fun ProfileSection(
 ) {
     Row(
         modifier =
-            Modifier
-                .fillMaxWidth()
-                .clickable(onClick = { navController.navigate("settings/profile") })
-                .padding(vertical = 8.dp)
-                .background(Color.White, shape = RoundedCornerShape(8.dp)),
+        Modifier
+            .padding(
+                vertical = 10.dp,
+                horizontal = 5.dp
+            )
+            .fillMaxWidth()
+            .clickable(onClick = { navController.navigate("settings/profile") })
+            .clip(RoundedCornerShape(20.dp))
+            .background(GranulatedSugar, shape = RoundedCornerShape(8.dp))
+            .padding(vertical = 20.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Box(
             modifier =
-                Modifier
-                    .size(48.dp)
-                    .padding(8.dp)
-                    .background(Color.Gray, shape = CircleShape),
+            Modifier
+                .padding(horizontal = 8.dp)
+                .size(70.dp)
+                .background(Color.Gray, shape = CircleShape),
         ) {
             if (profileImageUri != null) {
                 Image(
                     painter =
-                        rememberAsyncImagePainter(
-                            model =
-                                ImageRequest
-                                    .Builder(LocalContext.current)
-                                    .data(profileImageUri)
-                                    .build(),
-                        ),
+                    rememberAsyncImagePainter(
+                        model =
+                        ImageRequest
+                            .Builder(LocalContext.current)
+                            .data(profileImageUri)
+                            .build(),
+                    ),
                     contentDescription = "Profile Image",
                     modifier = Modifier.size(48.dp),
                 )
@@ -174,17 +210,47 @@ fun ProfileSection(
                 Image(
                     painter = painterResource(id = R.drawable.test),
                     contentDescription = "Profile Image",
-                    modifier = Modifier.size(48.dp),
+                    modifier = Modifier.size(70.dp),
                 )
             }
         }
-        Text(
-            text = "プロフィール",
-            fontSize = 20.sp,
-            modifier =
+        Column(
+            modifier = Modifier
+                .weight(1f),
+        ) {
+            Text(
+                text = "プロフィール",
+                fontSize = 32.sp,
+                color = NuclearMango,
+                modifier =
                 Modifier
                     .padding(start = 20.dp)
-                    .weight(1f),
+            )
+            Text(
+                text = "uuid",
+                fontSize = 18.sp,
+                color = NuclearMango,
+                modifier =
+                Modifier
+                    .padding(start = 20.dp)
+            )
+        }
+        Icon(
+            imageVector = Icons.Default.KeyboardArrowRight, contentDescription = "Profile",
+            modifier = Modifier
+                .padding(end = 10.dp)
+                .size(40.dp),
         )
+
     }
+}
+
+
+@Preview
+@Composable
+private fun SettingScreenPreview() {
+    RunningAvaterTheme {
+        SettingsScreen(navController = rememberNavController(), profileImageUri = null)
+    }
+
 }
