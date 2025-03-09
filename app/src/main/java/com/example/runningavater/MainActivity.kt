@@ -1,4 +1,5 @@
 package com.example.runningavater
+
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -20,6 +21,7 @@ import com.example.runningavater.ui.theme.RunningAvaterTheme
 class MainActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q &&
             ContextCompat.checkSelfPermission(this, Manifest.permission.ACTIVITY_RECOGNITION) != PackageManager.PERMISSION_GRANTED
         ) {
@@ -32,10 +34,9 @@ class MainActivity : FragmentActivity() {
         // /今は一旦ここに置いているがクマの名前を登録してから実行する
         createNotificationChannels(context = this, bearname = "権左衛門")
         startStepCounterService()
+
         setContent {
             RunningAvaterTheme {
-                // A surface container using the 'background' color from the theme
-                // 背景色をテーマから取得
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
