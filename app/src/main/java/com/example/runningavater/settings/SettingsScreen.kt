@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Switch
@@ -49,6 +50,9 @@ fun SettingsScreen(
     profileImageUri: Uri?,
     modifier: Modifier = Modifier,
 ) {
+    val openAlertDialog = remember { mutableStateOf(false) }
+    var checked by remember { mutableStateOf(false) }
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier =
@@ -57,6 +61,20 @@ fun SettingsScreen(
             .background(SungYellow)
             .padding(top = 46.dp)
     ) {
+        when {
+            openAlertDialog.value -> {
+                GoalSettingDialog(
+                    onDismissRequest = { openAlertDialog.value = false },
+                    onConfirmation = {
+                        openAlertDialog.value = false
+                        println("Confirmation registered") // Add logic here to handle confirmation.
+                    },
+                    dialogTitle = "Alert dialog example",
+                    dialogText = "This is an example of an alert dialog with buttons.",
+                    icon = Icons.Default.Info
+                )
+            }
+        }
         Text(
             text = "設定",
             fontSize = 32.sp,
@@ -70,181 +88,129 @@ fun SettingsScreen(
                 .padding(horizontal = 22.dp),
             textAlign = androidx.compose.ui.text.style.TextAlign.Center,
         )
-        ProfileSection(navController, profileImageUri)
-        GoalSettingsSection(navController)
-        SpanSettingsSection(navController)
-        NotificationSettingsSection()
-    }
-}
-
-@Composable
-fun GoalSettingsSection(
-    navController: NavHostController,
-    modifier: Modifier = Modifier,
-) {
-    Row(
-        modifier =
-        Modifier
-            .fillMaxWidth()
-//            .size(54.dp)
-            .clickable(onClick = { navController.navigate("settings/goalsettings") })
-            .padding(
-                vertical = 33.dp,
-                horizontal = 5.dp
-            )
-            .clip(RoundedCornerShape(16.dp))
-            .background(GranulatedSugar)
-            .padding(vertical = 16.dp),
-
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Text(
-            text = "歩数の開始記録日",
-            fontSize = 18.sp,
-            color = NuclearMango,
+        Row(
             modifier =
             Modifier
-                .padding(start = 16.dp)
-                .weight(1f),
-        )
-    }
-}
-
-@Composable
-fun SpanSettingsSection(navController: NavHostController) {
-    Row(
-        modifier =
-        Modifier
-            .fillMaxWidth()
-            .clickable(onClick = { navController.navigate("settings/spansettings") })
-            .padding(bottom = 33.dp)
-            .padding(horizontal = 5.dp)
-            .clip(RoundedCornerShape(16.dp))
-            .background(GranulatedSugar, shape = RoundedCornerShape(8.dp))
-            .padding(vertical = 16.dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Text(
-            text = "期間設定",
-            fontSize = 20.sp,
-            color = NuclearMango,
-            modifier =
-            Modifier
-                .padding(start = 16.dp)
-                .weight(1f),
-        )
-    }
-}
-
-@Composable
-fun NotificationSettingsSection() {
-    var checked by remember { mutableStateOf(false) }
-
-    Row(
-        modifier =
-        Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 5.dp)
-            .clip(RoundedCornerShape(16.dp))
-            .background(GranulatedSugar)
-            .padding(vertical = 10.dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Text(
-            text = "通知設定",
-            fontSize = 18.sp,
-            color = NuclearMango,
-            modifier =
-            Modifier
-                .padding(start = 16.dp)
-                .weight(1f),
-        )
-        Switch(
-            checked = checked,
-            onCheckedChange = { checked = it },
-            modifier = Modifier.padding(end = 16.dp),
-        )
-    }
-}
-
-@Composable
-fun ProfileSection(
-    navController: NavHostController,
-    profileImageUri: Uri?,
-) {
-    Row(
-        modifier =
-        Modifier
-            .padding(
-                vertical = 10.dp,
-                horizontal = 5.dp
-            )
-            .fillMaxWidth()
-            .clickable(onClick = { navController.navigate("settings/profile") })
-            .clip(RoundedCornerShape(20.dp))
-            .background(GranulatedSugar, shape = RoundedCornerShape(8.dp))
-            .padding(vertical = 20.dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Box(
-            modifier =
-            Modifier
-                .padding(horizontal = 8.dp)
-                .size(70.dp)
-                .background(Color.Gray, shape = CircleShape),
-        ) {
-            if (profileImageUri != null) {
-                Image(
-                    painter =
-                    rememberAsyncImagePainter(
-                        model =
-                        ImageRequest
-                            .Builder(LocalContext.current)
-                            .data(profileImageUri)
-                            .build(),
-                    ),
-                    contentDescription = "Profile Image",
-                    modifier = Modifier.size(48.dp),
+                .padding(
+                    vertical = 10.dp,
+                    horizontal = 5.dp
                 )
-            } else {
-                Image(
-                    painter = painterResource(id = R.drawable.test),
-                    contentDescription = "Profile Image",
-                    modifier = Modifier.size(70.dp),
-                )
-            }
-        }
-        Column(
-            modifier = Modifier
-                .weight(1f),
+                .fillMaxWidth()
+                .clickable(onClick = { navController.navigate("settings/profile") })
+                .clip(RoundedCornerShape(20.dp))
+                .background(GranulatedSugar, shape = RoundedCornerShape(8.dp))
+                .padding(vertical = 20.dp),
+            verticalAlignment = Alignment.CenterVertically,
         ) {
-            Text(
-                text = "プロフィール",
-                fontSize = 32.sp,
-                color = NuclearMango,
+            Box(
                 modifier =
                 Modifier
-                    .padding(start = 20.dp)
+                    .padding(horizontal = 8.dp)
+                    .size(70.dp)
+                    .background(Color.Gray, shape = CircleShape),
+            ) {
+                if (profileImageUri != null) {
+                    Image(
+                        painter =
+                        rememberAsyncImagePainter(
+                            model =
+                            ImageRequest
+                                .Builder(LocalContext.current)
+                                .data(profileImageUri)
+                                .build(),
+                        ),
+                        contentDescription = "Profile Image",
+                        modifier = Modifier.size(48.dp),
+                    )
+                } else {
+                    Image(
+                        painter = painterResource(id = R.drawable.test),
+                        contentDescription = "Profile Image",
+                        modifier = Modifier.size(70.dp),
+                    )
+                }
+            }
+            Column(
+                modifier = Modifier
+                    .weight(1f),
+            ) {
+                Text(
+                    text = "プロフィール",
+                    fontSize = 32.sp,
+                    color = NuclearMango,
+                    modifier =
+                    Modifier
+                        .padding(start = 20.dp)
+                )
+                Text(
+                    text = "uuid",
+                    fontSize = 18.sp,
+                    color = NuclearMango,
+                    modifier =
+                    Modifier
+                        .padding(start = 20.dp)
+                )
+            }
+            Icon(
+                imageVector = Icons.Default.KeyboardArrowRight, contentDescription = "Profile",
+                modifier = Modifier
+                    .padding(end = 10.dp)
+                    .size(40.dp),
             )
+
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    vertical = 33.dp,
+                    horizontal = 5.dp
+                )
+                .clip(RoundedCornerShape(16.dp))
+                .background(GranulatedSugar)
+                .padding(vertical = 10.dp)
+                .clickable { openAlertDialog.value = true }
+        ) {
             Text(
-                text = "uuid",
+                "目標歩数設定",
                 fontSize = 18.sp,
                 color = NuclearMango,
                 modifier =
                 Modifier
-                    .padding(start = 20.dp)
+                    .padding(start = 16.dp)
+                    .weight(1f),
             )
         }
-        Icon(
-            imageVector = Icons.Default.KeyboardArrowRight, contentDescription = "Profile",
-            modifier = Modifier
-                .padding(end = 10.dp)
-                .size(40.dp),
-        )
-
+        Row(
+            modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(
+                    vertical = 33.dp,
+                    horizontal = 5.dp
+                )
+                .clip(RoundedCornerShape(16.dp))
+                .background(GranulatedSugar)
+                .padding(vertical = 10.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(
+                text = "通知設定",
+                fontSize = 18.sp,
+                color = NuclearMango,
+                modifier =
+                Modifier
+                    .padding(start = 16.dp)
+                    .weight(1f),
+            )
+            Switch(
+                checked = checked,
+                onCheckedChange = { checked = it },
+                modifier = Modifier.padding(end = 16.dp),
+            )
+        }
     }
 }
-
 
 @Preview
 @Composable
