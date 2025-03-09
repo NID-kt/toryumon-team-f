@@ -15,6 +15,8 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -29,7 +31,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -60,6 +64,7 @@ fun InitialFlow7Screen(navController: NavHostController) {
     var imageUri: Uri? by remember {
         mutableStateOf(null)
     }
+    val keyboardController = LocalSoftwareKeyboardController.current
     val launcher =
         rememberLauncherForActivityResult(contract = ActivityResultContracts.GetContent()) { uri ->
             if (uri == null) return@rememberLauncherForActivityResult
@@ -116,14 +121,25 @@ fun InitialFlow7Screen(navController: NavHostController) {
                     onValueChange = { newValue -> text.value = newValue },
                     placeholder = { Text(text = "名前をここに入力してね") },
                     colors =
-                        TextFieldDefaults.textFieldColors(
-                            containerColor = GranulatedSugar,
+                        TextFieldDefaults.colors(
+                            focusedContainerColor = GranulatedSugar,
+                            unfocusedLabelColor = GranulatedSugar,
                         ),
                     modifier =
                         Modifier
-                            .padding(0.dp, 40.dp, 0.dp, 0.dp)
-                            .clip(CircleShape)
-                            .size(350.dp, 55.dp),
+                            .fillMaxWidth()
+                            .padding(horizontal = 10.dp, vertical = 40.dp),
+                    singleLine = true,
+                    keyboardOptions =
+                        KeyboardOptions.Default.copy(
+                            imeAction = ImeAction.Done,
+                        ),
+                    keyboardActions =
+                        KeyboardActions(
+                            onDone = {
+                                keyboardController?.hide()
+                            },
+                        ),
                 )
                 Text(
                     text = "※名前とアイコンは",
