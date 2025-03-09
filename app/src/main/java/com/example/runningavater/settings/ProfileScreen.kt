@@ -9,16 +9,22 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -32,8 +38,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.datastore.preferences.core.edit
@@ -45,6 +53,7 @@ import bearName
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.example.runningavater.R
+import com.example.runningavater.ui.theme.NuclearMango
 import com.example.runningavater.ui.theme.SungYellow
 import dataStore
 import enthusiaasm
@@ -53,13 +62,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import userIcon
 import userName
-
-//@Composable
-//fun ProfileScreen(navController: NavHostController) {
-//    var profileImageUri by remember { mutableStateOf<Uri?>(null) }
-//    ProfileScreen(navController = navController, profileImageUri = profileImageUri) {
-//    }
-//}
 
 @Composable
 fun ProfileScreen(
@@ -70,17 +72,17 @@ fun ProfileScreen(
 ) {
     var selectedUserIcon by rememberSaveable { mutableStateOf("") }
     val userIcon by viewModel.roadUserIcon.collectAsState(initial = "")
-    val bearName by viewModel.roadBearName.collectAsState(initial = "")
+    val bearName by viewModel.roadBearName.collectAsState(initial = "未設定")
     var bearTextFieldValue by rememberSaveable { mutableStateOf("") }
     LaunchedEffect(bearName) {
         bearTextFieldValue = bearName
     }
-    val userName by viewModel.roadUserName.collectAsState(initial = "")
+    val userName by viewModel.roadUserName.collectAsState(initial = "未設定")
     var userTextFieldValue by rememberSaveable { mutableStateOf("") }
     LaunchedEffect(userName) {
         userTextFieldValue = userName
     }
-    val enth by viewModel.roadEnth.collectAsState(initial = "")
+    val enth by viewModel.roadEnth.collectAsState(initial = "意気込みを入力してね")
     var enthTextFieldValue by rememberSaveable { mutableStateOf("") }
     LaunchedEffect(enth) {
         enthTextFieldValue = enth
@@ -93,87 +95,178 @@ fun ProfileScreen(
                 selectedUserIcon = uri.toString()
             }
         }
+    val iconToDisplay = if (selectedUserIcon.isNotEmpty()) {
+        selectedUserIcon
+    } else {
+        userIcon // まだ新しいものを選んでいないときは、データストアに保存されている値
+    }
+    // userIconがnullまたは空のとき → initial_icon
+    // そうでないとき → userIcon
+    val painter = if (iconToDisplay.isEmpty()) {
+        painterResource(id = R.drawable.initial_icon)
+    } else {
+        rememberAsyncImagePainter(
+            model = ImageRequest
+                .Builder(LocalContext.current)
+                .data(iconToDisplay)
+                .build()
+        )
+    }
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     Column(
         modifier =
         Modifier
             .fillMaxSize()
+            .background(color = SungYellow)
             .padding(16.dp)
+            .clip(RoundedCornerShape(4.dp))
             .verticalScroll(rememberScrollState()),
 
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Text(
-            text = "プロフィールの編集",
-            color = SungYellow,
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier
-                .padding(top = 16.dp)
-                .background(Color.White),
-        )
-        val iconToDisplay = if (selectedUserIcon.isNotEmpty()) {
-            selectedUserIcon
-        } else {
-            userIcon // まだ新しいものを選んでいないときは、データストアに保存されている値
-        }
         Box(
-            modifier =
-            Modifier
-                .weight(1f, fill = false)
-                .size(100.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(8.dp))
+                .background(color = Color.White),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = "プロフィールの編集",
+                color = NuclearMango,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier
+                    .padding(vertical = 4.dp)
+                    .background(Color.White),
+            )
+        }
+
+        Image(
+            painter = painter,
+            contentDescription = "Profile Image",
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
                 .padding(8.dp)
                 .clickable {
                     launcher.launch("image/*")
-                },
-            contentAlignment = Alignment.Center,
+                }
+                .clip(CircleShape)
+                .size(150.dp)
+                .align(Alignment.CenterHorizontally)
+        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(8.dp))
+                .background(color = Color.White)
+                .padding(10.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            // userIconがnullまたは空のとき → initial_icon
-            // そうでないとき → userIcon
-            val painter = if (iconToDisplay.isEmpty()) {
-                painterResource(id = R.drawable.initial_icon)
-            } else {
-                rememberAsyncImagePainter(
-                    model = ImageRequest
-                        .Builder(LocalContext.current)
-                        .data(iconToDisplay)
-                        .build()
-                )
-            }
-            Image(
-                painter = painter,
-                contentDescription = "Profile Image",
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .size(100.dp)
-                    .clip(CircleShape)
+            Text(
+                "お名前",
+                color = NuclearMango
             )
-
+            TextField(
+                colors =
+                TextFieldDefaults.colors(
+                    focusedContainerColor = Color.White,
+                    unfocusedContainerColor = Color.White,
+                ),
+                modifier = Modifier
+                    .padding(start = 20.dp)
+                    .clip(RoundedCornerShape(4.dp)),
+                singleLine = true,
+                keyboardOptions =
+                KeyboardOptions.Default.copy(
+                    imeAction = ImeAction.Done,
+                ),
+                keyboardActions =
+                KeyboardActions(
+                    onDone = {
+                        keyboardController?.hide()
+                    },
+                ),
+                value = userTextFieldValue,
+                onValueChange = { newValue -> userTextFieldValue = newValue },
+            )
         }
+        Row(
+            modifier = Modifier
+                .padding(top = 10.dp)
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(8.dp))
+                .background(color = Color.White)
+                .padding(10.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                "くまの\nお名前",
+                color = NuclearMango
 
-        TextField(
-            value = bearTextFieldValue,
-            onValueChange = { newValue -> bearTextFieldValue = newValue },
-            label = { Text("くまの名前") }
-        )
-        TextField(
+            )
+            TextField(
+                colors =
+                TextFieldDefaults.colors(
+                    focusedContainerColor = Color.White,
+                    unfocusedContainerColor = Color.White,
+                ),
+                modifier = Modifier
+                    .padding(start = 20.dp)
+                    .clip(RoundedCornerShape(4.dp)),
+                singleLine = true,
+                keyboardOptions =
+                KeyboardOptions.Default.copy(
+                    imeAction = ImeAction.Done,
+                ),
+                keyboardActions =
+                KeyboardActions(
+                    onDone = {
+                        keyboardController?.hide()
+                    },
+                ),
+                value = bearTextFieldValue,
+                onValueChange = { newValue -> bearTextFieldValue = newValue },
+            )
+        }
+        Row(
             modifier = Modifier
-                .padding(top = 10.dp),
-            value = userTextFieldValue,
-            onValueChange = { newValue -> userTextFieldValue = newValue },
-            label = { Text("あなたの名前") }
-        )
-        TextField(
-            modifier = Modifier
-                .padding(top = 10.dp),
-            value = enthTextFieldValue,
-            onValueChange = { newValue -> enthTextFieldValue = newValue },
-            label = { Text("意気込み") }
-        )
+                .padding(top = 10.dp)
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(8.dp))
+                .background(color = Color.White)
+                .padding(start = 10.dp, end = 10.dp, bottom = 10.dp),
+            verticalAlignment = Alignment.Top
+        ) {
+            Text(
+                "意気込み",
+                modifier = Modifier
+                    .padding(top = 15.dp),
+                color = NuclearMango
+
+            )
+            TextField(
+                colors =
+                TextFieldDefaults.colors(
+                    focusedContainerColor = Color.White,
+                    unfocusedContainerColor = Color.White,
+                ),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .height(200.dp)
+                    .clip(RoundedCornerShape(4.dp)),
+                value = enthTextFieldValue,
+                onValueChange = { newValue -> enthTextFieldValue = newValue },
+            )
+        }
         Box(
             modifier = Modifier.fillMaxWidth()
         ) {
             Button(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 10.dp),
                 onClick = {
                     viewModel.saveUserIcon(iconToDisplay)
                     viewModel.saveBearName(bearTextFieldValue)

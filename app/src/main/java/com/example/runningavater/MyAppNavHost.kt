@@ -48,8 +48,10 @@ fun getStartDestination(context: Context): String {
     val isFirstLaunch = prefs.getBoolean("is_first_launch", true)
 
     if (isFirstLaunch) {
-        return "initialFlow/1"
+//        return "initialFlow/1"
+        return "settings" // デバッグ用なので消し忘れてたらinitialFlow/1に戻してください
     } else {
+//        return "initialFlow/1"
         return "authentication"
     }
 }
