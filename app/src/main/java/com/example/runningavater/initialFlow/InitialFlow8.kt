@@ -36,7 +36,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -45,10 +44,12 @@ import androidx.navigation.compose.rememberNavController
 import com.example.runningavater.initialFlow.components.BackButton
 import com.example.runningavater.initialFlow.components.InitialFlowBackground
 import com.example.runningavater.initialFlow.components.NextButton
-import com.example.runningavater.settingsDataStore
 import com.example.runningavater.ui.theme.GranulatedSugar
 import com.example.runningavater.ui.theme.RunningAvaterTheme
+import dataStore
 import kotlinx.coroutines.launch
+import targetPeriod
+import targetSteps
 
 @SuppressLint("ComposeViewModelInjection")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -66,8 +67,8 @@ fun InitialFlow8Screen(navController: NavHostController) {
         Box(modifier = Modifier.fillMaxSize()) {
             Column(
                 modifier =
-                    Modifier
-                        .fillMaxSize(),
+                Modifier
+                    .fillMaxSize(),
             ) {
                 Text(
                     text = "あなたの目標歩数と\n期間を設定しよう！",
@@ -76,29 +77,29 @@ fun InitialFlow8Screen(navController: NavHostController) {
                     textAlign = TextAlign.Center,
                     lineHeight = 46.3.sp,
                     modifier =
-                        Modifier
-                            .align(Alignment.CenterHorizontally)
-                            .padding(
-                                top = 48.dp,
-                                bottom = 50.dp,
-                            ),
+                    Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .padding(
+                            top = 48.dp,
+                            bottom = 50.dp,
+                        ),
                 )
                 Text(
                     text = "目標歩数",
                     fontSize = 18.sp,
                     modifier =
-                        Modifier
-                            .padding(start = 20.dp),
+                    Modifier
+                        .padding(start = 20.dp),
                 )
                 TextField(
                     colors =
-                        TextFieldDefaults.textFieldColors(
-                            containerColor = GranulatedSugar,
-                        ),
+                    TextFieldDefaults.textFieldColors(
+                        containerColor = GranulatedSugar,
+                    ),
                     modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .padding(10.dp, 0.dp, 10.dp, 30.dp),
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(10.dp, 0.dp, 10.dp, 30.dp),
                     value = text.value,
                     onValueChange = { newValue -> text.value = newValue },
                     placeholder = { Text(text = "5000") },
@@ -122,8 +123,8 @@ fun InitialFlow8Screen(navController: NavHostController) {
                 )
                 ExposedDropdownMenuBox(
                     modifier =
-                        Modifier
-                            .padding(10.dp, 0.dp, 10.dp, 0.dp),
+                    Modifier
+                        .padding(10.dp, 0.dp, 10.dp, 0.dp),
                     expanded = expanded,
                     onExpandedChange = {
                         expanded = !expanded
@@ -131,9 +132,9 @@ fun InitialFlow8Screen(navController: NavHostController) {
                 ) {
                     TextField(
                         colors =
-                            TextFieldDefaults.textFieldColors(
-                                containerColor = GranulatedSugar,
-                            ),
+                        TextFieldDefaults.textFieldColors(
+                            containerColor = GranulatedSugar,
+                        ),
                         value = selectedOption,
                         onValueChange = { newValue -> selectedOption = newValue },
                         readOnly = true,
@@ -142,10 +143,10 @@ fun InitialFlow8Screen(navController: NavHostController) {
                             ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
                         },
                         modifier =
-                            Modifier
-                                .fillMaxWidth()
-                                .menuAnchor() // メニューのアンカーを設定
-                                .clickable { expanded = !expanded }, // フィールドをクリックしてメニューを展開
+                        Modifier
+                            .fillMaxWidth()
+                            .menuAnchor() // メニューのアンカーを設定
+                            .clickable { expanded = !expanded }, // フィールドをクリックしてメニューを展開
                     )
                     ExposedDropdownMenu(
                         expanded = expanded,
@@ -168,17 +169,17 @@ fun InitialFlow8Screen(navController: NavHostController) {
                     text = "※目標歩数と目標期限は\n後からでも変更できるよ",
                     fontSize = 18.sp,
                     modifier =
-                        Modifier
-                            .align(Alignment.End)
-                            .padding(0.dp, 10.dp, 10.dp, 0.dp),
+                    Modifier
+                        .align(Alignment.End)
+                        .padding(0.dp, 10.dp, 10.dp, 0.dp),
                 )
             }
 
             Column(
                 modifier =
-                    Modifier
-                        .align(Alignment.BottomStart)
-                        .padding(0.dp, 0.dp, 0.dp, 80.dp),
+                Modifier
+                    .align(Alignment.BottomStart)
+                    .padding(0.dp, 0.dp, 0.dp, 80.dp),
             ) {
                 NextButton(
                     navController = navController,
@@ -194,9 +195,9 @@ fun InitialFlow8Screen(navController: NavHostController) {
             }
             Column(
                 modifier =
-                    Modifier
-                        .align(Alignment.BottomEnd)
-                        .padding(20.dp),
+                Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(20.dp),
             ) {
                 BackButton(
                     navController = navController,
@@ -207,15 +208,14 @@ fun InitialFlow8Screen(navController: NavHostController) {
 }
 
 class TargetSettings : ViewModel() {
-    val targetPeriod = stringPreferencesKey("target_period")
-    val targetSteps = stringPreferencesKey("target_steps")
+
 
     fun savePeriodToDataStore(
         context: Context,
         name: String,
     ) {
         viewModelScope.launch {
-            context.settingsDataStore.edit { preferences ->
+            context.dataStore.edit { preferences ->
                 preferences[targetPeriod] = name // 入力した文字列(name)を保存
             }
         }
@@ -226,7 +226,7 @@ class TargetSettings : ViewModel() {
         name: String,
     ) {
         viewModelScope.launch {
-            context.settingsDataStore.edit { preferences ->
+            context.dataStore.edit { preferences ->
                 preferences[targetSteps] = name
             }
         }

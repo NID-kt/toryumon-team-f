@@ -25,8 +25,8 @@ fun NextButton(
             navController.navigate(nextDestination)
         },
         modifier =
-            modifier
-                .fillMaxWidth(),
+        modifier
+            .fillMaxWidth(),
     ) {
         Text(
             text = text,
