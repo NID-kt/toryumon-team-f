@@ -26,13 +26,13 @@ jobs:
 
       # JDKのセットアップ
       - name: set up JDK 17
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: '17'
+          java-version: '21'
 
       # Gradleのキャッシュ復元
-      - uses: actions/cache@v2
+      - uses: actions/cache@v4
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-build-${{ hashFiles('**/*.gradle*') }}
@@ -67,7 +67,7 @@ jobs:
 
       # 結果の表示
       - name: Show results on GitHub
-        uses: yutailang0119/action-ktlint@v1
+        uses: yutailang0119/action-ktlint@v4
         with:
           xml_path: build/ktlint-report.xml
 
