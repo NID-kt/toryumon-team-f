@@ -68,7 +68,7 @@ fun ProfileScreen(
     navController: NavHostController,
     profileImageUri: Uri?,
     onImageSelected: (Uri) -> Unit,
-    viewModel: roadDataStoreProfile = viewModel()
+    viewModel: ProfileViewModel = viewModel()
 ) {
     var selectedUserIcon by rememberSaveable { mutableStateOf("") }
     val userIcon by viewModel.roadUserIcon.collectAsState(initial = "")
@@ -281,7 +281,7 @@ fun ProfileScreen(
     }
 }
 
-class roadDataStoreProfile(application: Application) : AndroidViewModel(application) {
+class ProfileViewModel(application: Application) : AndroidViewModel(application) {
     val roadUserIcon: Flow<String> = getApplication<Application>().dataStore.data.map { preferences ->
         preferences[userIcon] ?: ""
     }
