@@ -12,6 +12,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -30,6 +33,7 @@ import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.example.runningavater.R
+import com.example.runningavater.authentication.AuthenticationErrorDialog
 
 @Composable
 fun ProfileScreen(navController: NavHostController) {
@@ -45,6 +49,21 @@ fun ProfileScreen(
     profileImageUri: Uri?,
     onImageSelected: (Uri) -> Unit,
 ) {
+    val openAlertDialog = remember { mutableStateOf(false) }
+    when {
+        openAlertDialog.value -> {
+            AuthenticationErrorDialog(
+                onDismissRequest = { openAlertDialog.value = false },
+                onConfirmation = {
+                    openAlertDialog.value = false
+                    println("Confirmation registered") // Add logic here to handle confirmation.
+                },
+                dialogTitle = "Alert dialog example",
+                dialogText = "This is an example of an alert dialog with buttons.",
+                icon = Icons.Default.Info
+            )
+        }
+    }
     val launcher =
         rememberLauncherForActivityResult(
             contract = ActivityResultContracts.GetContent(),
@@ -56,31 +75,32 @@ fun ProfileScreen(
 
     Column(
         modifier =
-            Modifier
-                .fillMaxSize()
-                .padding(16.dp),
+        Modifier
+            .fillMaxSize()
+            .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Box(
             modifier =
-                Modifier
-                    .size(100.dp)
-                    .padding(8.dp)
-                    .clickable {
-                        launcher.launch("image/*")
-                    }.background(Color.Gray, shape = CircleShape),
+            Modifier
+                .size(100.dp)
+                .padding(8.dp)
+                .clickable {
+                    launcher.launch("image/*")
+                }
+                .background(Color.Gray, shape = CircleShape),
             contentAlignment = Alignment.Center,
         ) {
             if (profileImageUri != null) {
                 Image(
                     painter =
-                        rememberAsyncImagePainter(
-                            model =
-                                ImageRequest
-                                    .Builder(LocalContext.current)
-                                    .data(profileImageUri)
-                                    .build(),
-                        ),
+                    rememberAsyncImagePainter(
+                        model =
+                        ImageRequest
+                            .Builder(LocalContext.current)
+                            .data(profileImageUri)
+                            .build(),
+                    ),
                     contentDescription = "Profile Image",
                     modifier = Modifier.size(100.dp),
                 )
@@ -98,5 +118,8 @@ fun ProfileScreen(
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(top = 16.dp),
         )
+        Button(
+            onClick = { openAlertDialog.value = true }
+        ) { }
     }
 }
