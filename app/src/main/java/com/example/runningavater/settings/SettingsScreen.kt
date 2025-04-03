@@ -39,6 +39,7 @@ import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.example.runningavater.R
+import com.example.runningavater.authentication.AuthenticationErrorDialog
 import com.example.runningavater.ui.theme.GranulatedSugar
 import com.example.runningavater.ui.theme.NuclearMango
 import com.example.runningavater.ui.theme.RunningAvaterTheme
@@ -61,6 +62,20 @@ fun SettingsScreen(
             .background(SungYellow)
             .padding(top = 46.dp)
     ) {
+        when {
+            openAlertDialog.value -> {
+                AuthenticationErrorDialog(
+                    onDismissRequest = { openAlertDialog.value = false },
+                    onConfirmation = {
+                        openAlertDialog.value = false
+                        println("Confirmation registered") // Add logic here to handle confirmation.
+                    },
+                    dialogTitle = "Alert dialog example",
+                    dialogText = "This is an example of an alert dialog with buttons.",
+                    icon = Icons.Default.Info
+                )
+            }
+        }
         when {
             openAlertDialog.value -> {
                 GoalSettingDialog(
