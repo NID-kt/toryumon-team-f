@@ -61,7 +61,7 @@ fun MyAppNavHost(
     val startDestination = getStartDestination(context)
     Scaffold(
         bottomBar = {
-            if (currentDestination?.route?.startsWith("initialFlow") != true) {
+            if (currentDestination?.route?.startsWith("initialFlow") != true && currentDestination?.route?.startsWith("authentication") != true) {
                 MainBottomBar(currentDestination, navController)
             }
         },
@@ -123,13 +123,13 @@ private fun MainBottomBar(
                     }
                 },
                 colors =
-                    NavigationBarItemDefaults.colors(
-                        selectedIconColor = Color.White,
-                        selectedTextColor = Color.White,
-                        unselectedIconColor = Color.White.copy(alpha = 0.5f),
-                        unselectedTextColor = Color.White.copy(alpha = 0.5f),
-                        indicatorColor = Color.White.copy(alpha = 0.3f),
-                    ),
+                NavigationBarItemDefaults.colors(
+                    selectedIconColor = Color.White,
+                    selectedTextColor = Color.White,
+                    unselectedIconColor = Color.White.copy(alpha = 0.5f),
+                    unselectedTextColor = Color.White.copy(alpha = 0.5f),
+                    indicatorColor = Color.White.copy(alpha = 0.3f),
+                ),
             )
         }
     }
