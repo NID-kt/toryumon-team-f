@@ -1,6 +1,8 @@
 package com.example.runningavater.settings
 
+import android.content.Intent
 import android.net.Uri
+import android.provider.Settings
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -9,6 +11,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -17,13 +20,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -52,7 +52,10 @@ fun SettingsScreen(
     modifier: Modifier = Modifier,
 ) {
     val openAlertDialog = remember { mutableStateOf(false) }
-    var checked by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
+        putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
+    }
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -97,7 +100,7 @@ fun SettingsScreen(
             color = NuclearMango,
             modifier =
             Modifier
-                .padding(bottom = 40.dp)
+                .padding(bottom = 50.dp)
                 .clip(RoundedCornerShape(4.dp))
                 .background(GranulatedSugar)
                 .padding(horizontal = 22.dp),
@@ -107,7 +110,6 @@ fun SettingsScreen(
             modifier =
             Modifier
                 .padding(
-                    vertical = 10.dp,
                     horizontal = 5.dp
                 )
                 .fillMaxWidth()
@@ -178,13 +180,14 @@ fun SettingsScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(
-                    vertical = 33.dp,
+                    vertical = 63.dp,
                     horizontal = 5.dp
                 )
+                .height(60.dp)
                 .clip(RoundedCornerShape(16.dp))
                 .background(GranulatedSugar)
-                .padding(vertical = 10.dp)
-                .clickable { openAlertDialog.value = true }
+                .clickable { openAlertDialog.value = true },
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
                 "目標歩数設定",
@@ -201,12 +204,12 @@ fun SettingsScreen(
             Modifier
                 .fillMaxWidth()
                 .padding(
-                    vertical = 33.dp,
                     horizontal = 5.dp
                 )
+                .height(60.dp)
                 .clip(RoundedCornerShape(16.dp))
                 .background(GranulatedSugar)
-                .padding(vertical = 10.dp),
+                .clickable { context.startActivity(intent) },
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
@@ -218,10 +221,11 @@ fun SettingsScreen(
                     .padding(start = 16.dp)
                     .weight(1f),
             )
-            Switch(
-                checked = checked,
-                onCheckedChange = { checked = it },
-                modifier = Modifier.padding(end = 16.dp),
+            Icon(
+                imageVector = Icons.Default.KeyboardArrowRight, contentDescription = "Profile",
+                modifier = Modifier
+                    .padding(end = 20.dp)
+                    .size(20.dp),
             )
         }
     }
