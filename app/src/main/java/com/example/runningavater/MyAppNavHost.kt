@@ -3,6 +3,7 @@ package com.example.runningavater
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.Uri
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -16,6 +17,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -46,6 +50,7 @@ fun getStartDestination(context: Context): String {
     if (isFirstLaunch) {
         return "initialFlow/1"
     } else {
+//        return "initialFlow/1"
         return "authentication"
     }
 }
@@ -59,6 +64,8 @@ fun MyAppNavHost(
     val currentDestination = navBackStackEntry?.destination
     val context = LocalContext.current
     val startDestination = getStartDestination(context)
+    var profileImageUri by remember { mutableStateOf<Uri?>(null) }
+//    val startDestination = if (true) "initialFlow/2" else "authentication"
     Scaffold(
         bottomBar = {
             if (currentDestination?.route?.startsWith("initialFlow") != true && currentDestination?.route?.startsWith("authentication") != true) {
@@ -81,13 +88,17 @@ fun MyAppNavHost(
                 SettingsScreen(navController, profileImageUri = null) // 設定画面を表示
             }
             composable(route = "settings/profile") {
-                ProfileScreen(navController) // プロフィール画面を表示
+                ProfileScreen(navController,
+                    profileImageUri = profileImageUri,
+                    onImageSelected = { newUri ->
+                        profileImageUri = newUri
+                    }) // プロフィール画面を表示
             }
             composable(route = "settings/spansettings") {
                 SpanSettingsScreen() // 期間設定画面を表示
             }
             composable(route = "settings/goalsettings") {
-                GoalSettingsScreen() // 歩数画面を表示
+                GoalSettingsScreen(navController) // 歩数画面を表示
             }
             initialFlow(navController)
         }

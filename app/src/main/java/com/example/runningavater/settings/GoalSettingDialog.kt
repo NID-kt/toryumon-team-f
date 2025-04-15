@@ -36,7 +36,7 @@ fun GoalSettingDialog(
     dialogTitle: String,
     dialogText: String,
     icon: ImageVector,
-    viewModel: RoadDataStoreProfile = viewModel(),
+    viewModel: GoalSettingViewModel = viewModel(),
 ) {
     val bearName by viewModel.roadTargetSteps.collectAsState(initial = "未設定")
     var bearTextFieldValue by rememberSaveable { mutableStateOf("") }
@@ -91,7 +91,7 @@ fun GoalSettingDialog(
     )
 }
 
-class RoadDataStoreProfile(application: Application) : AndroidViewModel(application) {
+class GoalSettingViewModel(application: Application) : AndroidViewModel(application) {
     val roadTargetSteps: Flow<String> =
         getApplication<Application>().dataStore.data.map { preferences ->
             preferences[targetSteps] ?: ""
