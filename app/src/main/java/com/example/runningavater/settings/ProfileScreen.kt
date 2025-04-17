@@ -21,6 +21,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -30,6 +32,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -53,6 +56,7 @@ import bearName
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.example.runningavater.R
+import com.example.runningavater.authentication.AuthenticationErrorDialog
 import com.example.runningavater.ui.theme.NuclearMango
 import com.example.runningavater.ui.theme.SungYellow
 import dataStore
@@ -62,13 +66,19 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import userIcon
 import userName
-
+@Composable
+fun ProfileScreen(navController: NavHostController) {
+    var profileImageUri by remember { mutableStateOf<Uri?>(null) }
+    ProfileScreen(navController = navController, profileImageUri = profileImageUri) {
+        profileImageUri = it
+    }
+}
 @Composable
 fun ProfileScreen(
     navController: NavHostController,
     profileImageUri: Uri?,
+    viewModel: ProfileViewModel = viewModel(),
     onImageSelected: (Uri) -> Unit,
-    viewModel: ProfileViewModel = viewModel()
 ) {
     var selectedUserIcon by rememberSaveable { mutableStateOf("") }
     val userIcon by viewModel.roadUserIcon.collectAsState(initial = "")
@@ -86,6 +96,21 @@ fun ProfileScreen(
     var enthTextFieldValue by rememberSaveable { mutableStateOf("") }
     LaunchedEffect(enth) {
         enthTextFieldValue = enth
+    }
+    val openAlertDialog = remember { mutableStateOf(false) }
+    when {
+        openAlertDialog.value -> {
+            AuthenticationErrorDialog(
+                onDismissRequest = { openAlertDialog.value = false },
+                onConfirmation = {
+                    openAlertDialog.value = false
+                    println("Confirmation registered") // Add logic here to handle confirmation.
+                },
+                dialogTitle = "Alert dialog example",
+                dialogText = "This is an example of an alert dialog with buttons.",
+                icon = Icons.Default.Info
+            )
+        }
     }
     val launcher =
         rememberLauncherForActivityResult(
