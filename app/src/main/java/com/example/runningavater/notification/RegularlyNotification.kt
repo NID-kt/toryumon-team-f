@@ -7,6 +7,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.example.runningavater.R
+import kotlin.random.Random
 
 fun notifyMorning(context: Context) {
     var builder =
@@ -24,7 +25,7 @@ fun notifyMorning(context: Context) {
             return@with
         }
         // notificationId is a unique int for each notification that you must define.
-        notify(1, builder.build())
+        notify(Random.nextInt(), builder.build())
     }
 }
 
@@ -66,7 +67,7 @@ fun notifyNight(
             return@with
         }
         // notificationId is a unique int for each notification that you must define.
-        notify(1, builder.build())
+        notify(Random.nextInt(), builder.build())
     }
 }
 
@@ -86,7 +87,7 @@ fun notify20Goal(context: Context) {
             return@with
         }
         // notificationId is a unique int for each notification that you must define.
-        notify(1, builder.build())
+        notify(Random.nextInt(), builder.build())
     }
 }
 
@@ -106,7 +107,7 @@ fun notify40Goal(context: Context) {
             return@with
         }
         // notificationId is a unique int for each notification that you must define.
-        notify(1, builder.build())
+        notify(Random.nextInt(), builder.build())
     }
 }
 
@@ -126,7 +127,7 @@ fun notify50Goal(context: Context) {
             return@with
         }
         // notificationId is a unique int for each notification that you must define.
-        notify(1, builder.build())
+        notify(Random.nextInt(), builder.build())
     }
 }
 
@@ -146,7 +147,7 @@ fun notify60Goal(context: Context) {
             return@with
         }
         // notificationId is a unique int for each notification that you must define.
-        notify(1, builder.build())
+        notify(Random.nextInt(), builder.build())
     }
 }
 
@@ -166,7 +167,7 @@ fun notify80Goal(context: Context) {
             return@with
         }
         // notificationId is a unique int for each notification that you must define.
-        notify(1, builder.build())
+        notify(Random.nextInt(), builder.build())
     }
 }
 
@@ -186,7 +187,7 @@ fun notify100Goal(context: Context) {
             return@with
         }
         // notificationId is a unique int for each notification that you must define.
-        notify(1, builder.build())
+        notify(Random.nextInt(), builder.build())
     }
 }
 
@@ -234,6 +235,6 @@ fun notifyRandom(context: Context) {
             return@with
         }
         // notificationId is a unique int for each notification that you must define.
-        notify(1, builder.build())
+        notify(Random.nextInt(), builder.build())
     }
 }

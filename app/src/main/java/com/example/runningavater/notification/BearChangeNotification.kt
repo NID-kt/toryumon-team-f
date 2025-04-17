@@ -7,6 +7,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.example.runningavater.R
+import kotlin.random.Random
 
 fun notifySlim(
     context: Context,
@@ -27,7 +28,7 @@ fun notifySlim(
             return@with
         }
         // notificationId is a unique int for each notification that you must define.
-        notify(1, builder.build())
+        notify(Random.nextInt(), builder.build())
     }
 }
 
@@ -50,6 +51,6 @@ fun notyfyFat(
             return@with
         }
         // notificationId is a unique int for each notification that you must define.
-        notify(1, builder.build())
+        notify(Random.nextInt(), builder.build())
     }
 }
