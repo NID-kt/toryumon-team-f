@@ -70,33 +70,33 @@ fun GoalSettingsScreen(
         Box(modifier = Modifier.fillMaxSize()) {
             Column(
                 modifier =
-                Modifier
-                    .fillMaxSize(),
+                    Modifier
+                        .fillMaxSize(),
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
                     text = "目標歩数",
                     fontSize = 18.sp,
                     modifier =
-                    Modifier
-                        .padding(start = 20.dp),
+                        Modifier
+                            .padding(start = 20.dp),
                 )
                 TextField(
                     colors =
-                    TextFieldDefaults.textFieldColors(
-                        containerColor = GranulatedSugar,
-                    ),
+                        TextFieldDefaults.textFieldColors(
+                            containerColor = GranulatedSugar,
+                        ),
                     modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(10.dp, 0.dp, 10.dp, 30.dp),
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(10.dp, 0.dp, 10.dp, 30.dp),
                     value = stepsTextFieldValue,
                     onValueChange = { newValue -> stepsTextFieldValue = newValue },
                     placeholder = { Text(text = "5000") },
                     keyboardOptions =
-                    KeyboardOptions(
-                        keyboardType = KeyboardType.Number,
-                    ),
+                        KeyboardOptions(
+                            keyboardType = KeyboardType.Number,
+                        ),
                 )
 
                 Text(
@@ -106,8 +106,8 @@ fun GoalSettingsScreen(
                 )
                 ExposedDropdownMenuBox(
                     modifier =
-                    Modifier
-                        .padding(10.dp, 0.dp, 10.dp, 0.dp),
+                        Modifier
+                            .padding(10.dp, 0.dp, 10.dp, 0.dp),
                     expanded = expanded,
                     onExpandedChange = {
                         expanded = !expanded
@@ -115,9 +115,9 @@ fun GoalSettingsScreen(
                 ) {
                     TextField(
                         colors =
-                        TextFieldDefaults.textFieldColors(
-                            containerColor = GranulatedSugar,
-                        ),
+                            TextFieldDefaults.textFieldColors(
+                                containerColor = GranulatedSugar,
+                            ),
                         value = periodTextFieldValue,
                         onValueChange = { newValue -> periodTextFieldValue = newValue },
                         readOnly = true,
@@ -126,11 +126,11 @@ fun GoalSettingsScreen(
                             ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
                         },
                         modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .menuAnchor() // メニューのアンカーを設定
+                            Modifier
+                                .fillMaxWidth()
+                                .menuAnchor() // メニューのアンカーを設定
 
-                            .clickable { expanded = !expanded }, // フィールドをクリックしてメニューを展開
+                                .clickable { expanded = !expanded }, // フィールドをクリックしてメニューを展開
                     )
                     ExposedDropdownMenu(
                         expanded = expanded,
@@ -174,7 +174,7 @@ class roadDataStore(application: Application) : AndroidViewModel(application) {
 
     }
     val roadSteps: Flow<String> = getApplication<Application>().dataStore.data.map { preferences ->
-        preferences[targetSteps] ?: ""
+        preferences[targetSteps]?.toString() ?: ""
 
     }
 
@@ -189,7 +189,7 @@ class roadDataStore(application: Application) : AndroidViewModel(application) {
     fun saveSteps(steps: String) {
         viewModelScope.launch {
             getApplication<Application>().dataStore.edit { preferences ->
-                preferences[targetSteps] = steps
+                preferences[targetSteps] = steps.toInt()
             }
         }
     }
