@@ -204,6 +204,17 @@ fun InitialFlow8Screen(navController: NavHostController) {
 
 
 
+                                val app = context as MainApplication
+                                app.db.stepDateDao().deleteAll()
+                                repeat(1200){
+                                    app.db.stepDateDao().insertAll(StepDate(id = 0,  1743433200))
+                                }
+                                repeat(900){
+                                    app.db.stepDateDao().insertAll(StepDate(id = 0,  1743519600))
+                                }
+                                repeat(1000){
+                                    app.db.stepDateDao().insertAll(StepDate(id = 0,  1743606000))
+                                }
 
 
                                 val aggregateSteps = OneTimeWorkRequestBuilder<AggregateSteps>()
