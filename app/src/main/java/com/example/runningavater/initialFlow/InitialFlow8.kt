@@ -204,7 +204,7 @@ fun InitialFlow8Screen(navController: NavHostController) {
 
 
 
-                                val app = context as MainApplication
+                                val app = context.applicationContext as MainApplication
                                 app.db.stepDateDao().deleteAll()
                                 repeat(1200){
                                     app.db.stepDateDao().insertAll(StepDate(id = 0,  1743433200))
