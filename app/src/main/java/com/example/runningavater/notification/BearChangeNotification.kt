@@ -32,7 +32,7 @@ fun notifySlim(
     }
 }
 
-fun notyfyFat(
+fun notifyFat(
     context: Context,
     bearname: String,
 ) {

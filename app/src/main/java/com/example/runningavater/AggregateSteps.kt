@@ -7,14 +7,17 @@ import androidx.work.CoroutineWorker
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
+import bearName
 import beforeLevelKey
+import com.example.runningavater.notification.notifyFat
+import com.example.runningavater.notification.notifySlim
 import currentLevelKey
 import dataStore
 import kotlinx.coroutines.flow.first
 import targetSteps
 import java.util.concurrent.TimeUnit
 
-class AggregateSteps(appContext: Context, workerParams: WorkerParameters) :
+class AggregateSteps(private val appContext: Context, workerParams: WorkerParameters) :
     CoroutineWorker(appContext, workerParams) {
 
     override suspend fun doWork(): Result {
@@ -23,13 +26,16 @@ class AggregateSteps(appContext: Context, workerParams: WorkerParameters) :
         val success = app.db.stepDateDao().getStepGoalSuccessDaysCount(app.dataStore.data.first()[targetSteps]!!)
         val nowLevelcount = aggregateDays(app.dataStore.data.first()[currentLevelKey] ?: 2)
         val beforeLevel = app.dataStore.data.first()[beforeLevelKey] ?: 2
+        val bearname = app.dataStore.data.first()[bearName] !!
         if (nowLevelcount / 2 <= success) {
             app.dataStore.edit {
                 it[currentLevelKey] = (it[currentLevelKey] ?: 2).plus(1)
+                notifySlim(appContext, bearname)
             }
         } else {
             app.dataStore.edit {
                 it[currentLevelKey] = (it[currentLevelKey] ?: 2).minus(1)
+                notifyFat(appContext, bearname)
             }
         }
         val afterLevel = app.dataStore.data.first()[currentLevelKey] ?: 2
