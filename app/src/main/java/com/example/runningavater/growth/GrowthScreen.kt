@@ -61,18 +61,6 @@ fun GrowthScreen() {
                         .size(300.dp),
             )
         }
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Button(onClick = { }, modifier = Modifier.padding(8.dp)) {
-                Text("Start")
-            }
-            Button(onClick = { }, modifier = Modifier.padding(8.dp)) {
-                Text("Stop")
-            }
-        }
     }
 }
 
