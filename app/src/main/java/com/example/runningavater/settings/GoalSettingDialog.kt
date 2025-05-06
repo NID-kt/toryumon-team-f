@@ -53,10 +53,10 @@ fun GoalSettingDialog(
                 Text("1日の目標歩数を入力してね")
                 TextField(
                     colors =
-                    TextFieldDefaults.colors(
-                        focusedContainerColor = GranulatedSugar,
-                        unfocusedContainerColor = GranulatedSugar,
-                    ),
+                        TextFieldDefaults.colors(
+                            focusedContainerColor = GranulatedSugar,
+                            unfocusedContainerColor = GranulatedSugar,
+                        ),
                     value = bearTextFieldValue,
                     onValueChange = { newValue ->
                         bearTextFieldValue = newValue
@@ -94,13 +94,13 @@ fun GoalSettingDialog(
 class GoalSettingViewModel(application: Application) : AndroidViewModel(application) {
     val roadTargetSteps: Flow<String> =
         getApplication<Application>().dataStore.data.map { preferences ->
-            preferences[targetSteps] ?: ""
+            preferences[targetSteps]?.toString() ?: ""
         }
 
     fun saveTargetSteps(name: String) {
         viewModelScope.launch {
             getApplication<Application>().dataStore.edit { preferences ->
-                preferences[targetSteps] = name
+                preferences[targetSteps] = name.toInt()
             }
         }
     }
