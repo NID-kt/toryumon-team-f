@@ -29,12 +29,12 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 
 @Composable
-fun GrowthScreen(backgroundColor: Color = SungYellow) {
+fun GrowthScreen() {
     Column(
         modifier =
             Modifier
                 // .padding(16.dp)
-                .background(backgroundColor)
+                .background(Color(0xFFF8E9C3))
                 .fillMaxSize(),
     ) {
         Text(
@@ -44,7 +44,7 @@ fun GrowthScreen(backgroundColor: Color = SungYellow) {
                 Modifier
                     .padding(32.dp)
                     .fillMaxWidth(),
-            color = NuclearMango,
+            color = Color(0xFF000000),
             textAlign = TextAlign.Center,
         )
         Box(
