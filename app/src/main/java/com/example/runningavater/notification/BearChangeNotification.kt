@@ -13,7 +13,7 @@ fun notifySlim(
     context: Context,
     bearname: String,
 ) {
-    var builder =
+    val builder =
         NotificationCompat.Builder(context, "bear_change")
             .setSmallIcon(R.drawable.notification_icon)
             .setContentTitle("${bearname}からの報告")
@@ -32,11 +32,11 @@ fun notifySlim(
     }
 }
 
-fun notyfyFat(
+fun notifyFat(
     context: Context,
     bearname: String,
 ) {
-    var builder =
+    val builder =
         NotificationCompat.Builder(context, "bear_change")
             .setSmallIcon(R.drawable.notification_icon)
             .setContentTitle("${bearname}からの報告")

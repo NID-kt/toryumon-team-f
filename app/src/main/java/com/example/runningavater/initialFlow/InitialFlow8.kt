@@ -41,15 +41,25 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
+import com.example.runningavater.AggregateSteps
+import com.example.runningavater.MainApplication
+import com.example.runningavater.aggregateDays
+import com.example.runningavater.db.StepDate
 import com.example.runningavater.initialFlow.components.BackButton
 import com.example.runningavater.initialFlow.components.InitialFlowBackground
 import com.example.runningavater.initialFlow.components.NextButton
 import com.example.runningavater.ui.theme.GranulatedSugar
 import com.example.runningavater.ui.theme.RunningAvaterTheme
 import dataStore
+import isInit
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import targetPeriod
 import targetSteps
+import java.util.concurrent.TimeUnit
 
 @SuppressLint("ComposeViewModelInjection")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -186,9 +196,35 @@ fun InitialFlow8Screen(navController: NavHostController) {
                     nextDestination = "initialFlow/9",
                     modifier = Modifier.padding(20.dp, 0.dp, 20.dp, 10.dp),
                     onClick = {
-                        viewModel.viewModelScope.launch {
+                        viewModel.viewModelScope.launch(Dispatchers.IO){
                             viewModel.savePeriodToDataStore(context, selectedOption)
                             viewModel.saveStepsToDataStore(context, text.value)
+
+                            if (!(context.dataStore.data.first()[isInit] ?: false)) {
+
+
+
+                                val app = context.applicationContext as MainApplication
+                                app.db.stepDateDao().deleteAll()
+                                repeat(1200){
+                                    app.db.stepDateDao().insertAll(StepDate(id = 0,  1743433200))
+                                }
+                                repeat(900){
+                                    app.db.stepDateDao().insertAll(StepDate(id = 0,  1743519600))
+                                }
+                                repeat(1000){
+                                    app.db.stepDateDao().insertAll(StepDate(id = 0,  1743606000))
+                                }
+
+
+                                val aggregateSteps = OneTimeWorkRequestBuilder<AggregateSteps>()
+                                    .setInitialDelay(aggregateDays(2).toLong(), TimeUnit.DAYS)
+                                    .build()
+                                WorkManager.getInstance(context).enqueue(aggregateSteps)
+                                context.dataStore.edit { settings ->
+                                    settings[isInit] = true
+                                }
+                            }
                         }
                     },
                 )
@@ -227,7 +263,7 @@ class TargetSettings : ViewModel() {
     ) {
         viewModelScope.launch {
             context.dataStore.edit { preferences ->
-                preferences[targetSteps] = name
+                preferences[targetSteps] = name.toInt()
             }
         }
     }
