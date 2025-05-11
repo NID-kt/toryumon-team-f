@@ -138,6 +138,7 @@ fun showAuthenticationDialog(
                     navController.navigate("home") {
                         // これにより、「ホーム」に戻るときにバックスタックがクリアされる
                         popUpTo(navController.graph.startDestinationId) {
+                            inclusive = true
                             saveState = true
                         }
                         launchSingleTop = true // 同じ画面を複数スタックしない
