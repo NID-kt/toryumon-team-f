@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -59,6 +60,7 @@ fun InitialFlow5Screen(navController: NavHostController) {
         remember {
             mutableStateOf("")
         }
+    val isError = text.value == ""
 
     InitialFlowBackground {
         Box(modifier = Modifier.fillMaxSize()) {
@@ -91,7 +93,14 @@ fun InitialFlow5Screen(navController: NavHostController) {
                 )
                 TextField(
                     value = text.value,
+                    isError = isError,
                     onValueChange = { newValue -> text.value = newValue },
+                    supportingText = {
+                        if(isError){
+                            Text(text = "何か名前をつけてあげてね",
+                                color = MaterialTheme.colorScheme.error)
+                        }
+                    },
                     placeholder = { Text(text = "名前をここに入力してね") },
                     colors =
                         TextFieldDefaults.colors(
@@ -129,9 +138,11 @@ fun InitialFlow5Screen(navController: NavHostController) {
                     .padding(0.dp, 0.dp, 0.dp, 80.dp),
             ) {
                 NextButton(
+
                     navController = navController,
                     nextDestination = "initialFlow/6/${text.value}",
                     modifier = Modifier.padding(20.dp, 0.dp, 20.dp, 10.dp),
+                    enabled = isError.not(),
                     onClick = {
                         viewModel.saveNameToDataStore(context, text.value)
                     },

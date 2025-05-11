@@ -16,6 +16,7 @@ fun NextButton(
     navController: NavController,
     nextDestination: String,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     text: String = "次へ",
     onClick: (() -> Unit)? = null,
 ) {
@@ -24,6 +25,7 @@ fun NextButton(
             onClick?.invoke()
             navController.navigate(nextDestination)
         },
+        enabled = enabled,
         modifier =
         modifier
             .fillMaxWidth(),

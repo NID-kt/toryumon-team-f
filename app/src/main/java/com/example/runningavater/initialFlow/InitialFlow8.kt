@@ -16,6 +16,7 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -72,6 +73,7 @@ fun InitialFlow8Screen(navController: NavHostController) {
     val context = LocalContext.current
     val text = remember { mutableStateOf("") }
     val keyboardController = LocalSoftwareKeyboardController.current
+    val isError = text.value.toIntOrNull().let { it == null || it <= 0 }
 
     InitialFlowBackground {
         Box(modifier = Modifier.fillMaxSize()) {
@@ -106,12 +108,19 @@ fun InitialFlow8Screen(navController: NavHostController) {
                     TextFieldDefaults.textFieldColors(
                         containerColor = GranulatedSugar,
                     ),
+                    isError = isError,
                     modifier =
                     Modifier
                         .fillMaxWidth()
                         .padding(10.dp, 0.dp, 10.dp, 30.dp),
                     value = text.value,
                     onValueChange = { newValue -> text.value = newValue },
+                    supportingText = {
+                        if(isError){
+                            Text(text = "1以上の整数を入力してね",
+                                color = MaterialTheme.colorScheme.error)
+                        }
+                    },
                     placeholder = { Text(text = "5000") },
                     keyboardOptions =
                         KeyboardOptions(
@@ -192,6 +201,7 @@ fun InitialFlow8Screen(navController: NavHostController) {
                     .padding(0.dp, 0.dp, 0.dp, 80.dp),
             ) {
                 NextButton(
+                    enabled = isError.not(),
                     navController = navController,
                     nextDestination = "initialFlow/9",
                     modifier = Modifier.padding(20.dp, 0.dp, 20.dp, 10.dp),
