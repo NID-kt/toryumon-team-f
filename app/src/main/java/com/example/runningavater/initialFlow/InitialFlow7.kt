@@ -18,6 +18,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -62,6 +63,7 @@ fun InitialFlow7Screen(navController: NavHostController) {
     val viewModel: UserProfileViewModel = viewModel()
     val context = LocalContext.current
     val text = remember { mutableStateOf("") }
+    val isError = text.value == ""
     var imageUri: Uri? by remember {
         mutableStateOf(null)
     }
@@ -118,9 +120,16 @@ fun InitialFlow7Screen(navController: NavHostController) {
                     )
                 }
                 TextField(
+                    isError = isError,
                     value = text.value,
                     onValueChange = { newValue -> text.value = newValue },
-                    placeholder = { Text(text = "名前をここに入力してね") },
+                    supportingText = {
+                        if(isError){
+                            Text(text = "あなたの名前を入力してね",
+                                color = MaterialTheme.colorScheme.error)
+                        }
+                    },
+//                    placeholder = { Text(text = "名前をここに入力してね") },
                     colors =
                         TextFieldDefaults.colors(
                             focusedContainerColor = GranulatedSugar,
@@ -164,6 +173,7 @@ fun InitialFlow7Screen(navController: NavHostController) {
                     .padding(20.dp, 0.dp, 20.dp, 90.dp),
             ) {
                 NextButton(
+                    enabled = isError.not(),
                     navController = navController,
                     nextDestination = "initialFlow/8",
                     onClick = {
