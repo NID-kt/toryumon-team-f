@@ -10,7 +10,7 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.runningavater"
+        applicationId = "org.nidkt.tekuteku.diet"
         minSdk = 26
         targetSdk = 35
         versionCode = 1
