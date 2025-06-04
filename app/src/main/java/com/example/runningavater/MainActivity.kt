@@ -1,7 +1,6 @@
 package com.example.runningavater
 
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -12,19 +11,12 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.datastore.preferences.core.edit
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
 import com.example.runningavater.notification.createNotificationChannels
 import com.example.runningavater.ui.theme.RunningAvaterTheme
-import dataStore
-import isInit
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import java.util.concurrent.TimeUnit
 
 class MainActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,7 +51,6 @@ class MainActivity : FragmentActivity() {
         }
         // /今は一旦ここに置いているがクマの名前を登録してから実行する
         createNotificationChannels(context = this, bearname = "権左衛門")
-        startStepCounterService()
 
         setContent {
             RunningAvaterTheme {
@@ -73,12 +64,5 @@ class MainActivity : FragmentActivity() {
         }
     }
 
-    private fun startStepCounterService() {
-        val intent = Intent(this, StepCounterService::class.java)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            startForegroundService(intent)
-        } else {
-            startService(intent)
-        }
-    }
+
 }
