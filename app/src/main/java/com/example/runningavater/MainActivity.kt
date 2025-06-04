@@ -40,15 +40,7 @@ class MainActivity : FragmentActivity() {
 
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q &&
-            ContextCompat.checkSelfPermission(this, Manifest.permission.ACTIVITY_RECOGNITION) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(Manifest.permission.ACTIVITY_RECOGNITION),
-                1001,
-            )
-        }
+       
         // /今は一旦ここに置いているがクマの名前を登録してから実行する
         createNotificationChannels(context = this, bearname = "権左衛門")
 
