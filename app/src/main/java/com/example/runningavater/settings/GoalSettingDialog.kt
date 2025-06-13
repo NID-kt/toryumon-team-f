@@ -33,9 +33,6 @@ import targetSteps
 fun GoalSettingDialog(
     onDismissRequest: () -> Unit,
     onConfirmation: () -> Unit,
-    dialogTitle: String,
-    dialogText: String,
-    icon: ImageVector,
     viewModel: GoalSettingViewModel = viewModel(),
 ) {
     val bearName by viewModel.roadTargetSteps.collectAsState(initial = "未設定")
