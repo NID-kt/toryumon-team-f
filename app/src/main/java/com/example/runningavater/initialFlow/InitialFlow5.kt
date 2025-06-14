@@ -1,10 +1,11 @@
-
 @file:OptIn(ExperimentalMaterial3Api::class)
 
 package com.example.runningavater.initialFlow
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Build
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,6 +21,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -45,11 +47,15 @@ import com.example.runningavater.R
 import com.example.runningavater.initialFlow.components.BackButton
 import com.example.runningavater.initialFlow.components.InitialFlowBackground
 import com.example.runningavater.initialFlow.components.NextButton
+import com.example.runningavater.startStepCounterService
 import com.example.runningavater.ui.theme.GranulatedSugar
 import com.example.runningavater.ui.theme.RunningAvaterTheme
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import dataStore
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalPermissionsApi::class)
 @SuppressLint("ComposeViewModelInjection")
 @Composable
 fun InitialFlow5Screen(navController: NavHostController) {
@@ -62,14 +68,33 @@ fun InitialFlow5Screen(navController: NavHostController) {
         }
     val isError = text.value == ""
 
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        val permissionState = rememberMultiplePermissionsState(
+            listOf(Manifest.permission.ACTIVITY_RECOGNITION)
+        ) {
+            if (it.all { it.value }) {
+                startStepCounterService(context)// 歩数の権限が許可された場合ステップカウンターサービス起動する処理
+                // ここでは何もしない
+            } else {
+                // パーミッションが拒否された場合の処理
+                // ここでは何もしない
+
+            }
+        }
+
+        LaunchedEffect(Unit) {
+            permissionState.launchMultiplePermissionRequest()
+        }
+    }
+
     InitialFlowBackground {
         Box(modifier = Modifier.fillMaxSize()) {
             Column(
                 modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.TopCenter)
-                    .padding(top = 48.dp),
+                    Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.TopCenter)
+                        .padding(top = 48.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
@@ -83,22 +108,24 @@ fun InitialFlow5Screen(navController: NavHostController) {
                     painter = painterResource(id = R.drawable.initialflow56),
                     contentDescription = "くまちゃん",
                     modifier =
-                    Modifier
-                        .padding(
-                            top = 20.dp,
-                            bottom = 20.dp,
-                        )
-                        .size(200.dp)
-                        .zIndex(-1f),
+                        Modifier
+                            .padding(
+                                top = 20.dp,
+                                bottom = 20.dp,
+                            )
+                            .size(200.dp)
+                            .zIndex(-1f),
                 )
                 TextField(
                     value = text.value,
                     isError = isError,
                     onValueChange = { newValue -> text.value = newValue },
                     supportingText = {
-                        if(isError){
-                            Text(text = "何か名前をつけてあげてね",
-                                color = MaterialTheme.colorScheme.error)
+                        if (isError) {
+                            Text(
+                                text = "何か名前をつけてあげてね",
+                                color = MaterialTheme.colorScheme.error
+                            )
                         }
                     },
                     placeholder = { Text(text = "名前をここに入力してね") },
@@ -126,16 +153,16 @@ fun InitialFlow5Screen(navController: NavHostController) {
                 Text(
                     text = "※名前は後から変更できるよ",
                     modifier =
-                    Modifier
-                        .align(Alignment.End)
-                        .padding(end = 20.dp),
+                        Modifier
+                            .align(Alignment.End)
+                            .padding(end = 20.dp),
                 )
             }
             Column(
                 modifier =
-                Modifier
-                    .align(Alignment.BottomStart)
-                    .padding(0.dp, 0.dp, 0.dp, 80.dp),
+                    Modifier
+                        .align(Alignment.BottomStart)
+                        .padding(0.dp, 0.dp, 0.dp, 80.dp),
             ) {
                 NextButton(
 
@@ -150,9 +177,9 @@ fun InitialFlow5Screen(navController: NavHostController) {
             }
             Column(
                 modifier =
-                Modifier
-                    .align(Alignment.BottomEnd)
-                    .padding(20.dp),
+                    Modifier
+                        .align(Alignment.BottomEnd)
+                        .padding(20.dp),
             ) {
                 BackButton(
                     navController = navController,
@@ -176,6 +203,7 @@ class YourViewModel : ViewModel() {
         }
     }
 }
+
 
 @Preview
 @Composable
