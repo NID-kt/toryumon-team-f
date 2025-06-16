@@ -5,6 +5,9 @@ package com.example.runningavater.initialFlow
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+
+import android.content.Intent
+
 import android.os.Build
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -44,6 +47,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import bearName
 import com.example.runningavater.R
+import com.example.runningavater.StepCounterService
 import com.example.runningavater.initialFlow.components.BackButton
 import com.example.runningavater.initialFlow.components.InitialFlowBackground
 import com.example.runningavater.initialFlow.components.NextButton
@@ -204,6 +208,15 @@ class YourViewModel : ViewModel() {
     }
 }
 
+
+
+private fun startStepCounterService(context: Context) {
+    val intent = Intent(context, StepCounterService::class.java)
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        context.startForegroundService(intent)
+    } else {
+        context.startService(intent)
+    }
 
 @Preview
 @Composable
