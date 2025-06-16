@@ -209,7 +209,6 @@ class YourViewModel : ViewModel() {
 }
 
 
-
 private fun startStepCounterService(context: Context) {
     val intent = Intent(context, StepCounterService::class.java)
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -217,11 +216,13 @@ private fun startStepCounterService(context: Context) {
     } else {
         context.startService(intent)
     }
+}
 
 @Preview
 @Composable
 private fun InitialFlow5Preview() {
     RunningAvaterTheme {
         InitialFlow5Screen(rememberNavController())
+
     }
 }
