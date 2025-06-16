@@ -64,29 +64,12 @@ fun SettingsScreen(
     ) {
         when {
             openAlertDialog.value -> {
-                AuthenticationErrorDialog(
-                    onDismissRequest = { openAlertDialog.value = false },
-                    onConfirmation = {
-                        openAlertDialog.value = false
-                        println("Confirmation registered") // Add logic here to handle confirmation.
-                    },
-                    dialogTitle = "Alert dialog example",
-                    dialogText = "This is an example of an alert dialog with buttons.",
-                    icon = Icons.Default.Info
-                )
-            }
-        }
-        when {
-            openAlertDialog.value -> {
                 GoalSettingDialog(
                     onDismissRequest = { openAlertDialog.value = false },
                     onConfirmation = {
                         openAlertDialog.value = false
                         println("Confirmation registered") // Add logic here to handle confirmation.
                     },
-                    dialogTitle = "Alert dialog example",
-                    dialogText = "This is an example of an alert dialog with buttons.",
-                    icon = Icons.Default.Info
                 )
             }
         }

@@ -4,6 +4,10 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -49,7 +53,7 @@ fun getStartDestination(context: Context): String {
     val isFirstLaunch = prefs.getBoolean("is_first_launch", true)
 
     if (isFirstLaunch) {
-        return "home"
+        return "initialFlow/1"
     } else {
 //        return "initialFlow/1"
         return "authentication"
@@ -80,16 +84,27 @@ fun MyAppNavHost(
             composable("authentication") {
                 AuthenticationScreen(navController = navController) // 認証画面を表示
             }
-            composable("home") {
+            composable("home",
+                enterTransition = { fadeIn() },
+                exitTransition =  { fadeOut()}) {
                 HomeScreen() // メイン画面を表示
             }
-            composable(route = "growth") {
+            composable(route = "growth",
+                enterTransition = { fadeIn() },
+                exitTransition =  { fadeOut()}) {
                 GrowthScreen() // 成長画面を表示
             }
-            composable(route = "settings") {
+            composable(route = "settings",
+                enterTransition = { fadeIn() },
+                exitTransition =  { fadeOut()}) {
                 SettingsScreen(navController, profileImageUri = null) // 設定画面を表示
             }
-            composable(route = "settings/profile") {
+            composable(route = "settings/profile",
+                enterTransition = {slideIntoContainer(towards = AnimatedContentTransitionScope.SlideDirection.Left, tween(1000))},
+                exitTransition = {slideOutOfContainer(towards = AnimatedContentTransitionScope.SlideDirection.Right, tween(1000))},
+                popEnterTransition = {slideIntoContainer(towards = AnimatedContentTransitionScope.SlideDirection.Right, tween(1000))},
+                popExitTransition = {slideOutOfContainer(towards = AnimatedContentTransitionScope.SlideDirection.Right, tween(1000))},
+                ) {
                 ProfileScreen(navController,
                     profileImageUri = profileImageUri,
                     onImageSelected = { newUri ->
