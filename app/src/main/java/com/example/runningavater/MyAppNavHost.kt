@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -48,7 +49,7 @@ fun getStartDestination(context: Context): String {
     val isFirstLaunch = prefs.getBoolean("is_first_launch", true)
 
     if (isFirstLaunch) {
-        return "initialFlow/1"
+        return "home"
     } else {
 //        return "initialFlow/1"
         return "authentication"
@@ -72,6 +73,7 @@ fun MyAppNavHost(
                 MainBottomBar(currentDestination, navController)
             }
         },
+        contentWindowInsets = WindowInsets(left = 0)
     ) { paddingValues ->
         // ナビゲーションホストを作成
         NavHost(navController = navController, startDestination = startDestination, modifier = Modifier.padding(paddingValues)) {
@@ -158,7 +160,7 @@ enum class MainScreenTab(
     ),
     Growth(
         icon = Icons.Default.KeyboardArrowUp,
-        label = "成長",
+        label = "達成率",
         route = "growth",
     ),
     Settings(
