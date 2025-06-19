@@ -86,6 +86,14 @@ fun InitialFlow5Screen(navController: NavHostController) {
         LaunchedEffect(Unit) {
             permissionState.launchMultiplePermissionRequest()
         }
+        // 権限状態の変化を監視 - 新しく追加するコード
+        LaunchedEffect(permissionState.allPermissionsGranted) {
+            if (!permissionState.allPermissionsGranted) {
+                // 権限が取り消された場合、サービスを停止
+                val intent = Intent(context, StepCounterService::class.java)
+                context.stopService(intent)
+            }
+        }
     }
 
     InitialFlowBackground {
