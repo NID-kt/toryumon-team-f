@@ -1,5 +1,6 @@
 package com.example.runningavater
 
+import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.Service
@@ -13,6 +14,7 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Build
 import android.os.IBinder
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.ServiceCompat
 import com.example.runningavater.db.StepDate
@@ -30,25 +32,25 @@ class StepCounterService : Service() {
     override fun onCreate() {
         super.onCreate()
 
-//        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-//        stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
-//
-//        if (stepSensor == null) {
-//            Log.e("StepCounterService", "Step Counter sensor not available!")
-//            stopSelf()
-//        }
-//
-//
-//        createNotificationChannel()
-//
-//
-//        val notification = NotificationCompat.Builder(this, "step_service_channel")
-//            .setContentTitle("Step Counter Service")
-//            .setContentText("Counting your steps...")
-//            .setSmallIcon(R.drawable.ic_steps)
-//            .build()
-//
-//        startForeground(1, notification)
+        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
+
+        if (stepSensor == null) {
+            Log.e("StepCounterService", "Step Counter sensor not available!")
+            stopSelf()
+        }
+
+
+        createNotificationChannel()
+
+
+        val notification = NotificationCompat.Builder(this, "step_service_channel")
+            .setContentTitle("Step Counter Service")
+            .setContentText("Counting your steps...")
+            .setSmallIcon(R.drawable.ic_steps)
+            .build()
+
+        startForeground(1, notification)
     }
 
     val coroutineScope = CoroutineScope(SupervisorJob())
@@ -60,7 +62,7 @@ class StepCounterService : Service() {
         startId: Int,
     ): Int {
         // 権限チェック - 権限がない場合はサービスを停止
-        if (checkSelfPermission(Manifest.permission.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION) != PackageManager.PERMISSION_GRANTED) {
+        if (checkSelfPermission(Manifest.permission.ACTIVITY_RECOGNITION) != PackageManager.PERMISSION_GRANTED) {
             stopSelf()
             return START_NOT_STICKY
         }
