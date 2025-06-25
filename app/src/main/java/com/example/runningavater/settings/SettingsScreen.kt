@@ -1,6 +1,8 @@
 package com.example.runningavater.settings
 
+import android.content.Intent
 import android.net.Uri
+import android.provider.Settings
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -16,6 +18,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -36,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import androidx.work.Data
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.example.runningavater.R
@@ -44,6 +48,7 @@ import com.example.runningavater.ui.theme.GranulatedSugar
 import com.example.runningavater.ui.theme.NuclearMango
 import com.example.runningavater.ui.theme.RunningAvaterTheme
 import com.example.runningavater.ui.theme.SungYellow
+import kotlin.contracts.contract
 
 @Composable
 fun SettingsScreen(
@@ -53,6 +58,11 @@ fun SettingsScreen(
 ) {
     val openAlertDialog = remember { mutableStateOf(false) }
     var checked by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
+        putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
+        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    }
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -189,7 +199,10 @@ fun SettingsScreen(
                 )
                 .clip(RoundedCornerShape(16.dp))
                 .background(GranulatedSugar)
-                .padding(vertical = 10.dp),
+                .padding(vertical = 10.dp)
+                .clickable {
+                    context.startActivity(intent)
+                },
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
@@ -200,11 +213,6 @@ fun SettingsScreen(
                 Modifier
                     .padding(start = 16.dp)
                     .weight(1f),
-            )
-            Switch(
-                checked = checked,
-                onCheckedChange = { checked = it },
-                modifier = Modifier.padding(end = 16.dp),
             )
         }
     }
