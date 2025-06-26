@@ -135,7 +135,7 @@ fun ProfileScreen(
             model = ImageRequest
                 .Builder(LocalContext.current)
                 .data(iconToDisplay)
-                .build()
+                .build(),
         )
     }
     val keyboardController = LocalSoftwareKeyboardController.current

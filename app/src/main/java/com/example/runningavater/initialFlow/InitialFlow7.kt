@@ -31,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
@@ -100,12 +101,14 @@ fun InitialFlow7Screen(navController: NavHostController) {
                 if (imageUri != null) {
                     AsyncImage(
                         model = imageUri,
-                        contentDescription = null,
+                        contentDescription = "userIcon",
+                        contentScale = ContentScale.Crop,
                         modifier =
                         Modifier
-                            .offset((0.dp), (35.dp))
                             .size(220.dp)
-                            .clickable { launcher.launch("image/%") },
+                            .offset((0.dp), (35.dp))
+                            .clip(CircleShape)
+                            .clickable { launcher.launch("image/*") },
                     )
                 } else {
                     Image(
@@ -115,8 +118,8 @@ fun InitialFlow7Screen(navController: NavHostController) {
                         Modifier
                             .offset((0.dp), (35.dp))
                             .size(220.dp)
+                            .clickable { launcher.launch("image/*") }
                             .clip(CircleShape)
-                            .clickable { launcher.launch("image/%") },
                     )
                 }
                 TextField(
