@@ -108,7 +108,7 @@ fun InitialFlow7Screen(navController: NavHostController) {
                             .size(220.dp)
                             .offset((0.dp), (35.dp))
                             .clip(CircleShape)
-                            .clickable { launcher.launch("image/%") },
+                            .clickable { launcher.launch("image/*") },
                     )
                 } else {
                     Image(
@@ -118,7 +118,7 @@ fun InitialFlow7Screen(navController: NavHostController) {
                         Modifier
                             .offset((0.dp), (35.dp))
                             .size(220.dp)
-                            .clickable { launcher.launch("image/%") }
+                            .clickable { launcher.launch("image/*") }
                             .clip(CircleShape)
                     )
                 }
