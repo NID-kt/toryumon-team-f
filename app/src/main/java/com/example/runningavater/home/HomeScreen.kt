@@ -1,11 +1,17 @@
 package com.example.runningavater.home
 
+<<<<<<< issue-166
+import android.Manifest
+import android.content.Intent
+
+=======
 
 import android.Manifest
 
 import afterLevelKey
 
 import android.content.Intent
+>>>>>>> issue-159
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import androidx.compose.foundation.Image
@@ -44,9 +50,19 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.runningavater.MainApplication
+<<<<<<< issue-166
+
+import com.example.runningavater.authentication.LifecycleResumeEffect
+import com.example.runningavater.startStepCounterService
+
+import com.example.runningavater.StepCounterService
+import com.example.runningavater.authentication.LifecycleResumeEffect
+
+=======
 import com.example.runningavater.R
 import com.example.runningavater.StepCounterService
 import com.example.runningavater.authentication.LifecycleResumeEffect
+>>>>>>> issue-159
 import com.example.runningavater.ui.theme.NuclearMango
 import dataStore
 import kotlinx.coroutines.Dispatchers
@@ -78,8 +94,17 @@ fun HomeScreen() {
         hasPermission = (context.checkSelfPermission(Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_GRANTED)
             .also { hasPermission ->
                 if (hasPermission) {
+<<<<<<< issue-166
+
+                    startStepCounterService(context)
+
                     val intent = Intent(context, StepCounterService::class.java)
                     context.startForegroundService(intent)
+
+=======
+                    val intent = Intent(context, StepCounterService::class.java)
+                    context.startForegroundService(intent)
+>>>>>>> issue-159
                 }
             }
 
