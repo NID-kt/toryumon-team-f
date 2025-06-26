@@ -1,12 +1,22 @@
 package com.example.runningavater.home
 
+<<<<<<< issue-166
 import android.Manifest
 import android.content.Intent
 
+=======
+
+import android.Manifest
+
+import afterLevelKey
+
+import android.content.Intent
+>>>>>>> issue-159
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -14,6 +24,7 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -32,7 +43,14 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
+import androidx.datastore.preferences.core.edit
+import beforeLevelKey
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.runningavater.MainApplication
+<<<<<<< issue-166
 
 import com.example.runningavater.authentication.LifecycleResumeEffect
 import com.example.runningavater.startStepCounterService
@@ -40,8 +58,15 @@ import com.example.runningavater.startStepCounterService
 import com.example.runningavater.StepCounterService
 import com.example.runningavater.authentication.LifecycleResumeEffect
 
+=======
+import com.example.runningavater.R
+import com.example.runningavater.StepCounterService
+import com.example.runningavater.authentication.LifecycleResumeEffect
+>>>>>>> issue-159
 import com.example.runningavater.ui.theme.NuclearMango
+import dataStore
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
@@ -69,12 +94,17 @@ fun HomeScreen() {
         hasPermission = (context.checkSelfPermission(Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_GRANTED)
             .also { hasPermission ->
                 if (hasPermission) {
+<<<<<<< issue-166
 
                     startStepCounterService(context)
 
                     val intent = Intent(context, StepCounterService::class.java)
                     context.startForegroundService(intent)
 
+=======
+                    val intent = Intent(context, StepCounterService::class.java)
+                    context.startForegroundService(intent)
+>>>>>>> issue-159
                 }
             }
 
@@ -161,6 +191,45 @@ fun HomeScreen() {
             }
         }
     }
+    var isOpen by remember { mutableStateOf(false) }
+
+    LaunchedEffect(Unit) {
+        val beforeLevel = context.dataStore.data.first()[beforeLevelKey] ?: 2
+        val afterLevel = context.dataStore.data.first()[afterLevelKey] ?: 2
+
+        isOpen = beforeLevel != afterLevel
+        context.dataStore.edit {
+            it[beforeLevelKey] = afterLevel
+        }
+    }
+    if (isOpen) {
+        Dialog(onDismissRequest = {}) {
+            Box {
+                Column {
+                    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.revelup))
+                    LottieAnimation(
+                        composition, modifier = Modifier
+                            .weight(1f)
+                    )
+
+                    Button(onClick = { isOpen = false }, modifier = Modifier.align(Alignment.CenterHorizontally)) {
+                        Text(
+                            text = "閉じる",
+                        )
+                    }
+                }
+                Text(
+                    text = "Level Up!",
+                    color = NuclearMango,
+                    fontSize = 48.sp,
+                    modifier = Modifier
+                        .align(Alignment.TopCenter)
+                        .offset(y = 181.dp),
+                )
+            }
+        }
+    }
+
 }
 
 // 現在の日付と曜日を取得する関数
@@ -180,7 +249,6 @@ fun SetImage(
     val context = LocalContext.current
     val assetManager = context.assets
     val bitmap = BitmapFactory.decodeStream(assetManager.open(fileName))
-
     // 画像を表示
     Image(
         bitmap = bitmap.asImageBitmap(),

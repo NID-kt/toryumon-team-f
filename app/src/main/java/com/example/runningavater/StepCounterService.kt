@@ -1,10 +1,12 @@
 package com.example.runningavater
 
+import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.pm.ServiceInfo
 import android.hardware.Sensor
 import android.hardware.SensorEvent
@@ -66,6 +68,11 @@ class StepCounterService : Service() {
         flags: Int,
         startId: Int,
     ): Int {
+        // 権限チェック - 権限がない場合はサービスを停止
+        if (checkSelfPermission(Manifest.permission.ACTIVITY_RECOGNITION) != PackageManager.PERMISSION_GRANTED) {
+            stopSelf()
+            return START_NOT_STICKY
+        }
         createNotificationChannel()
         val notification =
             NotificationCompat.Builder(this, "step_service_channel")
@@ -126,7 +133,7 @@ class StepCounterService : Service() {
 fun startcount(
     context: Context,
     walkcount: Walkcount,
-)  {
+) {
     val sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
     val sensor: Sensor? = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR)
     sensorManager.registerListener(walkcount, sensor, SensorManager.SENSOR_DELAY_NORMAL)
@@ -150,7 +157,7 @@ class Walkcount(val context: Context, val coroutineScope: CoroutineScope) : Sens
 fun stopcount(
     context: Context,
     walkcount: Walkcount,
-)  {
+) {
     val sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
     sensorManager.unregisterListener(walkcount)
 }

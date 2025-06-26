@@ -6,7 +6,9 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 
+
 import android.content.Intent
+
 
 import android.os.Build
 import androidx.compose.foundation.Image
@@ -89,6 +91,7 @@ fun InitialFlow5Screen(navController: NavHostController) {
         LaunchedEffect(Unit) {
             permissionState.launchMultiplePermissionRequest()
         }
+
     }
 
     InitialFlowBackground {
@@ -207,7 +210,6 @@ class YourViewModel : ViewModel() {
         }
     }
 }
-
 
 private fun startStepCounterService(context: Context) {
     val intent = Intent(context, StepCounterService::class.java)
