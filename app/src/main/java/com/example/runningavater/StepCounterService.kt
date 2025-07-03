@@ -23,6 +23,14 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
+    fun startStepCounterService(context: Context) {
+    val intent = Intent(context, StepCounterService::class.java)
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        context.startForegroundService(intent)
+    } else {
+        context.startService(intent)
+    }
+}
 class StepCounterService : Service() {
     private lateinit var sensorManager: SensorManager
     private var stepSensor: Sensor? = null
