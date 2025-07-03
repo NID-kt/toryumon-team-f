@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.runningavater"
+    namespace = "org.nidkt.tekuteku.diet"
     compileSdk = 35
 
     defaultConfig {
@@ -94,6 +94,6 @@ dependencies {
     implementation("androidx.room:room-runtime:$room_version")
     ksp("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
-    implementation ("androidx.work:work-runtime-ktx:2.10.1")
+    implementation("androidx.work:work-runtime-ktx:2.10.1")
 
 }
