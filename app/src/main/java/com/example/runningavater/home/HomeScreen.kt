@@ -1,10 +1,8 @@
 package com.example.runningavater.home
 
 
-import android.Manifest
-
 import afterLevelKey
-
+import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
@@ -47,6 +45,7 @@ import com.example.runningavater.MainApplication
 import com.example.runningavater.R
 import com.example.runningavater.StepCounterService
 import com.example.runningavater.authentication.LifecycleResumeEffect
+import com.example.runningavater.startStepCounterService
 import com.example.runningavater.ui.theme.NuclearMango
 import dataStore
 import kotlinx.coroutines.Dispatchers
@@ -78,8 +77,14 @@ fun HomeScreen() {
         hasPermission = (context.checkSelfPermission(Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_GRANTED)
             .also { hasPermission ->
                 if (hasPermission) {
+
+
+                    startStepCounterService(context)
+
                     val intent = Intent(context, StepCounterService::class.java)
                     context.startForegroundService(intent)
+
+
                 }
             }
 

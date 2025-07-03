@@ -5,7 +5,11 @@ package com.example.runningavater.initialFlow
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+
+
 import android.content.Intent
+
+
 import android.os.Build
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -49,6 +53,7 @@ import com.example.runningavater.StepCounterService
 import com.example.runningavater.initialFlow.components.BackButton
 import com.example.runningavater.initialFlow.components.InitialFlowBackground
 import com.example.runningavater.initialFlow.components.NextButton
+import com.example.runningavater.startStepCounterService
 import com.example.runningavater.ui.theme.GranulatedSugar
 import com.example.runningavater.ui.theme.RunningAvaterTheme
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
@@ -86,14 +91,7 @@ fun InitialFlow5Screen(navController: NavHostController) {
         LaunchedEffect(Unit) {
             permissionState.launchMultiplePermissionRequest()
         }
-        // 権限状態の変化を監視 - 新しく追加するコード
-        LaunchedEffect(permissionState.allPermissionsGranted) {
-            if (!permissionState.allPermissionsGranted) {
-                // 権限が取り消された場合、サービスを停止
-                val intent = Intent(context, StepCounterService::class.java)
-                context.stopService(intent)
-            }
-        }
+
     }
 
     InitialFlowBackground {
@@ -227,5 +225,6 @@ private fun startStepCounterService(context: Context) {
 private fun InitialFlow5Preview() {
     RunningAvaterTheme {
         InitialFlow5Screen(rememberNavController())
+
     }
 }
