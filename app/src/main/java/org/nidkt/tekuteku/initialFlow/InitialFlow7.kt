@@ -31,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
@@ -76,15 +77,15 @@ fun InitialFlow7Screen(navController: NavHostController) {
     InitialFlowBackground {
         Box(
             modifier =
-                Modifier
-                    .fillMaxSize(),
+            Modifier
+                .fillMaxSize(),
         ) {
             Column(
                 modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .align(Alignment.TopCenter)
-                        .padding(0.dp, 50.dp, 0.dp, 0.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.TopCenter)
+                    .padding(0.dp, 50.dp, 0.dp, 0.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
@@ -100,23 +101,25 @@ fun InitialFlow7Screen(navController: NavHostController) {
                 if (imageUri != null) {
                     AsyncImage(
                         model = imageUri,
-                        contentDescription = null,
+                        contentDescription = "userIcon",
+                        contentScale = ContentScale.Crop,
                         modifier =
-                            Modifier
-                                .offset((0.dp), (35.dp))
-                                .size(220.dp)
-                                .clickable { launcher.launch("image/%") },
+                        Modifier
+                            .size(220.dp)
+                            .offset((0.dp), (35.dp))
+                            .clip(CircleShape)
+                            .clickable { launcher.launch("image/*") },
                     )
                 } else {
                     Image(
                         painter = painterResource(id = R.drawable.initial_icon),
                         contentDescription = "初期アイコン",
                         modifier =
-                            Modifier
-                                .offset((0.dp), (35.dp))
-                                .size(220.dp)
-                                .clip(CircleShape)
-                                .clickable { launcher.launch("image/%") },
+                        Modifier
+                            .offset((0.dp), (35.dp))
+                            .size(220.dp)
+                            .clickable { launcher.launch("image/*") }
+                            .clip(CircleShape)
                     )
                 }
                 TextField(
@@ -124,11 +127,9 @@ fun InitialFlow7Screen(navController: NavHostController) {
                     value = text.value,
                     onValueChange = { newValue -> text.value = newValue },
                     supportingText = {
-                        if (isError) {
-                            Text(
-                                text = "あなたの名前を入力してね",
-                                color = MaterialTheme.colorScheme.error
-                            )
+                        if(isError){
+                            Text(text = "あなたの名前を入力してね",
+                                color = MaterialTheme.colorScheme.error)
                         }
                     },
 //                    placeholder = { Text(text = "名前をここに入力してね") },
@@ -156,23 +157,23 @@ fun InitialFlow7Screen(navController: NavHostController) {
                 Text(
                     text = "※名前とアイコンは",
                     modifier =
-                        Modifier
-                            .align(Alignment.End)
-                            .padding(end = 100.dp),
+                    Modifier
+                        .align(Alignment.End)
+                        .padding(end = 100.dp),
                 )
                 Text(
                     text = "後から変更できるよ",
                     modifier =
-                        Modifier
-                            .align(Alignment.End)
-                            .padding(end = 20.dp),
+                    Modifier
+                        .align(Alignment.End)
+                        .padding(end = 20.dp),
                 )
             }
             Column(
                 modifier =
-                    Modifier
-                        .align(Alignment.BottomStart)
-                        .padding(20.dp, 0.dp, 20.dp, 90.dp),
+                Modifier
+                    .align(Alignment.BottomStart)
+                    .padding(20.dp, 0.dp, 20.dp, 90.dp),
             ) {
                 NextButton(
                     enabled = isError.not(),
@@ -190,9 +191,9 @@ fun InitialFlow7Screen(navController: NavHostController) {
             }
             Column(
                 modifier =
-                    Modifier
-                        .align(Alignment.BottomEnd)
-                        .padding(20.dp),
+                Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(20.dp),
             ) {
                 BackButton(
                     navController = navController,

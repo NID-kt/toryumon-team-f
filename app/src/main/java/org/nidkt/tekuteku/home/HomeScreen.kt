@@ -1,7 +1,11 @@
 package org.nidkt.tekuteku.home
 
+
+import android.Manifest
+
 import afterLevelKey
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -42,6 +46,7 @@ import dataStore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import org.nidkt.tekuteku.authentication.LifecycleResumeEffect
 import org.nidkt.tekuteku.MainApplication
 import org.nidkt.tekuteku.R
 import org.nidkt.tekuteku.StepCounterService
@@ -66,10 +71,19 @@ fun HomeScreen() {
         }
     }
     val context = LocalContext.current
-    LaunchedEffect(key1 = Unit) {
-        val intent = Intent(context, StepCounterService::class.java)
-        context.startForegroundService(intent)
+    var hasPermission by remember { mutableStateOf(context.checkSelfPermission(Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_GRANTED) }
+
+    LifecycleResumeEffect {
+        hasPermission = (context.checkSelfPermission(Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_GRANTED)
+            .also { hasPermission ->
+                if (hasPermission) {
+                    val intent = Intent(context, StepCounterService::class.java)
+                    context.startForegroundService(intent)
+                }
+            }
+
     }
+
     val stepcount = remember { mutableStateOf<Int?>(null) }
     LaunchedEffect(key1 = Unit) {
         val now = LocalDateTime.now() // 2025/02/23 23:52:10.123
@@ -111,6 +125,13 @@ fun HomeScreen() {
     ) {
         Box(Modifier.padding(it)) {
             Bear3D(assetFileLocation = "fatBear.glb")
+            if (!hasPermission) {
+                PermissionAlert(
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .padding(12.dp)
+                )
+            }
             Row(
                 modifier =
                     Modifier
