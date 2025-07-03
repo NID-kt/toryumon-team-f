@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "org.nidkt.tekuteku.diet"
+    namespace = "org.nidkt.tekuteku"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "org.nidkt.tekuteku.diet"
+        applicationId = "org.nidkt.tekuteku"
         minSdk = 26
         targetSdk = 35
         versionCode = 1
