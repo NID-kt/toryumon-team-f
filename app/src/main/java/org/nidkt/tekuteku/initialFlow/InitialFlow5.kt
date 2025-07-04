@@ -55,6 +55,8 @@ import org.nidkt.tekuteku.ui.theme.GranulatedSugar
 import org.nidkt.tekuteku.ui.theme.RunningAvaterTheme
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
+import org.nidkt.tekuteku.StepCounterService
+
 @OptIn(ExperimentalPermissionsApi::class)
 @SuppressLint("ComposeViewModelInjection")
 @Composable

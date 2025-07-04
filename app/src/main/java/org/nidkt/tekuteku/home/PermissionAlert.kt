@@ -1,4 +1,4 @@
-package com.example.runningavater.home
+package org.nidkt.tekuteku.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
