@@ -105,7 +105,8 @@ fun MyAppNavHost(
                 popEnterTransition = {slideIntoContainer(towards = AnimatedContentTransitionScope.SlideDirection.Right, tween(1000))},
                 popExitTransition = {slideOutOfContainer(towards = AnimatedContentTransitionScope.SlideDirection.Right, tween(1000))},
                 ) {
-                ProfileScreen(navController,
+                ProfileScreen(
+                    navController,
                     profileImageUri = profileImageUri,
                     onImageSelected = { newUri ->
                         profileImageUri = newUri
@@ -151,13 +152,13 @@ private fun MainBottomBar(
                     }
                 },
                 colors =
-                NavigationBarItemDefaults.colors(
-                    selectedIconColor = Color.White,
-                    selectedTextColor = Color.White,
-                    unselectedIconColor = Color.White.copy(alpha = 0.5f),
-                    unselectedTextColor = Color.White.copy(alpha = 0.5f),
-                    indicatorColor = Color.White.copy(alpha = 0.3f),
-                ),
+                    NavigationBarItemDefaults.colors(
+                        selectedIconColor = Color.White,
+                        selectedTextColor = Color.White,
+                        unselectedIconColor = Color.White.copy(alpha = 0.5f),
+                        unselectedTextColor = Color.White.copy(alpha = 0.5f),
+                        indicatorColor = Color.White.copy(alpha = 0.3f),
+                    ),
             )
         }
     }
