@@ -1,7 +1,11 @@
 package com.example.runningavater.authentication
 
 import android.content.Context
+import android.content.Intent
+import android.os.Build
+import android.provider.Settings
 import android.widget.Toast
+import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
 import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_WEAK
 import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
@@ -68,38 +72,38 @@ fun AuthenticationScreen(
     }
     LifecycleResumeEffect {
         navController.navigate("home")
-//        when (BiometricManager.from(context).canAuthenticate(BIOMETRIC_STRONG or BIOMETRIC_WEAK or DEVICE_CREDENTIAL)) {
-//            BiometricManager.BIOMETRIC_SUCCESS -> { // 生体認証が利用可能
-//                showAuthenticationDialog(context, navController)
-//            }
-//
-//
-//            BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> { // 生体情報が端末に登録されていない
-//                val enrollIntent =
-//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-//                        val enrollIntent = Intent(Settings.ACTION_BIOMETRIC_ENROLL).apply {
-//                            putExtra(
-//                                Settings.EXTRA_BIOMETRIC_AUTHENTICATORS_ALLOWED,
-//                                BIOMETRIC_STRONG or DEVICE_CREDENTIAL
-//                            )
-//                        }
-//                        context.startActivity(enrollIntent)
-//                    } else {
-//                        // Android 10 以下
-//                        showToast(context, "端末のパスワードを設定してください")
-//                        val securityIntent = Intent(Settings.ACTION_SECURITY_SETTINGS).apply {
-//                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//                        }
-//                        context.startActivity(securityIntent)
-//                    }
-//            }
-//
-//            BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE, BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> { // 生体認証ハードウェアが利用不可
-//                showToast(context, "お使いの端末は対応本サービスを利用できません。")
-//            }
-//
-//            else -> throw IllegalStateException("ここには入らないはず。")
-//        }
+        when (BiometricManager.from(context).canAuthenticate(BIOMETRIC_STRONG or BIOMETRIC_WEAK or DEVICE_CREDENTIAL)) {
+            BiometricManager.BIOMETRIC_SUCCESS -> { // 生体認証が利用可能
+                showAuthenticationDialog(context, navController)
+            }
+
+
+            BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> { // 生体情報が端末に登録されていない
+                val enrollIntent =
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                        val enrollIntent = Intent(Settings.ACTION_BIOMETRIC_ENROLL).apply {
+                            putExtra(
+                                Settings.EXTRA_BIOMETRIC_AUTHENTICATORS_ALLOWED,
+                                BIOMETRIC_STRONG or DEVICE_CREDENTIAL
+                            )
+                        }
+                        context.startActivity(enrollIntent)
+                    } else {
+                        // Android 10 以下
+                        showToast(context, "端末のパスワードを設定してください")
+                        val securityIntent = Intent(Settings.ACTION_SECURITY_SETTINGS).apply {
+                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        }
+                        context.startActivity(securityIntent)
+                    }
+            }
+
+            BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE, BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> { // 生体認証ハードウェアが利用不可
+                showToast(context, "お使いの端末は対応本サービスを利用できません。")
+            }
+
+            else -> throw IllegalStateException("ここには入らないはず。")
+        }
     }
     CircularProgressIndicator()
 }
