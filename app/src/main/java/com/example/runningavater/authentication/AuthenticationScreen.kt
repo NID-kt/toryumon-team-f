@@ -71,6 +71,7 @@ fun AuthenticationScreen(
         }
     }
     LifecycleResumeEffect {
+        navController.navigate("home")
         when (BiometricManager.from(context).canAuthenticate(BIOMETRIC_STRONG or BIOMETRIC_WEAK or DEVICE_CREDENTIAL)) {
             BiometricManager.BIOMETRIC_SUCCESS -> { // 生体認証が利用可能
                 showAuthenticationDialog(context, navController)

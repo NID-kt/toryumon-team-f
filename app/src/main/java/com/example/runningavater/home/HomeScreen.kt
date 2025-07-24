@@ -1,7 +1,10 @@
 package com.example.runningavater.home
 
+
 import afterLevelKey
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -41,6 +44,8 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.runningavater.MainApplication
 import com.example.runningavater.R
 import com.example.runningavater.StepCounterService
+import com.example.runningavater.authentication.LifecycleResumeEffect
+import com.example.runningavater.startStepCounterService
 import com.example.runningavater.ui.theme.NuclearMango
 import dataStore
 import kotlinx.coroutines.Dispatchers
@@ -66,10 +71,25 @@ fun HomeScreen() {
         }
     }
     val context = LocalContext.current
-    LaunchedEffect(key1 = Unit) {
-        val intent = Intent(context, StepCounterService::class.java)
-        context.startForegroundService(intent)
+    var hasPermission by remember { mutableStateOf(context.checkSelfPermission(Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_GRANTED) }
+
+    LifecycleResumeEffect {
+        hasPermission = (context.checkSelfPermission(Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_GRANTED)
+            .also { hasPermission ->
+                if (hasPermission) {
+
+
+                    startStepCounterService(context)
+
+                    val intent = Intent(context, StepCounterService::class.java)
+                    context.startForegroundService(intent)
+
+
+                }
+            }
+
     }
+
     val stepcount = remember { mutableStateOf<Int?>(null) }
     LaunchedEffect(key1 = Unit) {
         val now = LocalDateTime.now() // 2025/02/23 23:52:10.123
@@ -111,6 +131,13 @@ fun HomeScreen() {
     ) {
         Box(Modifier.padding(it)) {
             Bear3D(assetFileLocation = "fatBear.glb")
+            if (!hasPermission) {
+                PermissionAlert(
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .padding(12.dp)
+                )
+            }
             Row(
                 modifier =
                     Modifier

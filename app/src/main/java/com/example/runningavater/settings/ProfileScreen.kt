@@ -10,12 +10,14 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.displayCutoutPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -135,7 +137,7 @@ fun ProfileScreen(
             model = ImageRequest
                 .Builder(LocalContext.current)
                 .data(iconToDisplay)
-                .build()
+                .build(),
         )
     }
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -145,7 +147,8 @@ fun ProfileScreen(
         Modifier
             .fillMaxSize()
             .background(color = SungYellow)
-            .safeDrawingPadding()
+            .systemBarsPadding()
+            .displayCutoutPadding()
             .padding(16.dp)
             .clip(RoundedCornerShape(4.dp))
             .verticalScroll(rememberScrollState()),
