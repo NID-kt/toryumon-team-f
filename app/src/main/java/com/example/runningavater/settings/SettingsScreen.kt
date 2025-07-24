@@ -1,7 +1,9 @@
 package com.example.runningavater.settings
 
 import android.app.Application
+import android.content.Intent
 import android.net.Uri
+import android.provider.Settings
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -15,10 +17,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -31,7 +31,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -46,7 +45,6 @@ import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.example.runningavater.R
-import com.example.runningavater.authentication.AuthenticationErrorDialog
 import com.example.runningavater.ui.theme.GranulatedSugar
 import com.example.runningavater.ui.theme.NuclearMango
 import com.example.runningavater.ui.theme.RunningAvaterTheme
@@ -84,6 +82,11 @@ fun SettingsScreen(
     }
     LaunchedEffect(bearName) {
         bearTextFieldValue = bearName
+    }
+    val context = LocalContext.current
+    val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
+        putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
+        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     }
 
     Column(
@@ -224,7 +227,10 @@ fun SettingsScreen(
                 )
                 .clip(RoundedCornerShape(16.dp))
                 .background(GranulatedSugar)
-                .padding(vertical = 10.dp),
+                .padding(vertical = 10.dp)
+                .clickable {
+                    context.startActivity(intent)
+                },
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
@@ -235,11 +241,6 @@ fun SettingsScreen(
                 Modifier
                     .padding(start = 16.dp)
                     .weight(1f),
-            )
-            Switch(
-                checked = checked,
-                onCheckedChange = { checked = it },
-                modifier = Modifier.padding(end = 16.dp),
             )
         }
     }
