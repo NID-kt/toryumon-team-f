@@ -77,7 +77,7 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material-icons-extended")
     implementation("androidx.appcompat:appcompat:1.7.0")
-    implementation("com.google.accompanist:accompanist-permissions:0.34.0")
+    implementation("com.google.accompanist:accompanist-permissions:0.37.0")
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation("io.coil-kt.coil3:coil-gif:3.0.3")
     testImplementation("junit:junit:4.13.2")
