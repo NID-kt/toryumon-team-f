@@ -38,11 +38,7 @@ fun InitialFlow9Screen(navController: NavController) {
     val context = LocalContext.current
     val permissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission()
-    ) { isGranted ->
-        if (isGranted){
-            navController.navigate("initialFlow/5")
-        }
-    }
+    ) { }
     InitialFlowBackground {
         Box(
             modifier =
