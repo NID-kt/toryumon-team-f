@@ -28,6 +28,7 @@ import com.example.runningavater.ui.theme.RunningAvaterTheme
 
 @Composable
 fun InitialFlow4Screen(navController: NavController) {
+
     InitialFlowBackground {
         Box(
             modifier =
@@ -103,6 +104,7 @@ fun InitialFlow4Screen(navController: NavController) {
         }
     }
 }
+
 
 @Preview
 @Composable
