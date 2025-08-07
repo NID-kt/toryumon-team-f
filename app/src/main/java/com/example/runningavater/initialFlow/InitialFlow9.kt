@@ -86,19 +86,9 @@ fun InitialFlow9Screen(navController: NavController) {
             ) {
                 NextButton(
                     onClick = {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                            val permissionCheck = ContextCompat.checkSelfPermission(
-                                context,
-                                Manifest.permission.POST_NOTIFICATIONS
-                            )
-                            val alreadyRequested = hasRequestedNotificationPermission(context)
-                            if (permissionCheck != PackageManager.PERMISSION_GRANTED && !alreadyRequested){
-                                setRequestedNotificationPermission(context)
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                                 permissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-                                return@NextButton
                             }
-
-                        }
                     },
                     navController = navController,
                     nextDestination = "InitialFlow/10",
