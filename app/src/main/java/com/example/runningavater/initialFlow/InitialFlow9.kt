@@ -1,5 +1,11 @@
 package com.example.runningavater.initialFlow
 
+import android.Manifest
+import android.content.Context
+import android.content.pm.PackageManager
+import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,10 +19,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.runningavater.R
@@ -27,6 +35,10 @@ import com.example.runningavater.ui.theme.RunningAvaterTheme
 
 @Composable
 fun InitialFlow9Screen(navController: NavController) {
+    val context = LocalContext.current
+    val permissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission()
+    ) { }
     InitialFlowBackground {
         Box(
             modifier =
@@ -73,6 +85,11 @@ fun InitialFlow9Screen(navController: NavController) {
                         .padding(20.dp, 0.dp, 20.dp, 90.dp),
             ) {
                 NextButton(
+                    onClick = {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                                permissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                            }
+                    },
                     navController = navController,
                     nextDestination = "InitialFlow/10",
                 )
@@ -89,6 +106,15 @@ fun InitialFlow9Screen(navController: NavController) {
             }
         }
     }
+}
+fun hasRequestedNotificationPermission(context: Context): Boolean {
+    val prefs = context.getSharedPreferences("permissions", Context.MODE_PRIVATE)
+    return prefs.getBoolean("notification_requested", false)
+}
+
+fun setRequestedNotificationPermission(context: Context) {
+    val prefs = context.getSharedPreferences("permissions", Context.MODE_PRIVATE)
+    prefs.edit().putBoolean("notification_requested", true).apply()
 }
 
 @Preview
