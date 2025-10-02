@@ -1,6 +1,5 @@
 package com.example.runningavater.home
 
-
 import afterLevelKey
 import android.Manifest
 import android.content.Intent
@@ -74,20 +73,16 @@ fun HomeScreen() {
     var hasPermission by remember { mutableStateOf(context.checkSelfPermission(Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_GRANTED) }
 
     LifecycleResumeEffect {
-        hasPermission = (context.checkSelfPermission(Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_GRANTED)
-            .also { hasPermission ->
-                if (hasPermission) {
+        hasPermission =
+            (context.checkSelfPermission(Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_GRANTED)
+                .also { hasPermission ->
+                    if (hasPermission) {
+                        startStepCounterService(context)
 
-
-                    startStepCounterService(context)
-
-                    val intent = Intent(context, StepCounterService::class.java)
-                    context.startForegroundService(intent)
-
-
+                        val intent = Intent(context, StepCounterService::class.java)
+                        context.startForegroundService(intent)
+                    }
                 }
-            }
-
     }
 
     val stepcount = remember { mutableStateOf<Int?>(null) }
@@ -130,12 +125,13 @@ fun HomeScreen() {
         },
     ) {
         Box(Modifier.padding(it)) {
-            Bear3D(assetFileLocation = "fatBear.glb")
+            Bear3D(assetFileLocation = "finalBear2.glb")
             if (!hasPermission) {
                 PermissionAlert(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .padding(12.dp)
+                    modifier =
+                        Modifier
+                            .align(Alignment.BottomCenter)
+                            .padding(12.dp),
                 )
             }
             Row(
@@ -188,8 +184,10 @@ fun HomeScreen() {
                 Column {
                     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.revelup))
                     LottieAnimation(
-                        composition, modifier = Modifier
-                            .weight(1f)
+                        composition,
+                        modifier =
+                            Modifier
+                                .weight(1f),
                     )
 
                     Button(onClick = { isOpen = false }, modifier = Modifier.align(Alignment.CenterHorizontally)) {
@@ -202,14 +200,14 @@ fun HomeScreen() {
                     text = "Level Up!",
                     color = NuclearMango,
                     fontSize = 48.sp,
-                    modifier = Modifier
-                        .align(Alignment.TopCenter)
-                        .offset(y = 181.dp),
+                    modifier =
+                        Modifier
+                            .align(Alignment.TopCenter)
+                            .offset(y = 181.dp),
                 )
             }
         }
     }
-
 }
 
 // 現在の日付と曜日を取得する関数
@@ -237,6 +235,4 @@ fun SetImage(
     )
 }
 
-fun LocalDateTime.toEpochMillis(zoneId: ZoneId = ZoneId.systemDefault()): Long {
-    return this.atZone(zoneId).toInstant().toEpochMilli()
-}
+fun LocalDateTime.toEpochMillis(zoneId: ZoneId = ZoneId.systemDefault()): Long = this.atZone(zoneId).toInstant().toEpochMilli()
