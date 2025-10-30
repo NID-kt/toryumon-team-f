@@ -125,7 +125,7 @@ fun HomeScreen() {
         },
     ) {
         Box(Modifier.padding(it)) {
-            Bear3D(assetFileLocation = "finalBear2.glb")
+            Bear3D(assetFileLocation = "finalBear.glb")
             if (!hasPermission) {
                 PermissionAlert(
                     modifier =
