@@ -2,14 +2,7 @@ package com.example.runningavater.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.material3.Slider
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.example.runningavater.ui.theme.SungYellow
@@ -27,13 +20,12 @@ fun Bear3D(
     modifier: Modifier = Modifier,
     backgroundColor: Color = SungYellow,
 ) {
-    var sliderValue by remember { mutableStateOf(0f) }
     val engine = rememberEngine()
     val modelLoader = rememberModelLoader(engine)
     val cameraNode =
         rememberCameraNode(engine).apply {
             // TODO x, yの値をチェックする
-            position = Position(x = sliderValue, y = +1.5f, z = -3f)
+            position = Position(x = +0.000f, y = 0.218f, z = -2.225f)
         }
     val centerNode =
         rememberNode(engine)
@@ -70,9 +62,5 @@ fun Bear3D(
                 cameraNode.lookAt(centerNode)
             },
         )
-        Column {
-            Slider(value = sliderValue, onValueChange = { sliderValue = it }, valueRange = -5f..5f)
-            Text(sliderValue.toString())
-        }
     }
 }
