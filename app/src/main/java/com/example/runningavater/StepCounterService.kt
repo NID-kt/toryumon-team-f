@@ -16,14 +16,28 @@ import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import androidx.core.app.ServiceCompat
+import androidx.datastore.preferences.core.edit
 import com.example.runningavater.db.StepDate
+import com.example.runningavater.home.toEpochMillis
+import com.example.runningavater.notification.notify20Goal
+import dataStore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import lastNotify100GoalSentDateKey
+import lastNotify20GoalSentDateKey
+import lastNotify40GoalSentDateKey
+import lastNotify50GoalSentDateKey
+import lastNotify60GoalSentDateKey
+import lastNotify80GoalSentDateKey
+import targetSteps
+import java.time.LocalDate
+import java.time.LocalDateTime
 
-    fun startStepCounterService(context: Context) {
+fun startStepCounterService(context: Context) {
     val intent = Intent(context, StepCounterService::class.java)
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         context.startForegroundService(intent)
@@ -144,6 +158,90 @@ class Walkcount(val context: Context, val coroutineScope: CoroutineScope) : Sens
         coroutineScope.launch(Dispatchers.IO) {
             val app = context.applicationContext as MainApplication
             app.db.stepDateDao().insertAll(StepDate(id = 0, System.currentTimeMillis()))
+            // 達成率の通知を送信する
+            val now = LocalDateTime.now() // 2025/02/23 23:52:10.123
+
+            val todayStart =
+                now
+                    .withHour(0) // 2025/02/23 00:52:10.123
+                    .withMinute(0) // 2025/02/23 00:00:10.123
+                    .withSecond(0) // 2025/02/23 00:00:00.123
+                    .withNano(0) // 2025/02/23 00:00:00.000000
+
+            val todayEnd =
+                now
+                    .withHour(23) // 2025/02/23 00:52:10.123
+                    .withMinute(59) // 2025/02/23 00:00:10.123
+                    .withSecond(59) // 2025/02/23 00:00:00.123
+                    .withNano(999999999) // 2025/02/23 00:00:00.000000
+            val targetSteps = context.dataStore.data.first()[targetSteps] ?: 0
+            val todaySteps = app.db.stepDateDao().getTotalWalk(todayStart.toEpochMillis(), todayEnd.toEpochMillis())
+            val achievementRate = todaySteps.toFloat() / targetSteps.toFloat() * 100
+            when (achievementRate) {
+                in 0f..<20f -> Unit
+                in 20f..<40f -> {
+                    val lastNotify20GoalSentDate = context.dataStore.data.first()[lastNotify20GoalSentDateKey] ?: 0
+                    val toDay = LocalDate.now().toEpochDay()
+                    if (lastNotify20GoalSentDate != toDay) {
+                        notify20Goal(context)
+                        context.dataStore.edit { settings ->
+                            settings[lastNotify20GoalSentDateKey] = toDay
+                        }
+                    }
+                }
+                in 40f..<50f -> {
+                    val lastNotify40GoalSentDate = context.dataStore.data.first()[lastNotify40GoalSentDateKey] ?: 0
+                    val toDay = LocalDate.now().toEpochDay()
+                    if (lastNotify40GoalSentDate != toDay) {
+                        notify20Goal(context)
+                        context.dataStore.edit { settings ->
+                            settings[lastNotify40GoalSentDateKey] = toDay
+                        }
+                    }
+                }
+                in 50f..<60f -> {
+                    val lastNotify50GoalSentDate = context.dataStore.data.first()[lastNotify50GoalSentDateKey] ?: 0
+                    val toDay = LocalDate.now().toEpochDay()
+                    if (lastNotify50GoalSentDate != toDay) {
+                        notify20Goal(context)
+                        context.dataStore.edit { settings ->
+                            settings[lastNotify50GoalSentDateKey] = toDay
+                        }
+                    }
+                }
+                in 60f..<80f -> {
+                    val lastNotify60GoalSentDate = context.dataStore.data.first()[lastNotify60GoalSentDateKey] ?: 0
+                    val toDay = LocalDate.now().toEpochDay()
+                    if (lastNotify60GoalSentDate != toDay) {
+                        notify20Goal(context)
+                        context.dataStore.edit { settings ->
+                            settings[lastNotify60GoalSentDateKey] = toDay
+                        }
+                    }
+                }
+                in 80f..<100f -> {
+                    val lastNotify80GoalSentDate = context.dataStore.data.first()[lastNotify80GoalSentDateKey] ?: 0
+                    val toDay = LocalDate.now().toEpochDay()
+                    if (lastNotify80GoalSentDate != toDay) {
+                        notify20Goal(context)
+                        context.dataStore.edit { settings ->
+                            settings[lastNotify80GoalSentDateKey] = toDay
+                        }
+                    }
+                }
+                in 100f..Float.POSITIVE_INFINITY -> {
+                    val lastNotify100GoalSentDate = context.dataStore.data.first()[lastNotify100GoalSentDateKey] ?: 0
+                    val toDay = LocalDate.now().toEpochDay()
+                    if (lastNotify100GoalSentDate != toDay) {
+                        notify20Goal(context)
+                        context.dataStore.edit { settings ->
+                            settings[lastNotify100GoalSentDateKey] = toDay
+                        }
+                    }
+                }
+            }
+
+
         }
     }
 
