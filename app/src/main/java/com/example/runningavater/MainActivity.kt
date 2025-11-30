@@ -1,8 +1,5 @@
 package com.example.runningavater
 
-import android.Manifest
-import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -10,8 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.runningavater.notification.createNotificationChannels
@@ -42,11 +37,12 @@ class MainActivity : FragmentActivity() {
 
         }
 
-       
+
         // /今は一旦ここに置いているがクマの名前を登録してから実行する
         createNotificationChannels(context = this, bearname = "権左衛門")
 
         setContent {
+            Injectdebugmenu()
             RunningAvaterTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
