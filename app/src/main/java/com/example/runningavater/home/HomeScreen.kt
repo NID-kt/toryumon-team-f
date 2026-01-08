@@ -126,10 +126,10 @@ fun HomeScreen() {
         },
     ) {
         Box(Modifier.padding(it)) {
-            var bearType by remember { mutableStateOf("bear_level_1") }
+            var bearType by remember { mutableStateOf("bear_level_1.glb") }
             LaunchedEffect(Unit) {
                 val currentLevel = context.dataStore.data.first()[currentLevelKey] ?: 1
-                bearType = "bear_level_$currentLevel"
+                bearType = "bear_level_$currentLevel.glb"
             }
 
             Bear3D(assetFileLocation = bearType)
