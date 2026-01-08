@@ -171,10 +171,11 @@ fun HomeScreen() {
     var isOpenLevelDown by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
-        val beforeLevel = context.dataStore.data.first()[beforeLevelKey] ?: 2
+        val beforeLevel = context.dataStore.data.first()[beforeLevelKey] ?: 3
         val afterLevel = context.dataStore.data.first()[afterLevelKey] ?: 2
 
         isOpenLevelUp = beforeLevel < afterLevel
+        isOpenLevelDown = beforeLevel > afterLevel
         context.dataStore.edit {
             it[beforeLevelKey] = afterLevel
         }
