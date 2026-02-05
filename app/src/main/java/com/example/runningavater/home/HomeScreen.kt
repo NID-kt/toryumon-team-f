@@ -46,6 +46,7 @@ import com.example.runningavater.StepCounterService
 import com.example.runningavater.authentication.LifecycleResumeEffect
 import com.example.runningavater.startStepCounterService
 import com.example.runningavater.ui.theme.NuclearMango
+import currentLevelKey
 import dataStore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
@@ -125,7 +126,13 @@ fun HomeScreen() {
         },
     ) {
         Box(Modifier.padding(it)) {
-            Bear3D(assetFileLocation = "finalBear.glb")
+            var bearType by remember { mutableStateOf("bear_level_1.glb") }
+            LaunchedEffect(Unit) {
+                val currentLevel = context.dataStore.data.first()[currentLevelKey] ?: 1
+                bearType = "bear_level_$currentLevel.glb"
+            }
+
+            Bear3D(assetFileLocation = bearType)
             if (!hasPermission) {
                 PermissionAlert(
                     modifier =
