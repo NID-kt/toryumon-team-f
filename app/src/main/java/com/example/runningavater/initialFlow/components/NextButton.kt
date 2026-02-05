@@ -14,7 +14,7 @@ import com.example.runningavater.ui.theme.RunningAvaterTheme
 
 @Composable
 fun NextButton(
-    navController: NavController,
+    navController: NavController?,
     nextDestination: String,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
@@ -24,7 +24,7 @@ fun NextButton(
     Button(
         onClick = dropUnlessResumed {
             onClick?.invoke()
-            navController.navigate(nextDestination)
+            navController?.navigate(nextDestination)
         },
         enabled = enabled,
         modifier =

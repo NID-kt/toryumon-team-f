@@ -39,13 +39,14 @@ fun InitialFlow9Screen(navController: NavController) {
     val context = LocalContext.current
     val permissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission()
-    ) {
-        isGranted ->
+    ) { isGranted ->
         if (isGranted) {
             NotifyMorningWorker.schedule(context)
             NotifyNightWorker.schedule(context)
             NotifyRandomWorker.schedule(context)
         }
+
+        navController.navigate("InitialFlow/10")
     }
     InitialFlowBackground {
         Box(
@@ -94,11 +95,11 @@ fun InitialFlow9Screen(navController: NavController) {
             ) {
                 NextButton(
                     onClick = {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                                permissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-                            }
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                            permissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                        }
                     },
-                    navController = navController,
+                    navController = null,
                     nextDestination = "InitialFlow/10",
                 )
             }
@@ -115,6 +116,7 @@ fun InitialFlow9Screen(navController: NavController) {
         }
     }
 }
+
 fun hasRequestedNotificationPermission(context: Context): Boolean {
     val prefs = context.getSharedPreferences("permissions", Context.MODE_PRIVATE)
     return prefs.getBoolean("notification_requested", false)
