@@ -46,6 +46,8 @@ fun InitialFlow9Screen(navController: NavController) {
             NotifyNightWorker.schedule(context)
             NotifyRandomWorker.schedule(context)
         }
+
+        navController.navigate("InitialFlow/10")
     }
     InitialFlowBackground {
         Box(
@@ -98,7 +100,7 @@ fun InitialFlow9Screen(navController: NavController) {
                                 permissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
                             }
                     },
-                    navController = navController,
+                    navController = null,
                     nextDestination = "InitialFlow/10",
                 )
             }
