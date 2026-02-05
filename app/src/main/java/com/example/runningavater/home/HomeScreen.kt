@@ -167,18 +167,20 @@ fun HomeScreen() {
             }
         }
     }
-    var isOpen by remember { mutableStateOf(false) }
+    var isOpenLevelUp by remember { mutableStateOf(false) }
+    var isOpenLevelDown by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
-        val beforeLevel = context.dataStore.data.first()[beforeLevelKey] ?: 2
+        val beforeLevel = context.dataStore.data.first()[beforeLevelKey] ?: 3
         val afterLevel = context.dataStore.data.first()[afterLevelKey] ?: 2
 
-        isOpen = beforeLevel != afterLevel
+        isOpenLevelUp = beforeLevel < afterLevel
+        isOpenLevelDown = beforeLevel > afterLevel
         context.dataStore.edit {
             it[beforeLevelKey] = afterLevel
         }
     }
-    if (isOpen) {
+    if (isOpenLevelUp) {
         Dialog(onDismissRequest = {}) {
             Box {
                 Column {
@@ -190,7 +192,7 @@ fun HomeScreen() {
                                 .weight(1f),
                     )
 
-                    Button(onClick = { isOpen = false }, modifier = Modifier.align(Alignment.CenterHorizontally)) {
+                    Button(onClick = { isOpenLevelUp = false }, modifier = Modifier.align(Alignment.CenterHorizontally)) {
                         Text(
                             text = "閉じる",
                         )
@@ -205,6 +207,26 @@ fun HomeScreen() {
                             .align(Alignment.TopCenter)
                             .offset(y = 181.dp),
                 )
+            }
+        }
+    } else if (isOpenLevelDown) {
+        Dialog(onDismissRequest = {}) {
+            Box {
+                Column {
+                    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.leveldown))
+                    LottieAnimation(
+                        composition,
+                        modifier =
+                            Modifier
+                                .weight(1f),
+                    )
+
+                    Button(onClick = { isOpenLevelDown = false }, modifier = Modifier.align(Alignment.CenterHorizontally)) {
+                        Text(
+                            text = "閉じる",
+                        )
+                    }
+                }
             }
         }
     }
