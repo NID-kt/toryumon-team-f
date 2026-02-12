@@ -19,7 +19,12 @@ import androidx.core.app.ServiceCompat
 import androidx.datastore.preferences.core.edit
 import com.example.runningavater.db.StepDate
 import com.example.runningavater.home.toEpochMillis
+import com.example.runningavater.notification.notify100Goal
 import com.example.runningavater.notification.notify20Goal
+import com.example.runningavater.notification.notify40Goal
+import com.example.runningavater.notification.notify50Goal
+import com.example.runningavater.notification.notify60Goal
+import com.example.runningavater.notification.notify80Goal
 import dataStore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -193,7 +198,7 @@ class Walkcount(val context: Context, val coroutineScope: CoroutineScope) : Sens
                     val lastNotify40GoalSentDate = context.dataStore.data.first()[lastNotify40GoalSentDateKey] ?: 0
                     val toDay = LocalDate.now().toEpochDay()
                     if (lastNotify40GoalSentDate != toDay) {
-                        notify20Goal(context)
+                        notify40Goal(context)
                         context.dataStore.edit { settings ->
                             settings[lastNotify40GoalSentDateKey] = toDay
                         }
@@ -203,7 +208,7 @@ class Walkcount(val context: Context, val coroutineScope: CoroutineScope) : Sens
                     val lastNotify50GoalSentDate = context.dataStore.data.first()[lastNotify50GoalSentDateKey] ?: 0
                     val toDay = LocalDate.now().toEpochDay()
                     if (lastNotify50GoalSentDate != toDay) {
-                        notify20Goal(context)
+                        notify50Goal(context)
                         context.dataStore.edit { settings ->
                             settings[lastNotify50GoalSentDateKey] = toDay
                         }
@@ -213,7 +218,7 @@ class Walkcount(val context: Context, val coroutineScope: CoroutineScope) : Sens
                     val lastNotify60GoalSentDate = context.dataStore.data.first()[lastNotify60GoalSentDateKey] ?: 0
                     val toDay = LocalDate.now().toEpochDay()
                     if (lastNotify60GoalSentDate != toDay) {
-                        notify20Goal(context)
+                        notify60Goal(context)
                         context.dataStore.edit { settings ->
                             settings[lastNotify60GoalSentDateKey] = toDay
                         }
@@ -223,7 +228,7 @@ class Walkcount(val context: Context, val coroutineScope: CoroutineScope) : Sens
                     val lastNotify80GoalSentDate = context.dataStore.data.first()[lastNotify80GoalSentDateKey] ?: 0
                     val toDay = LocalDate.now().toEpochDay()
                     if (lastNotify80GoalSentDate != toDay) {
-                        notify20Goal(context)
+                        notify80Goal(context)
                         context.dataStore.edit { settings ->
                             settings[lastNotify80GoalSentDateKey] = toDay
                         }
@@ -233,7 +238,7 @@ class Walkcount(val context: Context, val coroutineScope: CoroutineScope) : Sens
                     val lastNotify100GoalSentDate = context.dataStore.data.first()[lastNotify100GoalSentDateKey] ?: 0
                     val toDay = LocalDate.now().toEpochDay()
                     if (lastNotify100GoalSentDate != toDay) {
-                        notify20Goal(context)
+                        notify100Goal(context)
                         context.dataStore.edit { settings ->
                             settings[lastNotify100GoalSentDateKey] = toDay
                         }
