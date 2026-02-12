@@ -235,6 +235,6 @@ fun notifyRandom(context: Context) {
             return@with
         }
         // notificationId is a unique int for each notification that you must define.
-        notify(Random.nextInt(), builder.build())
+        notify(200, builder.build())
     }
 }
