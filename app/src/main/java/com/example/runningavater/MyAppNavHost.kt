@@ -21,6 +21,7 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -82,29 +83,36 @@ fun MyAppNavHost(
         // ナビゲーションホストを作成
         NavHost(navController = navController, startDestination = startDestination, modifier = Modifier.padding(paddingValues)) {
             composable("authentication") {
+                LaunchedEffect(Unit) {
+                    navController.navigate("home")
+                }
                 AuthenticationScreen(navController = navController) // 認証画面を表示
             }
-            composable("home",
+            composable(
+                "home",
                 enterTransition = { fadeIn() },
-                exitTransition =  { fadeOut()}) {
+                exitTransition = { fadeOut() }) {
                 HomeScreen() // メイン画面を表示
             }
-            composable(route = "growth",
+            composable(
+                route = "growth",
                 enterTransition = { fadeIn() },
-                exitTransition =  { fadeOut()}) {
+                exitTransition = { fadeOut() }) {
                 GrowthScreen() // 成長画面を表示
             }
-            composable(route = "settings",
+            composable(
+                route = "settings",
                 enterTransition = { fadeIn() },
-                exitTransition =  { fadeOut()}) {
+                exitTransition = { fadeOut() }) {
                 SettingsScreen(navController, profileImageUri = null) // 設定画面を表示
             }
-            composable(route = "settings/profile",
-                enterTransition = {slideIntoContainer(towards = AnimatedContentTransitionScope.SlideDirection.Left, tween(1000))},
-                exitTransition = {slideOutOfContainer(towards = AnimatedContentTransitionScope.SlideDirection.Right, tween(1000))},
-                popEnterTransition = {slideIntoContainer(towards = AnimatedContentTransitionScope.SlideDirection.Right, tween(1000))},
-                popExitTransition = {slideOutOfContainer(towards = AnimatedContentTransitionScope.SlideDirection.Right, tween(1000))},
-                ) {
+            composable(
+                route = "settings/profile",
+                enterTransition = { slideIntoContainer(towards = AnimatedContentTransitionScope.SlideDirection.Left, tween(1000)) },
+                exitTransition = { slideOutOfContainer(towards = AnimatedContentTransitionScope.SlideDirection.Right, tween(1000)) },
+                popEnterTransition = { slideIntoContainer(towards = AnimatedContentTransitionScope.SlideDirection.Right, tween(1000)) },
+                popExitTransition = { slideOutOfContainer(towards = AnimatedContentTransitionScope.SlideDirection.Right, tween(1000)) },
+            ) {
                 ProfileScreen(
                     navController,
                     profileImageUri = profileImageUri,
